@@ -1,0 +1,392 @@
+\documentclass{article}
+
+% document structure
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{ref.bib}
+\usepackage[margin=1in]{geometry}
+
+% advanced lists
+\usepackage{enumitem}
+\newlist{steps}{enumerate}{2}
+\setlist[steps]{label=\textit{Step \arabic*}., 
+leftmargin=*, ref = Step \arabic*}
+
+% math formatting
+\usepackage{xcolor,dsfont,amsthm,amsfonts,mathtools,amsmath,physics}
+\theoremstyle{definition}
+\newtheorem{mot}{Motivation}[section]
+\newtheorem{rem}{Remark}[section]
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{eg}{Example}[section]
+\newtheorem{recipe}{Recipe}[section]
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{res}{Result}[section]
+
+\numberwithin{equation}{section}
+
+\usepackage{cleveref}
+\crefname{figure}{fig.}{figs.}
+\crefname{equation}{eqn.}{eqns.}
+\crefname{dfn}{definition}{definitions}
+\crefname{mot}{motivation}{motivations}
+\crefname{thm}{theorem}{theorems}
+\crefname{lem}{lemma}{lemmas}
+\crefname{rem}{remark}{remarks}
+\crefname{res}{result}{results}
+\crefname{sec}{section}{sections}
+
+\author{Wentao Li}
+\begin{document}
+    
+\title{Projectors}
+
+\maketitle
+
+\begin{abstract}
+    This note 
+    loosely follows 
+    \cite{nielsen_quantum_2010} and 
+    explains basic properties of projectors 
+    in the context of linear algebra. 
+    Prerequisites include 
+    subspaces and unitary operators. 
+    The last section assumes an understanding 
+    of the eigenvalue problem of Hermitian operators.
+
+    A trick of constructing a projector onto a subspace 
+    without explicitly knowing its basis is given in \cref{sec:a-useful-trick}. 
+    This trick is 
+    commonly used in physics.
+\end{abstract}
+
+\tableofcontents
+
+\section{Definition and switching basis}
+
+\begin{mot}
+    We will define projectors 
+    \textit{in a basis-independent manner} 
+    and see that they are useful tools 
+    for dealing with subspaces. 
+    In fact a subspace and the projector onto it 
+    carry virtually the same amount of information, 
+    and for this reason 
+    we often use one of them to denote the other. 
+\end{mot}
+
+\begin{dfn}
+    For a $d$-dimensional vector space $\mathbb{V}$, 
+    the \textit{projector} 
+    $P_{\mathbb{W}}$ onto a subspace 
+    $\mathbb{W}$ of $\mathbb{V}$ is 
+    an operator such that for any vector 
+    $\ket{v}\in \mathbb{V}$, 
+
+    \begin{itemize}
+        \item 
+        If $\ket{v}\in \mathbb{W}$ then 
+        $P_{\mathbb{W}} \ket{v}=\ket{v}$,
+        \item 
+        If $\ket{v} \bot \mathbb{W}$ then 
+        $P_{\mathbb{W}} \ket{v}=0$.
+    \end{itemize}
+    \label{dfn:projector}
+\end{dfn}
+
+\begin{lem}
+\label{lem:equivalence-between-projector-and-subspace}
+    A vector $\ket{w}$ belongs to $\mathbb{W}$ if and only if 
+    $P_{\mathbb{W}} \ket{w} = \ket{w}$.
+\end{lem}
+
+\begin{proof}
+    By definition, $\ket{w} \in \mathbb{W}$ implies 
+    $P_{\mathbb{W}}=\ket{w}$. We need only establish implication 
+    in the other direction. We prove by its contrapositive. 
+
+    If $\ket{v} \notin \mathbb{V}$ then we write 
+    $\ket{v} = \ket{v'} + \ket{\theta}$ with 
+    $\ket{v'} \in \mathbb{V}$, 
+    $\ket{\theta} \bot \mathbb{V}$ and $\ket{\theta} \neq \ket{\text{null}}$. 
+    It follows that $P_{\mathbb{W}} \ket{v} = \ket{v'} \neq \ket{v}$, hence 
+    the contrapositive is proven.
+\end{proof}
+
+\begin{rem}
+    From \cref{lem:equivalence-between-projector-and-subspace} we see that 
+    a subspace and the projector onto it 
+    carry the same amount of information. They both specify the subspace.
+\end{rem}
+
+\begin{lem}
+    Given an orthonormal basis 
+    $\left\{ \ket{w_{i}} \right\}_{i =1}^{k}$ 
+    of $\mathbb{W}$, the projector onto $\mathbb{W}$ 
+    can be constructed as 
+    \begin{equation}
+        P_{\mathbb{W}} 
+        = 
+        \sum_{i = 1}^{k} \ket{w_i} \bra{w_i}.
+    \label{eqn:projector-construction-from-basis}
+    \end{equation}
+\end{lem}
+
+\begin{proof}
+    We only need to check 
+    whether this explicit constrction fits 
+    \cref{dfn:projector}.
+    For $\ket{v}\in \mathbb{W}$, write 
+    $\ket{v}= \sum_{j=1}^{k}v_j \ket{w_j}$. Then 
+    \begin{equation}
+        P_{\mathbb{W}}\ket{v}
+        =
+        \sum_{j=1}^{k}\sum_{i = 1}^{k}
+        \ket{w_i}\bra{w_i} v_j \ket{w_j} 
+        =
+        \sum_{i,j} \delta_{i,j} v_j \ket{w_i} = \ket{v}.
+    \end{equation}
+
+    For $\ket{v'} \bot \mathbb{W}$, write 
+    $\ket{v'} = \sum_{j=1}^{d-k} v'_j \ket{u_j}$ 
+    with $\ket{u_j} \bot \mathbb{W}$, 
+    \begin{equation}
+        P_{\mathbb{W}}\ket{v'}
+        =
+        \sum_{i,j} \ket{w_i} \bra{w_i} v'_j \ket{u_j}
+        =
+        0.
+    \end{equation}
+    Now the lemma follows.
+\end{proof}
+
+\begin{lem}
+    Using \cref{eqn:projector-construction-from-basis} 
+    to define projectors is also acceptable, 
+    because the equation is invariant upon 
+    change of basis. 
+\end{lem}
+
+\begin{rem}
+    This is natural, 
+    since our definition of projectors only involves 
+    the subspace. 
+    There is no reason to expect the projector 
+    to depend on any basis. 
+    On the other hand, had we defined the projector 
+    with \cref{eqn:projector-construction-from-basis}, 
+    we would need to 
+    \textit{explicitly verify} its invariance 
+    under change of basis.
+\end{rem}
+
+\begin{proof}
+    First, we need to re-phrase this claim. 
+    For a projector 
+    $P = \sum_{i = 1}^{k} \ket{i} \bra{i}$
+    onto a subspace, supposed we choose another basis 
+    $\left\{ \ket{\tilde{j}} \right\}_{j = 1}^{k}$ 
+    of this subspace to construct the projector 
+    $P' = 
+    \sum_{j = 1}^{k} \ket{\tilde{j}} \bra{\tilde{j}}$.
+
+    Now, in order to prove that 
+    $P' = P$, 
+    we take an arbitrary vector 
+    $\ket{\phi} = 
+    \sum_{m =1}^{d}c_m \ket{m}$, 
+    then expand $P' \ket{\phi}$ and 
+    $P \ket{\phi}$ under the same basis. 
+    Here we take 
+    $\left\{ \ket{m} \right\}_{m = 1}^{d}$ 
+    so that this basis coincides with 
+    $\left\{ \ket{i} \right\}_{i = 1}^{k}$ 
+    within the subspace 
+    $\operatorname{span} \{ \ket{1}, \ldots , \ket{k}\}$. 
+
+    Expanding as mentioned we have 
+    \begin{equation}
+        P \ket{\phi}
+        =
+        \sum_{i = 1}^{k}
+        \sum_{m = 1}^{k}
+        c_m \ket{i} \bra{i} \ket{m}
+        = \sum_{i = 1}^{k} c_i \ket{i},
+    \end{equation}
+    \begin{align}
+        P' \ket{\phi} 
+        =&\ 
+        \sum_{j=1}^{k}\sum_{m=1}^{d}
+        c_m \ket{\tilde{j}} \bra{\tilde{j}} \ket{m} \\
+        =&\ 
+        \sum_{j=1}^{k}
+        \left( 
+            \sum_{m=1}^{k}
+            +
+        \mathcolor{blue}{
+            \sum_{m=k+1}^{d}
+        }
+         \right) 
+        c_m \ket{\tilde{j}} \bra{\tilde{j}} \ket{m} \\
+        =&\ 
+        \sum_{j=1}^{k}\sum_{m=1}^{k}
+        c_m \ket{\tilde{j}} \bra{\tilde{j}} \ket{m},
+    \label{eqn:expansion-of-P-prime-phi-ket}
+    \end{align}
+    where the blue term does not contribute because 
+    $\forall k+1 \le m \le d, 
+    \bra{\tilde{j}} \ket{m} =0$.
+    
+    Suppose the two bases are related by a unitary 
+    $T$ such that 
+    $\ket{\tilde{j}} = 
+    \sum_{\ell=1}^{k}T_{j \ell} \ket{\ell}$. 
+    Then 
+    $\bra{\tilde{j}}
+    =
+    \sum_{p}T_{jp}^{*} \bra{p}$, and 
+    inserting this into eqn.\ 
+    \ref{eqn:expansion-of-P-prime-phi-ket} gives 
+    \begin{align}
+        P' \ket{\phi} =&\ 
+        \mathcolor{blue}{\sum_{j=1}^{k}}
+        \sum_{\ell, p=1}^{k}
+        \mathcolor{blue}{T_{j \ell}T_{jp}^{*}}
+        \ket{\ell} \bra{p}
+        \sum_{m=1}^{k} c_m \ket{m} \\
+        =&\ 
+        \sum_{\ell,p=1}^{k}
+        \mathcolor{blue}{\delta_{\ell,p}}
+        \sum_{m=1}^{k} c_m \ket{m} 
+        = \sum_{\ell=1}^{k} c_{\ell} \ket{\ell}. 
+    \end{align}
+    This completes our expansion 
+    and finishes the proof.
+\end{proof}
+\section{Idempotence and orthogonal complement}
+\begin{mot}
+    We now gain more intuition into 
+    projector by showing some of their properties. 
+    First, projectors are idempotent, 
+    \textit{i.e.}~applying them more than once 
+    is the same as applying them only once. 
+    This is natural because projectors make a binary 
+    decision concerning the vector they act on, 
+    and they only need to make this decision once. 
+    Secondly, given a projector onto subspace 
+    $\mathbb{V}$, we can quickly obtain the 
+    projector onto its orthogonal complement 
+    $\{\ket{w}: \ket{w} \bot \mathbb{V}\}$, 
+    because a projector is just 
+    \emph{the identity within some subspace}.
+    \label{mot:idempotence-and-orthogonal-complement}
+\end{mot}
+
+\begin{thm}
+    If $P$ is a projector then $P^{2}=P$.
+\end{thm}
+\begin{proof}
+    We work under a basis 
+    $\{\ket{i}\}_{i = 1}^{k}$. 
+    Expanding $P^{2}$ gives 
+    \begin{equation}
+        P^{2}
+        =
+        \sum_{j,\ell = 1}^{k}
+        \ket{j}\bra{j}\ket{\ell}\bra{\ell}
+        =
+        \sum_{j,\ell=1}^{k}
+        \delta_{j,\ell}
+        \ket{j}\bra{\ell}
+        =P,
+    \end{equation}
+    and our lemma follows.
+\end{proof}
+
+\begin{rem}
+    This proof exploits the orthonormality of 
+    basis vectors within the subspace $P$ 
+    projects onto, but fails to capture the 
+    intuition mentioned in 
+    \cref{mot:idempotence-and-orthogonal-complement}. 
+\end{rem}
+
+\begin{mot}
+    We defined projectors to be operators which 
+    preserve operators in a subspace and kills 
+    vectors orthogonal to this subspace. The 
+    opposite effect is killing vectors within 
+    this subspace and preserving vectors orthogonal 
+    to it. This ``opposite effect'' also sounds like 
+    a projector. Let us construct it. 
+\end{mot}
+
+\begin{dfn}
+    Given a projector $P$ onto a subspace $\mathbb{V}$, 
+    its \emph{orthogonal complement} $Q$ is 
+    the projector onto the subspace 
+    $\{\ket{q}: \ket{q} \bot \mathbb{V}\}$. 
+\end{dfn}
+
+\begin{thm}
+    The orthogonal complement $Q$ of a projector 
+    $P$ is 
+    \begin{equation}
+        Q=\mathds{1} - P.
+    \end{equation}
+\end{thm}
+
+\begin{proof}
+    We can check this explicitly. 
+    \begin{itemize}
+        \item 
+        If $\ket{v} \in \mathbb{V}$ then 
+        $Q \ket{v} = \ket{v}-P \ket{v} = 0$, 
+        \item 
+        If $\ket{w} \bot \mathbb{V}$ then 
+        $Q \ket{w} = \ket{w} - P \ket{w} 
+        = \ket{w} - 0 = \ket{w}$,
+    \end{itemize}
+    so $\mathds{1} - P$ fits the definition of 
+    orthogonal complement.
+\end{proof}
+
+\section{A useful trick}
+\label{sec:a-useful-trick}
+
+\begin{mot}
+    Our definition of projectors was basis independent, 
+    so in principle there should exist other methods to 
+    construct them than that given by 
+    \cref{eqn:projector-construction-from-basis}. 
+    Here we give an example of such a method.
+\end{mot}
+
+\begin{lem}
+    Given a Hermitian operator $M$ with 
+    eigenvalues $\{+1,-1\}$, 
+    the projector $P_{+1}$ onto the 
+    invariant subspace $\mathbb{V}_{+1}$ is 
+    \begin{equation}
+        P_{+1}=\frac{1}{2}(\mathds{1} + M). 
+    \label{eqn:projector-onto-plus-one-subspace}
+    \end{equation}
+    The validity of this projector can be checked easily. 
+    Note that this example works because $M$ is Hermitian; 
+    had $M$ been an arbitrary normal matrix (\textit{e.g.}~a unitary), 
+    then this method will not work.
+\end{lem}
+
+\begin{rem}
+    This trick is very useful in physics, because 
+    the Pauli matrices are Hermitians with 
+    eigenvalues $\{ \pm 1\}$. Various observables are built 
+    from these matrices, and they therefore satisfy the 
+    condition for using this trick. 
+\end{rem}
+
+\printbibliography
+
+\end{document}

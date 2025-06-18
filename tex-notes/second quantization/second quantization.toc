@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}Physical subspaces and their projectors}{1}{section.1}%
+\contentsline {section}{\numberline {2}The orthonormal Fock basis}{4}{section.2}%
+\contentsline {section}{\numberline {3}Creation and annihilation}{6}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Creation, annihilation and number operators}{6}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Analogy with the harmonic oscillator}{12}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Operators under second quantization}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}1-body operators}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}2-body operators}{14}{subsection.4.2}%
+\contentsline {section}{\numberline {5}General comments and bibliographical notes}{16}{section.5}%

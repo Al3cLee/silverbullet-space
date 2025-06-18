@@ -1,0 +1,9 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'template-for-notes.blg'
+[29] biber-darwin:340> INFO - === Sun Jan 12, 2025, 19:02:53
+[36] Biber.pm:419> INFO - Reading 'template-for-notes.bcf'
+[71] Biber.pm:979> INFO - Found 0 citekeys in bib section 0
+[76] bbl.pm:660> INFO - Writing 'template-for-notes.bbl' with encoding 'UTF-8'
+[76] bbl.pm:763> INFO - Output to template-for-notes.bbl
+[76] Biber.pm:131> WARN - The file 'template-for-notes.bcf' does not contain any citations!
+[76] Biber.pm:133> INFO - WARNINGS: 1

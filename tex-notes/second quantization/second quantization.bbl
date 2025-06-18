@@ -1,0 +1,160 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{dupuis_field_2023}{book}{}
+      \name{author}{1}{}{%
+        {{hash=a9ad0d38c8d8122e7063285dec2668ad}{%
+           family={Dupuis},
+           familyi={D\bibinitperiod},
+           given={Nicolas},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {World Scientific}%
+      }
+      \strng{namehash}{a9ad0d38c8d8122e7063285dec2668ad}
+      \strng{fullhash}{a9ad0d38c8d8122e7063285dec2668ad}
+      \strng{bibnamehash}{a9ad0d38c8d8122e7063285dec2668ad}
+      \strng{authorbibnamehash}{a9ad0d38c8d8122e7063285dec2668ad}
+      \strng{authornamehash}{a9ad0d38c8d8122e7063285dec2668ad}
+      \strng{authorfullhash}{a9ad0d38c8d8122e7063285dec2668ad}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{isbn}{978-1-80061-390-4}
+      \field{pagetotal}{689}
+      \field{shorttitle}{Field theory of condensed matter and ultracold gases}
+      \field{title}{Field theory of condensed matter and ultracold gases: Volume 1}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \verb{doi}
+      \verb 10.1142/q0409
+      \endverb
+    \endentry
+    \entry{altland_condensed_2023}{book}{}
+      \name{author}{2}{}{%
+        {{hash=0e8283059ab66548e6a111f680ea5d02}{%
+           family={Altland},
+           familyi={A\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+        {{hash=1115cce1409c96c84f5d5b8f91092742}{%
+           family={Simons},
+           familyi={S\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{8126c1dc2c5bff06d932747d9e92a645}
+      \strng{fullhash}{8126c1dc2c5bff06d932747d9e92a645}
+      \strng{bibnamehash}{8126c1dc2c5bff06d932747d9e92a645}
+      \strng{authorbibnamehash}{8126c1dc2c5bff06d932747d9e92a645}
+      \strng{authornamehash}{8126c1dc2c5bff06d932747d9e92a645}
+      \strng{authorfullhash}{8126c1dc2c5bff06d932747d9e92a645}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{isbn}{978-1-108-49460-1}
+      \field{title}{Condensed Matter Field Theory}
+      \field{year}{2023}
+      \field{dateera}{ce}
+    \endentry
+    \entry{simon_topological_2023}{book}{}
+      \name{author}{1}{}{%
+        {{hash=4fad8a6c216ee749efdc4eb1b7f3f0fb}{%
+           family={Simon},
+           familyi={S\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{4fad8a6c216ee749efdc4eb1b7f3f0fb}
+      \strng{fullhash}{4fad8a6c216ee749efdc4eb1b7f3f0fb}
+      \strng{bibnamehash}{4fad8a6c216ee749efdc4eb1b7f3f0fb}
+      \strng{authorbibnamehash}{4fad8a6c216ee749efdc4eb1b7f3f0fb}
+      \strng{authornamehash}{4fad8a6c216ee749efdc4eb1b7f3f0fb}
+      \strng{authorfullhash}{4fad8a6c216ee749efdc4eb1b7f3f0fb}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-0-19-888672-3}
+      \field{title}{Topological quantum}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \verb{file}
+      \verb Simon - 2023 - Topological quantum.pdf:/Users/wentaoli/Zotero/storage/FPC69I4L/Simon - 2023 - Topological quantum.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www-thphys.physics.ox.ac.uk/people/SteveSimon/topological2020/TopoBookOct27hyperlink.pdf
+      \endverb
+      \verb{url}
+      \verb https://www-thphys.physics.ox.ac.uk/people/SteveSimon/topological2020/TopoBookOct27hyperlink.pdf
+      \endverb
+    \endentry
+    \entry{shankar_principles_1994}{book}{}
+      \name{author}{1}{}{%
+        {{hash=da264ccf69a35c1d68643cdd7b991c43}{%
+           family={Shankar},
+           familyi={S\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {New York, {NY}}%
+      }
+      \list{publisher}{1}{%
+        {Springer {US}}%
+      }
+      \strng{namehash}{da264ccf69a35c1d68643cdd7b991c43}
+      \strng{fullhash}{da264ccf69a35c1d68643cdd7b991c43}
+      \strng{bibnamehash}{da264ccf69a35c1d68643cdd7b991c43}
+      \strng{authorbibnamehash}{da264ccf69a35c1d68643cdd7b991c43}
+      \strng{authornamehash}{da264ccf69a35c1d68643cdd7b991c43}
+      \strng{authorfullhash}{da264ccf69a35c1d68643cdd7b991c43}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-1-4757-0578-2 978-1-4757-0576-8}
+      \field{langid}{english}
+      \field{title}{Principles of Quantum Mechanics}
+      \field{year}{1994}
+      \field{dateera}{ce}
+      \verb{doi}
+      \verb 10.1007/978-1-4757-0576-8
+      \endverb
+      \keyw{classical mechanics,Degrees of freedom,Dirac equation,hydrogen atom,quantum mechanics,quantum theory,scattering,scattering theory}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

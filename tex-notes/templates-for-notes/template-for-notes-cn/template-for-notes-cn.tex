@@ -1,0 +1,56 @@
+\documentclass{ctexart}
+
+% document structure
+\usepackage[hidelinks]{hyperref}
+\usepackage{csquotes}
+% \blockcquote[⟨prenote⟩][⟨postnote⟩]{⟨key⟩}[⟨punct⟩]{⟨text⟩}⟨tpunct⟩
+\usepackage[backend=biber]{biblatex}
+\addbibresource{ref.bib}
+\usepackage[margin=1in]{geometry}
+
+% advanced lists
+\usepackage{enumitem}
+
+% math formatting
+\usepackage{xcolor,dsfont,amsthm,amsfonts,mathtools,amsmath,physics}
+\usepackage[mathcal]{euscript}
+\theoremstyle{definition}
+\newtheorem{mot}{引子}[section]
+\newtheorem{rem}{评注}[section]
+\newtheorem{dfn}{定义}[section]
+\newtheorem{eg}{例}[section]
+\newtheorem{recipe}{Recipe}[section]
+\theoremstyle{plain}
+\newtheorem{thm}{定理}[section]
+\newtheorem{lem}{Lemma}[section]
+\newtheorem{res}{结论}[section]
+\numberwithin{equation}{section}
+
+\usepackage{cleveref}
+\crefname{figure}{图}{图}
+\crefname{equation}{公式}{公式}
+\crefname{dfn}{定义}{定义}
+\crefname{mot}{引子}{引子}
+\crefname{thm}{定理}{定理}
+\crefname{rem}{评注}{评注}
+\crefname{res}{结论}{结论}
+\crefname{sec}{章节}{章节}
+
+\author{李文韬}
+\begin{document}
+    
+\title{逻辑与推论}
+
+\maketitle
+
+\begin{abstract}
+    本文以「自学指南」的形式概括了殷海光所著《逻辑新引》第1至5次.
+\end{abstract}
+
+\tableofcontents
+
+\section{什么是逻辑}
+\section{真假与对错}
+\section{什么是推论}
+\printbibliography
+\end{document}

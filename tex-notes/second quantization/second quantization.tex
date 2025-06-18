@@ -1,0 +1,2193 @@
+\documentclass{article}
+
+% document structure
+\usepackage[hidelinks]{hyperref}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=nature]{biblatex}
+\addbibresource{ref.bib}
+\usepackage[margin=1in]{geometry}
+
+% advanced lists
+\usepackage{enumitem}
+\newlist{steps}{enumerate}{2}
+\setlist[steps]{label=\textit{Step \arabic*}., 
+leftmargin=*, ref = Step \arabic*}
+
+% math formatting
+\usepackage{xcolor,dsfont,amsthm,amsfonts,mathtools,amsmath,physics}
+\usepackage[mathcal]{euscript}
+
+% fancy boxes
+\usepackage{tcolorbox}
+\newtcolorbox{graybox}{colback=gray!20!white, boxrule=0mm, sharp corners=all}
+
+\theoremstyle{definition}
+\newtheorem{res}{Result}[section]
+\newtheorem{mot}{Motivation}[section]
+\newtheorem{calc}{Calculation}[section]
+\newtheorem{rem}{Remark}[section]
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{eg}{Example}[section]
+\newtheorem{recipe}{Recipe}[section]
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\numberwithin{equation}{section}
+
+\usepackage{cleveref}
+\crefname{figure}{fig.}{figs.}
+\crefname{equation}{eqn.}{eqns.}
+\crefname{dfn}{definition}{definitions}
+\crefname{mot}{motivation}{motivations}
+\crefname{thm}{theorem}{theorems}
+\crefname{lem}{lemma}{lemmas}
+\crefname{rem}{remark}{remarks}
+\crefname{res}{result}{results}
+\crefname{eg}{example}{examples}
+\crefname{calc}{calculation}{calculations}
+
+\author{Wentao Li}
+\begin{document}
+    
+\title{Second Quantization}
+
+\maketitle
+
+\begin{abstract}
+    This note introduces key concepts in second quantization. 
+    How many-body states are symmetrized and then normalized 
+    to give Fock states is explained in detail. 
+    The matrix elements of 1- and 2-body operators 
+    under the Fock basis are calculated. 
+
+    Prerequisites include projectors, subspaces, and 
+    basic notions about quantum states and Hilbert spaces. 
+    Ref.~\cite[][\S 1.2]{dupuis_field_2023} 
+    is the main reference for this note. 
+    Comments on other sources are given in the bibliographical notes section. 
+\end{abstract}
+
+\tableofcontents
+\section{Physical subspaces and their projectors}
+\begin{mot}
+In 3 spatial dimensions, there are only two types of 
+exchange statistics of quantum-mechanical particles. 
+\footnote{
+In (2+1)D there exist particles that are neither 
+Fermions nor Bosons, known as ``anyons''. We shall see 
+in this note that Boson/Fermion statistics is closely tied 
+to permutations (which form a group). 
+Similarly, anyon statistics is closely tied to braids (which also form a group).
+}
+These are Bosonic statistics where permutations are trivial, 
+and Fermionic statistics where the wavefunction changes sign 
+upon an odd permutation. 
+This bears consequences for wavefunctions. 
+For example, if two particles are identical, 
+then the direct product state $\ket{0}\otimes \ket{1}$ becomes 
+unphysical: it is neither Bosonic 
+(which should be $\ket{01}+\ket{10}$) 
+nor Fermionic 
+(which should be $\ket{01}-\ket{10}$). 
+We are therefore motivated to study how physical 
+states can be constructed from arbitrary product states.
+\end{mot}
+
+To specify the 
+exchange statistics, we must label the particles, but in reality 
+we can not do this for identical particles. 
+Labelling is purely for the sake of narration. In fact, 
+we will arrive at the so-called occupation number representation 
+where labelling is impossible.
+
+Before trying to construct physical states we first introduce 
+some tools needed to define ``physical''.
+
+\begin{dfn}[Permutation, exchange, parity]
+    A \emph{permutation} is a 
+    function 
+    \begin{equation}
+        P: \{(12\cdots N)\} \mapsto \{(12\cdots N)\}, 
+    (123\cdots N) \mapsto (P1, P2, \ldots ,PN)
+    \end{equation}
+    where $\{(12\cdots N)\}$ denotes all possible $N$-bit strings 
+    consisting of the integers 1,2, ..., $N$. 
+    An \emph{exchange} is a permutation of the form 
+    \begin{equation}
+        P: (\ldots ,i, \ldots ,j, \ldots )
+        \mapsto 
+        (\ldots ,j, \ldots ,i, \ldots ),
+    \end{equation}
+    \textit{i.e.}~ $Pi=j, Pj=i$, and 
+    any index other than $i,j$ is not affected.
+    A permutation $P$ is defined to be \emph{even} if 
+    it can be realized (\textit{i.e.}~implemented) by an even number of 
+    exchanges, and \emph{odd} if it can be realized by 
+    an odd number of exchanges. 
+    \footnote{Formally proving that given a permutation 
+    this realization is either even or odd 
+    is outside the scope of this note.}
+    We define $\abs{P} = 0$ for even permutations 
+    and $\abs{P} = 1$ for odd ones; $\abs{P}$ is known as 
+    the \textit{signature} or \textit{parity} of $P$. 
+\end{dfn}
+
+    For example, 
+    $P: (123) \mapsto (213)$ is odd, 
+    while $P': (123) \mapsto (231)$ is even.
+    For any permutation $P$, $\abs{P} = \abs{P ^{-1}}$ 
+    where $P ^{-1}$ is the inverse of the permutation.
+    \footnote{Again, we don't formally prove this. Intuitively 
+    this is natural. Any permutation can be implemented 
+    via some steps of exchanges, and we can always invert a permutation by 
+    doing all its steps in reverse, and obviously this gives the 
+    same parity as the permutation itself.}
+
+\begin{dfn}[Bosonic and Fermionic projectors]
+    For an $N$-particle product state 
+    \begin{equation}
+        |\alpha_1, \alpha_2, \ldots ,\alpha_{N})
+    \coloneqq \ket{\alpha_1} \otimes \ket{\alpha_2}\cdots \otimes \ket{\alpha_{N}}
+    \end{equation}
+    where $\forall i, \ket{\alpha_{i}} \in 
+    \{\ket{\lambda_1}, \ldots ,\ket{\lambda_{d}}\}$ 
+    and $\{\ket{\lambda_{j}}\}_{j=1}^{d}$ is an orthonormal basis 
+    of the 1-body Hilbert space, 
+    the Bosonic (Fermionic) projector $\mathcal{P}_{B}$ ($\mathcal{P}_{F}$) 
+    are defined in terms of their action on product states,  
+    \begin{equation}
+        \mathcal{P}_{B}|\alpha_1, \ldots ,\alpha_{N})
+        \coloneqq
+        \frac{1}{N!} \sum_{P}\zeta^{\abs{P}} 
+        |\alpha_{P1}, \ldots ,\alpha_{PN})
+        \quad \text{with } \zeta = 1,
+    \end{equation}
+    \begin{equation}
+        \mathcal{P}_{F}|\alpha_1, \ldots ,\alpha_{N})
+        \coloneqq
+        \frac{1}{N!} \sum_{P}\zeta^{\abs{P}} 
+        |\alpha_{P1}, \ldots ,\alpha_{PN})
+        \quad \text{with } \zeta = -1.
+    \end{equation}
+    When the distinction between Bosons and Fermions does not matter 
+    we use $\mathcal{P}$ to denote $\mathcal{P}_{B}$ or $\mathcal{P}_{F}$. 
+    The operators $\mathcal{P}_{B}, \mathcal{P}_{F}$ 
+    are obviously linear.
+\end{dfn}
+
+Now we can define what we mean by ``physical'' using 
+these projectors. 
+
+\begin{dfn}[Bosonic and Fermionic states]
+    \label{dfn:bosonic-and-fermionic-states}
+    For any $N$-body state $\ket{\Psi}$, we can project it 
+    onto the product basis 
+    $\left\{ |\alpha_1, \ldots ,\alpha_{N}) \right\}$, 
+    obtaining 
+    $\ket{\Psi}=\sum_{\alpha_1, \ldots ,\alpha_{N}} 
+    C_{\alpha_1, \ldots ,\alpha_{N}}
+    |\alpha_1, \ldots ,\alpha_{N})$, 
+    and then apply the projectors as previously defined. 
+    We define that $\ket{\Psi}$ is Bosonic if it is preserved by $\mathcal{P}_{B}$ 
+    and Fermionic if it is preserved by $\mathcal{P}_{F}$. 
+    It follows that all Bosonic states form a subspace 
+    $\mathcal{H}_{B}\coloneqq \left\{ \ket{\Psi} : \mathcal{P}_{B} \ket{\Psi}=\ket{\Psi} \right\}$
+    and all Fermionic states form a subspace 
+    $\mathcal{H}_{F}\coloneqq \left\{ \ket{\Psi} : \mathcal{P}_{F} \ket{\Psi}=\ket{\Psi} \right\}$ of the total product Hilbert space.
+\end{dfn}
+
+We have called $\mathcal{P}_{B}, \mathcal{P}_{F}$ projectors but are they? 
+Let us check idempotence explicitly.
+
+\begin{align*}
+    \mathcal{P}^{2}|\alpha_{1}, \ldots ,\alpha_{N})
+    =&\ 
+    \frac{1}{N!}\sum_{P'}\zeta^{\abs{P'}}
+    \frac{1}{N!}\sum_{P}\zeta^{\abs{P}}
+    |\alpha_{P'P1}, \ldots ,\alpha_{P'PN})
+    \\
+    =&\ 
+    \frac{1}{N!}\sum_{P'}
+    \frac{1}{N!}\sum_{P}\zeta^{\abs{P'P}}
+    |\alpha_{P'P1}, \ldots ,\alpha_{P'PN})
+    \\
+    =&\ 
+    \frac{1}{N!}\sum_{P'}
+    \frac{1}{N!}\sum_{P'P}
+    \zeta^\abs{P'P}
+    |\alpha_{P'P1}, \ldots ,\alpha_{P'PN})
+    \\
+    =&\ 
+    \mathcal{P} |\alpha_1, \ldots ,\alpha_{N}),
+\end{align*}
+where in the second-to-last line the operator $\frac{1}{N!}\sum_{P'}$ 
+equals to identity because it only involves superposition, not 
+permutation. 
+\footnote{If the relabelling of summation variables from $P',P$ to 
+$P'P, P'$ seems strange, we can convince ourselves by noting that there 
+exists a bijective mapping between $\left\{ (P',P) \right\}$ and 
+$\left\{ (P'P, P) \right\}$. }
+
+    The idenpotence of $\mathcal{P}$ means 
+    $\mathcal{P} (\mathcal{P} \ket{\psi}) = \mathcal{P} \ket{\psi}$, \textit{i.e.}~for 
+    any $\ket{\psi}$ the projected state $\mathcal{P} \ket{\psi}$ 
+    belongs to the subspace $\{\ket{\Psi} : \mathcal{P} \ket{\Psi} = \ket{\Psi}\}$. 
+
+\begin{graybox}
+\begin{res}
+    Given any many-body product state $|\alpha_1,\alpha_2, \ldots ,\alpha_{N})$, 
+    $\mathcal{P}_{B}|\alpha_1,\alpha_2, \ldots ,\alpha_{N}) \in \mathcal{H}_{B}$, 
+    and similarly 
+    $\mathcal{P}_{F}|\alpha_1,\alpha_2, \ldots ,\alpha_{N}) \in \mathcal{H}_{F}$. 
+    Physically, this means physical states are 
+    constructed via ``scrambling'' product states with the 
+    operator $\mathcal{P}$.
+    This is known as the symmetrization of states.
+\end{res}
+\end{graybox}
+
+\begin{rem}
+    \label{rem:equivalence-to-commonly-known-dfn}
+    The commonly known definition of a Bosonic (Fermionic) 
+    state is that upon an exchange of particle index, 
+    the state should be invariant (prepended with a minus sign). 
+    This definiton is equivalent with ours, 
+    as will be shown as follows. 
+
+    First, we show that 
+    \cref{dfn:bosonic-and-fermionic-states} 
+    implies the commonly known property. 
+    Denoting $\mathcal{P} |\alpha_1, \ldots ,\alpha_{N})$ with 
+    $\ket{\alpha_1, \ldots ,\alpha_{N}}$, 
+    we need to check that the state 
+    after an exchange $P$ 
+    \[
+    \ket{\alpha_{P1}, \ldots ,\alpha_{PN}} 
+    \coloneqq    
+    \frac{1}{N!}
+        \sum_{P'}
+        \zeta^{\abs{P'}}
+        |\alpha_{P'P1}, \ldots ,\alpha_{P'PN})
+    \]
+    equals to 
+    $\zeta^{\abs{P}}\ket{\alpha_1, \ldots ,\alpha_{N}}$.
+    Using the re-labelling trick, we have
+    \begin{align*}
+        \zeta^{\abs{P}}\ket{\alpha_1, \ldots ,\alpha_{N}}
+        =&\ 
+        \zeta^{\abs{P}}\frac{1}{N!}\sum_{P''}
+        \zeta^{\abs{P''}}
+        |\alpha_{P''1}, \ldots ,\alpha_{P''N}) \\
+        =&\ 
+        \zeta^{\abs{P}}\frac{1}{N!}\sum_{P'P}\zeta^{\abs{P'P}}
+        |\alpha_{P'P1}, \ldots ,\alpha_{P'PN}) \\
+        =&\ 
+        \zeta^{\abs{P}}\frac{1}{N!}\sum_{P'P}
+        \zeta^{\abs{P'}}\zeta^{\abs{P}}
+        |\alpha_{P'P1}, \ldots ,\alpha_{P'P N}) \\
+        =&\ 
+        \frac{1}{N!}
+        \sum_{P'}\zeta^{\abs{P'}}
+        |\alpha_{P'P1}, \ldots ,\alpha_{P'P N}),
+    \end{align*}
+    where when re-labelling $P''$ to $P'P$ we 
+    fix $P$ to be the exchange at concern and 
+    $P'$ is to be summed over.
+
+    Then, we show that the commonly known definition 
+    implies our definition. If an exchange $E$ always 
+    leads to an extra prefactor $\zeta$, \textit{i.e.}
+    \[
+        \ket{\alpha_{E 1}, \ldots ,\alpha_{EN}}
+        =
+        \zeta \ket{\alpha_1, \ldots ,\alpha_{N}},
+    \]
+    then a permutation 
+    that can be implemented via $M$ exchanges
+    \[
+        P = E_{M} \circ \cdots \circ E_1
+    \]
+    would take 
+    $\ket{\alpha_{1}, \ldots ,\alpha_{N}}$ to 
+    \[
+        \zeta^{M} \ket{\alpha_{P 1}, \ldots ,\alpha_{PN}}
+        =
+        \zeta^{\abs{P}}
+        \ket{\alpha_{P 1}, \ldots ,\alpha_{PN}},
+    \]
+    where we have used the definition of $\abs{P}$. 
+    It then follows that $\ket{\alpha_1, \ldots ,\alpha_{N}}$ 
+    is preserved by $\mathcal{P}$.
+\end{rem}
+
+\begin{rem}
+    Consistency requires that no state can be simultaneously 
+    Bosonic and Fermionic. 
+    Formally this manifests in the fact that 
+    $\mathcal{P}_{B}$ maps 
+    all Fermionic states to the null vector and hence 
+    $\mathcal{H}_{B} \bot \mathcal{H}_{F}$. 
+    Let us check this explicitly: 
+    the state
+    $\mathcal{P}_{B} \mathcal{P}_{F}|\alpha_1, \ldots ,\alpha_{N})$ 
+    equals to
+    \begin{align*}
+        &\ \frac{1}{N!}\sum_{P'}(+1)^{\abs{P'}}
+        \frac{1}{N!}\sum_{P}(-1)^{\abs{P}}
+        |\alpha_{P'P1}, \ldots ,\alpha_{P'PN}) \\
+        =&\ 
+        \frac{1}{N!}\sum_{P'}(-1)^{\abs{P'}}
+        \frac{1}{N!}\sum_{P'P}(-1)^{\abs{P'P}}
+        |\alpha_{P'P1}, \ldots ,\alpha_{P'PN})
+        \\
+        =&\ 
+        \frac{1}{N!}
+        \left( \sum_{\text{odd }P'}+\sum_{\text{even }P'} \right) 
+        (-1)^{\abs{P'}}
+        \mathcal{P}_{F} |\alpha_1, \ldots ,\alpha_{N})
+        \\
+        =&\ 
+        0,
+    \end{align*}
+    where the first equality holds because 
+    whatever the parity of $P'$, $(-1)^{2\abs{P'}}$ is always 1, and 
+    the third equality holds because 
+    for each even $P'$ there is an odd one that cancels its contribution. 
+
+    In fact, using the commonly known definition 
+    as mentioned in \cref{rem:equivalence-to-commonly-known-dfn} 
+    to show this is easier. We take a generic Bosonic state 
+    $\ket{\beta_1, \ldots ,\beta_{N}}$ and a generic Fermionic state 
+    $\ket{\phi_{1}, \ldots ,\phi_{N}}$, their inner product 
+    is invariant upon a simultaneous permutation 
+    because they are both superpositions of product states: 
+    \[
+        \bra{\beta_1, \ldots ,\beta_{N}} 
+        \ket{\phi_1, \ldots ,\phi_{N}}
+        =
+        \bra{\beta_{P 1}}, \ldots ,\beta_{PN} 
+        \ket{\phi_{P 1}, \ldots ,\phi_{PN}}.
+    \]
+    Setting $P$ to be an exchange 
+    \[
+        P = (1,2, \ldots ,N) \mapsto 
+        (2,1, \ldots ,N)
+    \]
+    gives 
+    \begin{align*}
+        \bra{\beta_1, \ldots ,\beta_{N}} 
+        \ket{\phi_1, \ldots ,\phi_{N}}
+        =&\ 
+        \bra{\beta_2,\beta_1, \ldots }
+        \ket{\phi_2,\phi_1, \ldots } \\
+        =&\ 
+        - \bra{\beta_1,\beta_2, \ldots }
+        \ket{\phi_1, \phi_2, \ldots },
+    \end{align*}
+    so the inner product equals to its 
+    opposite number and thus vanishes.
+\end{rem}
+
+\section{The orthonormal Fock basis}
+\begin{mot}
+    We would like to construct orthonormal bases within 
+    $\mathcal{H}_{B}$ and $\mathcal{H}_{F}$. 
+    Having taken care of exchange statistics, we now 
+    normalize the symmetrized state. After that 
+    we shall study whether the normalized states are orthogonal. 
+\end{mot}
+
+    We calculate $\norm{\mathcal{P}|\alpha_1, \ldots ,\alpha_{N})}$ 
+    by taking the inner product 
+    $(\alpha_1, \ldots ,\alpha_{N}|\mathcal{P}^{\dagger}\mathcal{P}|\alpha_1, \ldots ,\alpha_{N})$ and taking its square root. 
+    Here it would be ideal if $\mathcal{P}$ was 
+    Hermitian, because in that case we can use 
+    idempotence and reduce the inner product to 
+    \[
+    (\alpha_1, \ldots ,\alpha_{N}|\mathcal{P}|\alpha_1, \ldots ,\alpha_{N}),
+    \]
+    which is easy to calculate thanks to the 
+    orthogonality of the product basis.
+    
+    We establish Hermiticity by verifying that $\mathcal{P}$ meets 
+    the Hermiticity condition: for any product states 
+    $|\alpha_{1}, \ldots ,\alpha_{N})$ and 
+    $|\alpha'_{1}, \ldots ,\alpha'_{N})$,
+    \begin{equation}
+        (\alpha_1, \ldots ,\alpha_{N}|\mathcal{P}|
+        \alpha'_{1}, \ldots ,\alpha'_{N})
+        =
+        (\alpha'_1, \ldots ,\alpha'_{N}|\mathcal{P}|
+        \alpha_{1}, \ldots ,\alpha_{N})^{*},
+    \label{eqn:hermiticity-condition-for-projector}
+    \end{equation}
+    which is equivalent to 
+    \[
+        \sum_{P}\zeta^{\abs{P}}
+        (\alpha_1, \ldots ,\alpha_{N}|
+        \alpha'_{P1}, \ldots ,\alpha'_{PN})
+        =
+        \sum_{P'}\zeta^{\abs{P'}}
+        (\alpha_{P'1}, \ldots ,\alpha_{P'N}|
+        \alpha'_{1}, \ldots ,\alpha'_{N}).
+    \]
+    Each LHS term 
+    \[
+        \zeta^{\abs{P}}
+    (\alpha_1, \ldots ,\alpha_{N}|
+    \alpha'_{P1}, \ldots ,\alpha'_{PN})
+    \]
+    can be equated (via applying $P ^{-1}$ on 
+    the ``bra'' and the ``ket'' simultaneously) with the RHS term 
+    \[
+        \zeta^{\abs{P ^{-1}}}
+    (\alpha_{P ^{-1} 1}, \ldots ,\alpha_{P ^{-1} N}|
+    \alpha'_{1}, \ldots ,\alpha'_{N}),
+    \]
+    where $\zeta^{\abs{P}}=\zeta^{\abs{P^{-1}}}$ and 
+    the inner product between 
+    two product states is always preserved 
+    by a simultaneous permutation, 
+    which proves \cref{eqn:hermiticity-condition-for-projector}.
+
+    Continuing with our task of normalization, 
+    \begin{align*}
+        &\ \norm{\mathcal{P} |\alpha_1, \ldots ,\alpha_{N})}^{2} \\
+        =&\ 
+        (\alpha_1, \ldots ,\alpha_{N}|
+        \sum_{P}\zeta^{\abs{P}} \frac{1}{N!}
+        |\alpha_{P1}, \ldots ,\alpha_{PN}) \\
+        =&\ 
+        \frac{1}{N!} \prod_{n_{\lambda_{i}} \neq 0} n_{\lambda_{i}} ! 
+        \quad \text{for Bosons, and } 
+        \frac{1}{N!} \quad \text{for Fermions},
+    \end{align*}
+    where in the last equality, 
+    contributing permutations are determined 
+    by the orthogonality of the product basis, and 
+    in particular the only contributing permutation 
+    in the Fermion case is the identity. 
+    The condition $n_{\lambda_{i}}\neq 0$ in the product 
+    is imposed 
+    so that the product does not vanish. 
+
+    \begin{graybox}
+    \begin{res}
+        After normalization the vector 
+        $\mathcal{P}|\alpha_1, \ldots ,\alpha_{N})$
+        becomes 
+        \[
+        \frac{\sqrt{N!}}{\sqrt{\prod_{n_{\lambda_{i}}\neq 0}n_{\lambda_{i}}!}}
+        \mathcal{P}|\alpha_1, \ldots ,\alpha_{N}).
+        \]
+    \label{res:normalization-of-scrambled-states}
+    \end{res}
+    \end{graybox}
+
+    Motivated by this result we define: 
+
+    \begin{dfn}
+        The normalized and symmetrized state 
+        is defined as
+        \begin{equation}
+            \ket{\alpha_1, \ldots ,\alpha_{N}}
+            \coloneqq
+        \frac{\sqrt{N!}}{\sqrt{\prod_{n_{\lambda_{i}}\neq 0}n_{\lambda_{i}}!}}
+        \mathcal{P}|\alpha_1, \ldots ,\alpha_{N})
+        =
+        \frac{\sqrt{N!}}{\sqrt{\prod_{n_{\lambda_{i}}\neq 0}n_{\lambda_{i}}!}}
+        \frac{1}{N!} \sum_{P}\zeta^{\abs{P}}
+        |\alpha_1, \ldots ,\alpha_{N})
+        \end{equation}
+        and the ``partially normalized'' state 
+        \footnote{
+        The ``partially normalized'' state is useful in some 
+        miscellaneous situations, but it is not our primary focus, since 
+        we have not finished the task of finding an orthonormal basis. 
+        }
+        is defined as
+        \begin{equation}
+            |\alpha_1, \ldots ,\alpha_{N}\}
+            \coloneqq
+            \sqrt{N!} \mathcal{P} |\alpha_1, \ldots ,\alpha_{N}).
+        \end{equation}
+        Note that the partially normalized state and the normalized state 
+        are only different in the Bosonic case, because they only 
+        differ in the prefactor $\left( \prod n_{\lambda_{i}}! \right)^{1 /2}$. 
+        \label{dfn:normalized-states-and-partially-normalized-states}
+    \end{dfn}
+
+    Having obtained normalized states, 
+    we go on to study their orthogonality. 
+    For this purpose we note that 
+    the only information carried by $\ket{\alpha_1, \ldots ,\alpha_{N}}$ 
+    is 
+    \begin{enumerate}
+        \item 
+        Which 1-body states among $\{\ket{\lambda_{i}}\}_{i = 1}^{d}$ 
+        are occupied, and 
+        \item
+        for each occupied 1-body state, 
+        how many particles occupy it.
+    \end{enumerate}
+
+    We can therefore encode these information 
+    in the following notation, 
+
+    \begin{dfn}[Occupation number representation]
+        For the $N$-body normalized state 
+        $\ket{\alpha_1, \ldots ,\alpha_{N}}$, 
+        the \textit{occupation number representation} 
+        (also known as the Fock state) is 
+        $\ket{n_{\lambda_{1}}, \ldots ,n_{\lambda_{d}}}$ 
+        where $n_{\lambda_{j}}$ is the number of particles 
+        in the state $\ket{\lambda_{j}}$ and 
+        $\sum_{j=1}^{d}n_{\lambda_{j}}=N$.
+    \end{dfn}
+
+    Immediately we see that the Fock state 
+    carries the two pieces of information we mentioned. 
+    The unoccupied 1-body states have occupation number zero. 
+    Besides, it is impossible to label particles 
+    in the occupation number representation.
+
+    With this compact notation we study orthogonality. 
+    Intuitively we would expect 
+    $n_{\lambda_{1}}\neq n'_{\lambda_{1}}$ to 
+    imply 
+    \begin{equation}
+        \bra{n_{\lambda_{1}}, \ldots }\ket{n'_{\lambda_{1}}, \ldots }=0,
+    \label{eqn:orthogonality-of-Fock-states}
+    \end{equation}
+    since the occupation number of $\ket{\lambda_{1}}$ 
+    \textit{completely distinguishes between} these states and 
+    consequently their overlap should vanish.
+    \footnote{
+        More concretely, if there exists a Hermitian operator 
+        $\hat{n}_{\lambda_{1}}$ which extracts the occupation number 
+        of $\ket{\lambda_{1}}$, then these two states belong to 
+        different eigenspaces of $\hat{n}_{\lambda_{1}}$, so they 
+        must be orthogonal. We will see 
+        in \cref{rem:from-Fock-states-to-number-operator} 
+        that there indeed 
+        exists such an operator.
+    }
+
+    Now let us verify orthogonality explicitly. 
+    Denote $\sum_{\lambda_{i}}n_{\lambda_{i}}$ with $N$, and
+    $\sum_{\lambda_{i}}n'_{\lambda_{i}}$ with $M$.
+
+    If $N=M$, we illustrate with an example; 
+    generalization is trivial. Say 
+    $n_{\lambda_{1}}=2$ and $n'_{\lambda_{1}}=1$. 
+    In the inner product $\bra{n_{\lambda_{1}}, \ldots }\ket{n'_{\lambda_{1}}, \ldots }$, each side is decomposed into a sum over product states. 
+    Whatever the permutation, $\ket{\lambda_1}$ always appear 
+    twice in the LHS and once in the RHS, so there is at least 
+    one $\bra{\lambda_{1}}$ in the LHS which is taken inner product with 
+    a 1-body state that is not $\ket{\lambda_{1}}$, hence 
+    the inner product vanishes. 
+    This analysis extends to every term in the sum, 
+    so the total inner product vanishes.
+
+    If $N \neq M$ (say $N<M$), then we have to first consider 
+    what exactly we mean by the inner product between 
+    an $N$-body product state and an $M$-body product state. 
+    By the definition of inner product, 
+    we have to write the $N$-body product state 
+    as an $M$-body product state, and the only sensible way 
+    to do this is to tensor it with $(M-N)$ 1-body null vectors, 
+    since this is the only way to guarantee nothing happens 
+    in the $(M-N)$ 1-body Hilbert spaces. 
+    Given this assumption, 
+    \cref{eqn:orthogonality-of-Fock-states} follows. 
+    \footnote{
+        We will see that the orthogonality of states 
+        with different total particle numbers 
+        is also required by the definition of 
+        creation and annihilation operators. 
+        However, in arguing in terms of product states here, 
+        we get a more intuitive understanding. 
+    }
+
+
+    \begin{graybox}
+    \begin{res}
+        Normalizing the symmetrized states and 
+        switching to the occupation number representation 
+        gives an orthonormal basis in the physical Hilbert spaces, 
+        known as the Fock basis. A Fock state is 
+        $\ket{n_{\lambda_{1}}, \ldots ,n_{\lambda_{d}}}$ 
+        where $n_{\lambda_{j}}$ is the number of particles 
+        in the state $\ket{\lambda_{j}}$ and 
+        $\sum_{j=1}^{d}n_{\lambda_{j}}=N$.
+    \end{res}
+    \end{graybox}
+
+    \begin{rem}
+        \label{rem:from-Fock-states-to-number-operator}
+        Because the Fock states are orthonormal, 
+        we can (but might choose not to) 
+        \textit{define} the number operator 
+        in terms of how it acts on Fock states: 
+        \[
+            \hat{n}_{\lambda_{i}}
+            \ket{\cdots ,n_{\lambda_{i}}, \ldots }
+            =
+            n_{\lambda_{i}}
+            \ket{\cdots ,n_{\lambda_{i}}, \ldots }.
+        \]
+        It follows that 
+        \[
+            \bra{\cdots ,n_{\lambda_{i}}, \ldots }
+            \hat{n}^{\dagger}_{\lambda_{i}}
+            =
+            n^{*}_{\lambda_{i}}
+            \bra{\cdots ,n_{\lambda_{i}}, \ldots }
+            =
+            n_{\lambda_{i}}
+            \bra{\cdots ,n_{\lambda_{i}}, \ldots }
+        \]
+        and the Hermitian condition 
+        \[
+            \bra{\cdots ,n_{\lambda_{i}}, \ldots }
+            \hat{n}_{\lambda_{i}}
+            \ket{\cdots ,n'_{\lambda_{i}}, \ldots }
+            =
+            \bra{\cdots ,n'_{\lambda_{i}}, \ldots }
+            \hat{n}_{\lambda_{i}}
+            \ket{\cdots ,n_{\lambda_{i}}, \ldots }^{*}
+        \]
+        is met because, thanks to the 
+        orthogonality of the Fock basis, both sides 
+        in this equation are 
+        $n_{\lambda_{i}} \delta_{n_{\lambda_{i}},n'_{\lambda_{i}}} $.
+    \end{rem}
+
+    \begin{rem}
+        In the preceding discussion, 
+        all Fock states with total particle number 
+        $N\ge 1$ can be constructed 
+        via symmetrizing and normalizing 
+        product states. 
+        However, the Fock state $\ket{0}$ 
+        with total particle number zero 
+        seems difficult to make sense of, 
+        since we can not project it onto 
+        product states. 
+        We will gradually see the 
+        physical picture of this state 
+        in the next section.
+    \end{rem}
+
+    \begin{rem}
+        Different Fock states 
+        can correspond to the same set of 
+        occupation numbers. 
+        For example, 
+        consider two Fermionic states 
+        with 1-body space 
+        $\{\ket{\alpha},\ket{\beta}\}$: 
+        $\ket{\alpha \beta} \propto |\alpha \beta) - |\beta \alpha)$ 
+        and 
+        $\ket{\beta \alpha} \propto |\beta \alpha) - |\alpha \beta)$. 
+        They correspond to the same 
+        occupation numbers 
+        $n_{\alpha}=1, n_{\beta}=1$, 
+        but differ by an overall phase $-1$. 
+        In practice we always choose a ordering 
+        convention of writing down 1-body states 
+        so that this overall phase does not mess up 
+        our calculations. 
+        For example, 
+        to get rid of the $-1$ phase mentioned above, 
+        we can choose to always write 
+        $\ket{\alpha}$ before $\ket{\beta}$ 
+        in a Fock state. 
+        More generally, we might choose to always 
+        write down low-energy 1-body states 
+        before high-energy ones. 
+    \label{rem:partially-normalized-states-can-differ-by-overall-sign}
+    \end{rem}
+
+\section{Creation and annihilation}
+
+\begin{mot}
+    Previously we were motivated 
+    by the need to take care of 
+    exchange statistics of quantum states. 
+    But there is more to second quantization. 
+    Under the Fock basis, 
+    quantum states are labelled by 
+    their occupation numbers, \textit{i.e.}~the 
+    occupation numbers become 
+    degrees of freedom. 
+    We are thus motivated to 
+    study processes that manipulate 
+    these degrees of freedom. 
+    We will construct operators that 
+    do this and study their properties.
+\end{mot}
+
+\subsection{Creation, annihilation and number operators}
+
+\begin{dfn}[Creation operator]
+    The \emph{creation operator} 
+    $\hat{\psi}_{\alpha}$ 
+    ``creates'' one particle 
+    in the 1-body state $\ket{\alpha}$. 
+    To be specific, 
+    it is defined 
+    by its action on a partially normalized state, 
+    \begin{equation}
+        \hat{\psi}_{\alpha}
+        |\alpha_1, \ldots ,\alpha_{N}\}
+        =
+        |\alpha \alpha_{1}, \ldots ,\alpha_{N}\}
+    \end{equation}
+    with 
+    $\alpha, \alpha_1, \ldots ,\alpha_{N}$ 
+    not necessarily different. 
+    Note that $\alpha$ is written 
+    on the left of the state 
+    $|\alpha\alpha_1, \ldots ,\alpha_{N}\}$; 
+    recalling \cref{rem:partially-normalized-states-can-differ-by-overall-sign}, 
+    this convention should be obeyed 
+    consistently to avoid confusion.
+\end{dfn}
+
+Fock states are related to partially normalized states 
+as 
+
+\[
+    |\alpha \alpha_{1}, \ldots ,\alpha_{N}\}
+    =
+    \sqrt{
+        \prod_{\alpha_{i}\neq \alpha}
+        n_{\alpha_{i}}!
+    }
+    \sqrt{(n_{\alpha}+1)!}
+    \ket{\alpha \alpha_1, \ldots ,\alpha_{N}},
+\]
+
+\[
+    |\alpha_1, \ldots ,\alpha_{N}\}
+    =
+    \sqrt{
+        \prod_{\alpha_{i}}
+        n_{\alpha_{i}}!
+    }
+    \ket{\alpha_1, \ldots ,\alpha_{N}},
+\]
+hence the creation operator 
+acts on Fock states as 
+\begin{align*}
+    \hat{\psi}^{\dagger}_{\alpha}
+    \ket{\alpha_1, \ldots ,\alpha_{N}}
+    =&\ 
+    \hat{\psi}^{\dagger}_{\alpha}
+    \frac{1}{\sqrt{
+        \prod_{\alpha_{i}}
+        n_{\alpha_{i}}
+    }}
+    |\alpha_1, \ldots ,\alpha_{N}\} \\
+    =&\ 
+    \frac{1}{\sqrt{
+        \prod_{\alpha_i}
+        n_{\alpha_i}
+    }}
+    |\alpha \alpha_{1},\cdots, \alpha_{N}\} \\
+    =&\ 
+    \sqrt{n_{\alpha}+1}
+    \ket{\alpha \alpha_{1}, \ldots ,\alpha_{N}}.
+\end{align*}
+
+\begin{mot}
+    $\hat{\psi}^{\dagger}_{\alpha}$
+    maps an $N$-body state to an $(N+1)$-body 
+    state, \textit{i.e.}~it looks like 
+    \[
+      \sum_{N}\ket{(N+1)\text{-body state}}\bra{N\text{-body state}}.
+    \]
+    We therefore expect 
+    $\hat{\psi}_{\alpha}$, its Hermitian adjoint, 
+    to map an $(N+1)$-body state 
+    to an $N$-body state, 
+    which can be interpreted as the 
+    ``annihilation'' of a particle. 
+    Let us study the properties of 
+    $\hat{\psi}_{\alpha}$ 
+    to check our intuition.
+\end{mot}
+
+We project 
+$\hat{\psi}_{\alpha} |\alpha'_{1}, \ldots ,\alpha'_{m}\}$
+onto $\{\alpha_1, \ldots ,\alpha_{n}|$ to 
+study a matrix element of $\hat{\psi}_{\alpha}$. 
+
+\begin{align*}
+    \{ \alpha_1, \ldots ,\alpha_{n}
+    |\hat{\psi}_{\alpha}|
+    \alpha'_{1}, \ldots ,\alpha'_{m}\}
+    =&\ 
+    \{ \alpha'_{1}, \ldots ,\alpha'_{m} |
+    \hat{\psi}^{\dagger}_{\alpha}|
+    \alpha_1, \ldots ,\alpha_{n}\}
+    ^{*}
+    \\
+    =&\ 
+    \{\alpha'_{1}, \ldots ,\alpha'_{m}
+    |
+    \alpha \alpha_{1}, \ldots ,\alpha_{n}\}
+    ^{*}.
+\end{align*}
+
+Therefore the only nonvanishing matrix elements 
+are those where $m=n+1$.
+
+Now we project 
+$\hat{\psi}_{\alpha}|\alpha'_{1}, \ldots ,\alpha'_{m}\}$ 
+onto a complete basis $\left\{ |\alpha_1, \ldots ,\alpha_n\} \right\}$ 
+where $n=m-1$ 
+to obtain the formula of 
+$\hat{\psi}_{\alpha}|\alpha'_{1}, \ldots ,\alpha'_{m}\}$.
+For this purpose we need 
+the identity within the $n$-body space 
+\[
+    \mathds{1}_{n}
+    =
+    \sum_{\alpha_1, \ldots ,\alpha_{n}}
+    |\alpha_1, \ldots ,\alpha_{n})(\alpha_1, \ldots ,\alpha_{n}|, 
+\]
+which becomes 
+\[
+    \mathds{1}_{n}
+    =
+    \sum_{\alpha_1, \ldots ,\alpha_{n}}
+    \frac{1}{n!}
+    |\alpha_1, \ldots ,\alpha_{n}\}
+    \{\alpha_1, \ldots ,\alpha_{n}|
+\]
+when expressed in terms of the basis 
+$\{|\alpha_1, \ldots ,\alpha_{n}\}\}$.
+
+Proceeding with our expansion, 
+
+\begin{align*}
+    \hat{\psi}_{\alpha}
+    |\alpha'_{1}, \ldots ,\alpha'_{m}\}
+    =&\ 
+    \sum_{\alpha_1, \ldots ,\alpha_{n}}
+    \frac{1}{n!}
+    \{\alpha_1, \ldots ,\alpha_{n}|
+    \hat{\psi}_{\alpha}|
+    \alpha'_{1}, \ldots ,\alpha'_{m}\}
+    \cross 
+    |\alpha_1, \ldots ,\alpha_{n}\} \\
+    =&\ 
+    \sum_{\alpha_1, \ldots ,\alpha_{m-1}}
+    \frac{1}{(m-1)!}
+    \sqrt{m!}
+    (\alpha \alpha_1, \ldots ,\alpha_n
+    |\frac{1}{m!}\sum_{P}\zeta^{\abs{P}}|
+    \alpha'_{P1}, \ldots ,\alpha'_{Pm})
+    \sqrt{m!}
+    \cross 
+    |\alpha_1, \ldots ,\alpha_{m-1}\}
+\end{align*}
+where the permutation $P$ involves $m$ indices, 
+while the vector 
+$|\alpha_1, \ldots ,\alpha_{m-1}\}$ 
+involves $m-1$ indices. The orthogonality of 
+the product basis gives 
+\begin{align*}
+    \hat{\psi}_{\alpha}
+    |\alpha'_{1}, \ldots ,\alpha'_{m}\}
+    =
+    \frac{1}{(m-1)!}
+    \sum_{P}\zeta^{\abs{P}}
+    \delta_{\alpha,\alpha'_{P1}}
+    |\alpha'_{P2}, \ldots ,\alpha'_{Pm}\}.
+\end{align*}
+But we want to express our result in a way 
+not involving permuted indices, 
+so we carry out the following permutation
+\footnote{
+    When permuting the indices in the vestor, 
+    we are just 
+    re-labelling the summation index $P$.
+}
+for the state 
+$|\alpha'_{P2}, \ldots ,\alpha_{Pm}\}$ 
+:
+\[
+    (P1, P2,\ldots ,Pm)
+    \mapsto
+    (P1,1,2,3, \ldots ,
+    P1-1,P1+1, \ldots ,m),
+\]
+which is $P^{-1}$ followed by 
+$(P1-1)$ nearest-neighbor transpositions and has 
+therefore the signature $\abs{P ^{-1}}+P1-1$. 
+After this permutation, the $\zeta$ prefactor becomes 
+$\zeta^{\abs{P}+\abs{P ^{-1}} + P1 -1} = \zeta^{P1-1}$, 
+resulting in
+\begin{align*}
+    \hat{\psi}_{\alpha}
+    |\alpha'_{1}, \ldots ,\alpha'_{m}\}
+    =&\ 
+    \frac{1}{(m-1)!}
+    \sum_{P}
+    \zeta^{P1-1}
+    \delta_{\alpha,\alpha'_{P1}}
+    |\alpha'_{1}, \ldots ,
+    \alpha'_{P1-1},\alpha'_{P1+1}, \ldots ,
+    \alpha'_{Pm}\} \\
+    =&\ 
+    \left(\sum_{P1=1}+
+    \sum_{P1=2}+ \cdots +
+    \sum_{P1=m}\right) 
+    \frac{1}{(m-1)!}
+    \zeta^{P1-1}
+    \delta_{\alpha,\alpha'_{P1}}
+    |\alpha'_{1}, \ldots ,
+    \alpha'_{P1-1},\alpha'_{P1+1}, \ldots ,
+    \alpha'_{Pm}\} \\
+    =&\ 
+    \sum_{j=1}^{m}
+    \zeta^{j-1}
+    \delta_{\alpha,\alpha'_{j}}
+    \left|\alpha'_{1}, \ldots ,\alpha'_{j-1},
+    \alpha'_{j+1}, \ldots ,\alpha'_{m}\right\},
+\end{align*}
+where the last equation holds because 
+the summand 
+in the second-to-last line only depends on $P1$, 
+so for each summation in the bracket 
+$
+    \left(\sum_{P1=1}+
+    \sum_{P1=2}+ \cdots +
+    \sum_{P1=m}\right) 
+$,
+there are $(m-1)!$ identical terms, which 
+cancels the prefactor $1 /(m-1)!$.
+
+This equation says to: 1) go to the index $j$ 
+in the array 
+$(\alpha'_{1}, \ldots ,\alpha'_{m})$ 
+and check whether $\alpha'_{j}=\alpha$, 
+2) if yes, register a contributing term 
+$
+    \zeta^{j-1}
+    |\alpha'_{1}, \ldots ,\alpha'_{j-1},
+    \alpha'_{j+1}, \ldots ,\alpha'_{m}\}
+$, 
+3) if no, don't register any contribution, and 
+4) sum up the contributing terms.
+Therefore, the sum 
+$\sum_{j=1}^{m}$ picks up $n_{\alpha}$ 
+contributing terms, all of which 
+having one less particle in the 1-body state 
+$\ket{\alpha}$ than the state 
+$|\alpha'_{1}, \ldots ,\alpha'_{m}\}$.
+
+In terms of Fock states, 
+
+\[
+    \hat{\psi}_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{m}}
+    \cross 
+    \sqrt{
+        \prod_{\alpha'\neq \alpha}
+        n_{\alpha'}
+    }
+    \sqrt{n_{\alpha}!}
+    =
+    \sum_{j=1}^{m}
+    \zeta^{j-1}
+    \delta_{\alpha,\alpha'_{j}}
+    \ket{
+        \alpha'_{1}, \ldots ,
+        \alpha'_{j-1},\alpha'_{j+1},
+        \cdots ,\alpha'_{m}
+    }
+    \cross 
+    \sqrt{
+        \prod_{\alpha'\neq \alpha}
+        n_{\alpha'}
+    }
+    \sqrt{(n_{\alpha}-1)!},
+\]
+hence 
+\[
+    \hat{\psi}_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{m}}
+    =
+    \begin{cases}
+        \ket{\text{null}} & \text{if  } n_{\alpha}=0,\\
+        n_{\alpha}^{-1 /2}
+        \sum_{j=1}^{m}
+    \zeta^{j-1}
+    \delta_{\alpha,\alpha'_{j}}
+    \ket{
+        \alpha'_{1}, \ldots ,
+        \alpha'_{j-1},\alpha'_{j+1},
+        \cdots ,\alpha'_{m}
+    }
+    & \text{if  } n_{\alpha}\neq 0,
+    \end{cases}
+\]
+where for the case $n_{\alpha}=1$, 
+the factor $\sqrt{(n_{\alpha}-1)!}$ 
+is not multiplied, because such factors 
+are only considered when the occupation number 
+is not zero, see \cref{res:normalization-of-scrambled-states} 
+and \cref{dfn:normalized-states-and-partially-normalized-states}. 
+This is also physical: having occupation number zero 
+for some 1-body state does not mean the state is $\ket{\text{null}}$. 
+For the case $n_{\alpha}=0$, 
+$\delta_{\alpha,\alpha'_{j}}$ is always zero, 
+so the resulting state is $\ket{\text{null}}$.
+Physically, we 
+\emph{should not} be able to annihilate a particle 
+in the state $\ket{\alpha}$ when there is nothing 
+to be annihilated in the state $\ket{\alpha}$. 
+That the RHS is $\ket{\text{null}}$ 
+prohibits this absurd annihilation process, because 
+anything that follows would 
+be happening to $\ket{\text{null}}$ and therefore 
+have no physical 
+consequence. 
+\footnote{
+For all operators, 
+$\ket{\text{null}}$ will be mapped to itself, 
+and the expectation value under $\ket{\text{null}}$ 
+is always zero.
+}
+
+Although its expression seems complicated, 
+the norm of 
+$\hat{\psi}_{\alpha}\ket{\alpha'_{1}, \ldots ,\alpha'_{m}}$ 
+is always $\sqrt{n_{\alpha}}$, because:
+If $n_{\alpha}=0$ then this quantity equals to zero, 
+our claim is true. Otherwise, for bosons 
+the $n_{\alpha}$ contributing terms are all identical, 
+so the prefactor is 
+\[
+    \frac{1}{\sqrt{n_{\alpha}}}
+    \cross 
+    n_{\alpha}
+    =
+    \sqrt{n_{\alpha}}.
+\]
+For fermions $n_{\alpha}$ is 1 if not zero, 
+so there is only one contributing term and the norm 
+is simply 
+\[
+    \frac{1}{\sqrt{1}}\cross 1=1,
+\]
+with the overall phase $\zeta^{j-1}$ 
+which doesn't affect the vector's norm.
+
+
+\begin{graybox}
+
+\begin{res}
+    The operator $\hat{\psi}_{\alpha}$
+    maps the state $|\alpha'_{1}, \ldots ,\alpha'_{m}\}$ to
+    \[
+        \sum_{j=1}^{m}
+        \zeta^{j-1}
+    \delta_{\alpha,\alpha'_{j}}
+    |\alpha'_{1}, \ldots ,\alpha'_{j-1},
+    \alpha'_{j+1}, \ldots ,\alpha'_{m}\},
+    \]
+    which can be interpreted as 
+    the annihilation of a particle 
+    in the 1-body state $\ket{\alpha}$. 
+    For Fock states,
+    \begin{equation}
+    \hat{\psi}_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{m}}
+    =
+    \begin{cases}
+        \ket{\text{null}} & \text{if  } n_{\alpha}=0,\\
+        n_{\alpha}^{-1 /2}
+        \sum_{j=1}^{m}
+    \zeta^{j-1}
+    \delta_{\alpha,\alpha'_{j}}
+    \ket{
+        \alpha'_{1}, \ldots ,
+        \alpha'_{j-1},\alpha'_{j+1},
+        \cdots ,\alpha'_{m}
+    }
+    & \text{if  } n_{\alpha}\neq 0.
+    \end{cases}
+    \label{eqn:annihilation-operator-on-fock-state}
+    \end{equation}
+    and 
+    \begin{equation}
+        \norm{
+            \hat{\psi}_{\alpha}
+            \ket{\alpha'_{1}, \ldots ,\alpha'_{m}}
+        }
+        =
+        \sqrt{n_{\alpha}}.
+    \end{equation}
+\end{res}    
+
+\end{graybox}
+
+\begin{rem}
+    The prefactor $\zeta^{j-1}$ in 
+    \cref{eqn:annihilation-operator-on-fock-state} 
+    seems strange because 
+    it depends on the specific labelling of particles, 
+    while we have claimed Fock states and their 
+    properties to 
+    depend exclusively on occupation numbers. 
+    In fact this prefactor has very simple 
+    consequences. 
+    For bosons it is always 1, which is trivial. 
+    For fermions there can be at most 
+    one contributing term, 
+    so this prefactor is an overall phase. 
+    Recalling \cref{rem:partially-normalized-states-can-differ-by-overall-sign}, 
+    we see that this overall phase arises from our 
+    choice of ordering convention of 1-body states 
+    when writing down 
+    $|\alpha'_{1}, \ldots ,\alpha'_{m}\}$.
+\end{rem}
+
+\begin{rem}
+    Here we have defined 
+    the creation and annihilation operators 
+    in terms of partially normalized states 
+    and \emph{derived} their action 
+    on Fock states. There is another approach
+    \cite[][\S\ 2.1]{altland_condensed_2023}
+    which 
+    defines these operators in terms of 
+    how they act on Fock states. 
+    Had we used this approach, 
+    it would be hard to see how 
+    $\hat{\psi}_{\alpha}$ maps 
+    a quantum state where $n_{\alpha}=0$ 
+    to the null vector, 
+    but in our approach this is a 
+    natural consequence.
+\end{rem}
+
+\begin{mot}
+    After creating and annihilating 
+    a particle in the 1-body state $\ket{\alpha}$, 
+    the occupation number $n_{\alpha}$ 
+    remains the same. Besides, 
+    \[
+        \norm{
+        \hat{\psi}^{\dagger}_{\alpha}
+        \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+        }
+        =
+        \sqrt{n_{\alpha}+1},\quad
+        \norm{
+        \hat{\psi}_{\alpha}
+        \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+        }
+        =
+        \sqrt{n_{\alpha}},
+    \]
+    so applying the creation and annihilation 
+    operators 
+    not only manipulates occupation numbers, 
+    but also adds overall scale factors 
+    $\sqrt{n_{\alpha}+1}$, $\sqrt{n_{\alpha}}$. 
+    We are therefore motivated 
+    to use these scale factors 
+    to construct the number operator 
+    as mentioned in \cref{rem:from-Fock-states-to-number-operator}.
+\end{mot}
+
+We want to obtain $n_{\alpha}$ by 
+$\sqrt{n_{\alpha}}\cross \sqrt{n_{\alpha}}$, 
+but $\hat{\psi}^{\dagger}_{\alpha}$ 
+is associated with $\sqrt{n_{\alpha}+1}$. 
+Hence we annihilate an operator first so that 
+the scale factor associated with $\hat{\psi}^{\dagger}_{\alpha}$ 
+becomes $\sqrt{n_{\alpha}}$; \textit{i.e.}\ we try 
+the operator $\hat{\psi}^{\dagger}\hat{\psi}$.
+
+If $n_{\alpha}\neq 0$, 
+\begin{align*}
+    \hat{\psi}^{\dagger}\hat{\psi}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+    =&\ 
+    \hat{\psi}^{\dagger}
+    \frac{1}{\sqrt{n_{\alpha}}}
+    \sum_{j=1}^{d}
+    \zeta^{j-1}\delta_{\alpha,\alpha'_{j}}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{j-1},
+    \alpha'_{j+1}, \ldots ,\alpha'_{N}} \\
+    =&\ 
+    \frac{\sqrt{(n_{\alpha}-1)+1}}{\sqrt{n_{\alpha}}}
+    \sum_{j=1}^{d}
+    \zeta^{j-1}\delta_{\alpha,\alpha'_{j}}
+    \ket{\alpha \alpha'_{1}, \ldots ,\alpha'_{j-1},
+    \alpha'_{j+1}, \ldots ,\alpha'_{N}},
+\end{align*}
+but 
+\[
+    \zeta^{j-1}\delta_{\alpha,\alpha'_{j}}
+    \ket{\alpha \alpha'_{1}, \ldots ,\alpha'_{j-1},
+    \alpha'_{j+1}, \ldots ,\alpha'_{N}}
+    =
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+\]
+because $\delta_{\alpha,\alpha'_{j}}$ 
+enforces 
+$\alpha=\alpha'_{j}$, 
+and permuting $\ket{\alpha}$ to the $j$th place 
+cancels $\zeta^{j-1}$. 
+There are $n_{\alpha}$ identical contributing terms, hence
+\[
+    \hat{\psi}^{\dagger}_{\alpha}\hat{\psi}_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+    =
+    n_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}.
+\]
+
+If $n_{\alpha}=0$ then 
+\[
+    \hat{\psi}_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+    =
+    \ket{\text{null}}
+    =0 \cross \ket{\alpha'_{1}, \ldots ,\alpha'_{N}},
+\]
+and therefore the equation 
+\[
+    \hat{\psi}^{\dagger}_{\alpha}\hat{\psi}_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+    =
+    n_{\alpha}
+    \ket{\alpha'_{1}, \ldots ,\alpha'_{N}}
+\]
+holds whatever $n_{\alpha}$ is. 
+
+The operator $\hat{\psi}^{\dagger}\hat{\psi}$ is 
+Hermitian because 
+\[
+    \left( \hat{\psi}^{\dagger}\hat{\psi} \right) ^{\dagger}
+    =
+    \hat{\psi}^{\dagger}
+    \left( \hat{\psi}^{\dagger} \right) ^{\dagger}
+    =
+    \hat{\psi}^{\dagger}\psi.
+\]
+Comparing $\hat{\psi}^{\dagger}_{\alpha}\hat{\psi}$ with 
+what was required 
+in \cref{rem:from-Fock-states-to-number-operator}, 
+we see that it fits the definition.
+
+\begin{graybox}
+\begin{res}
+    Associated to each 1-body state $\ket{\alpha}$ 
+    is a Hermitian number operator 
+    \begin{equation}
+        \hat{n}_{\alpha}\coloneqq
+        \hat{\psi}^{\dagger}_{\alpha}\hat{\psi}_{\alpha}
+    \label{eqn:definition-of-the-number-operator}
+    \end{equation}
+    which produces $n_{\alpha}$ when acting 
+    on a Fock state: 
+    \begin{equation}
+        \hat{n}_{\alpha}
+        \ket{n_{\lambda_1}, \ldots ,n_{\lambda_n}}
+        =
+        n_{\alpha}
+        \ket{n_{\lambda_1}, \ldots ,n_{\lambda_n}}.
+    \end{equation}
+    Summing over all occupation numbers 
+    gives the total particle number: 
+    \begin{equation}
+        \sum_{\alpha}
+        \hat{n}_{\alpha}
+        \ket{n_{\alpha_1}, \ldots ,n_{\alpha_{d}}}
+        =
+        N
+    \end{equation}
+    with $\{\ket{\alpha_{j}}\}_{j=1}^{d}$ 
+    the 1-body basis and $N=\sum_{j=1}^{d}n_{j}$. 
+\end{res}
+\end{graybox}
+
+
+\begin{mot}
+As is customary for newly introduced operators, 
+we study the commutators and how to swtich bases 
+for the creation and annihilation operators. 
+The formulas obtained below will be 
+important tools for calculation.
+\end{mot}
+
+First, we study the commutators 
+between raising operators of different 
+1-body states $\ket{\alpha},\ket{\alpha'}$.
+\begin{align*}
+    \hat{\psi}^{\dagger}_{\alpha}
+    \hat{\psi}^{\dagger}_{\alpha'}
+    |\alpha_1, \ldots ,\alpha_{n}\}
+    =&\ 
+    \hat{\psi}^{\dagger}_{\alpha}
+    |\alpha' \alpha_1, \ldots ,\alpha_{n}\} \\
+    =&\ 
+    |\alpha \alpha' \alpha_1, \ldots ,\alpha_{n}\} \\
+    =&\ 
+    \zeta 
+    |\alpha' \alpha \alpha_1, \ldots ,\alpha_{n}\} \\
+    =&\ 
+    \zeta
+    \hat{\psi}^{\dagger}_{\alpha'}
+    \hat{\psi}^{\dagger}_{\alpha}
+    |\alpha_1, \ldots ,\alpha_{n}\},
+\end{align*}
+therefore 
+\[
+    \comm{\hat{\psi}^{\dagger}_{\alpha}}{
+        \hat{\psi}^{\dagger}_{\alpha'}
+    }_{-\zeta}
+    = 0,
+\]
+where 
+\[
+    \comm{\hat{A}}{\hat{B}}_{-\zeta}
+    \coloneqq
+    \hat{A}\hat{B}-\zeta \hat{B} \hat{A}.
+\]
+Similarly, 
+$\comm{\hat{\psi}_{\alpha}}{\hat{\psi}_{\alpha'}}_{-\zeta}=0$.
+
+
+Next we study the commutator 
+between creation and annihilation operators. 
+\begin{align*}
+    \hat{\psi}_{\alpha}
+    \hat{\psi}^{\dagger}_{\alpha'}
+    |\alpha_1, \ldots ,\alpha_n\}
+    =&\ 
+    \hat{\psi}_{\alpha}
+    |\alpha'\alpha_1, \ldots ,\alpha_{n}\} \\
+    =&\ 
+    \delta_{\alpha,\alpha'}
+    |\alpha_1, \ldots ,\alpha_{n}\}
+    +
+    \sum_{j=2}^{n+1}
+    \zeta^{j-1}
+    \delta_{\alpha,\alpha_{j}}
+    |\alpha' \alpha_1, \ldots ,
+    \alpha_{j-1},\alpha_{j+1}, \ldots ,\alpha_{n}\},
+\end{align*}
+while applying them in the other order gives
+\begin{align*}
+    \hat{\psi}^{\dagger}_{\alpha'}
+    \hat{\psi}_{\alpha}
+    |\alpha_1, \ldots ,\alpha_{n}\}
+    =&\ 
+    \hat{\psi}^{\dagger}_{\alpha'}
+    \sum_{j=1}^{n}
+    \zeta^{j-1}
+    \delta_{\alpha,\alpha_{j}}
+    |\alpha_1, \ldots ,\alpha_{j-1},\alpha_{j+1},
+    \cdots ,\alpha_{n}\} \\
+    =&\ 
+    \sum_{j=1}^{n}\zeta^{j-1}\delta_{\alpha,\alpha_{j}}
+    |\alpha'\alpha_{1}\cdots \alpha_{j-1},\alpha_{j+1}, \ldots ,\alpha_{n}\}.
+\end{align*}
+It follows that 
+\[
+    \comm{\hat{\psi}_{\alpha}}{\hat{\psi}^{\dagger}_{\alpha'}}
+    _{-\zeta}
+    =
+    \delta_{\alpha,\alpha'}.
+\]
+
+
+\begin{graybox}
+\begin{res}
+    \label{res:commutators-of-creation-and-annihilation-operators}
+    For creation and annihilation operators, 
+    \begin{equation}
+        \comm{\hat{\psi}^{\dagger}_{\alpha}}{\hat{\psi}^{\dagger}_{\alpha'}}
+        _{-\zeta}
+        =
+        \comm{\hat{\psi}_{\alpha}}{\hat{\psi}_{\alpha'}}
+        _{-\zeta}
+        =0
+    \end{equation}
+    \begin{equation}
+        \comm{\hat{\psi}_{\alpha}}{\hat{\psi}^{\dagger}_{\alpha'}}
+        _{-\zeta}
+        =
+        \delta_{\alpha,\alpha'}
+    \end{equation}
+    with 
+    \begin{equation}
+    \comm{\hat{A}}{\hat{B}}_{-\zeta}
+    \coloneqq
+    \hat{A}\hat{B}-\zeta \hat{B} \hat{A}.
+    \end{equation}
+    Creation and annihilation operators 
+    of different modes always (anti)commute; 
+    operators of the same mode 
+    need more attention because their commutator 
+    might produce a kronecker delta.
+\end{res}
+\end{graybox}
+
+The creation and annihilation operators 
+are defined 
+in terms of how they act on partially normalized state. 
+Such states transform as 
+\[
+    |\tilde{\alpha} \alpha_1 \cdots \alpha_{n}\}
+    =
+    \sum_{\alpha}
+    \bra{\alpha}\ket{\tilde{\alpha}}
+    \cross 
+    |\alpha \alpha_{1}\cdots \alpha_{n}\},
+\]
+with $\{\ket{\tilde{\alpha}}\}$ and $\{\ket{\alpha}\}$
+1-body bases. Therefore
+
+\begin{align*}
+    \hat{\psi}^{\dagger}_{\tilde{\alpha}}
+    |\alpha_1\cdots \alpha_{n}\}
+    =&\ 
+    \sum_{\alpha}\bra{\alpha}\ket{\tilde{\alpha}}
+    \cross 
+    |\alpha \alpha_1, \ldots ,\alpha_{n}\} \\
+    =&\ 
+    \sum_{\alpha}\bra{\alpha}\ket{\tilde{\alpha}}
+    \hat{\psi}^{\dagger}_{\alpha}
+    |\alpha_1\cdots \alpha_{n}\},
+\end{align*}
+from which it follows that 
+\[
+    \hat{\psi}^{\dagger}_{\tilde{\alpha}}
+    =
+    \sum_{\alpha}\bra{\alpha}\ket{\tilde{\alpha}}
+    \hat{\psi}^{\dagger}_{\alpha}.
+\]
+Taking the Hermitian adjoint of this equation gives 
+\[
+    \hat{\psi}_{\tilde{\alpha}}
+    =
+    \sum_{\alpha}
+    \bra{\tilde{\alpha}}\ket{\alpha}
+    \hat{\psi}_{\alpha}.
+\]
+
+\begin{graybox}
+\begin{res}
+    Given the creation and annihilation operators 
+    under the 1-body basis $\{\ket{\alpha}\}$, 
+    switching to another 1-body basis 
+    $\{\ket{\tilde{\alpha}}\}$ leads to new 
+    creation and annihilation operators 
+    \begin{align*}
+    \hat{\psi}^{\dagger}_{\tilde{\alpha}}
+    =&\ 
+    \sum_{\alpha}\bra{\alpha}\ket{\tilde{\alpha}}
+    \hat{\psi}^{\dagger}_{\alpha} \\
+    \hat{\psi}_{\tilde{\alpha}}
+    =&\ 
+    \sum_{\alpha}\bra{\alpha}\ket{\tilde{\alpha}} ^{*} \hat{\psi}_{\alpha}
+    \end{align*}
+    where the creation operator 
+    transforms like a vector (ket), 
+    and the annihilation operator 
+    transforms like a 1-form (bra). 
+    One may remember the formula for 
+    $\hat{\psi}^{\dagger}_{\tilde{\alpha}}$ easily by noting that 
+    immediately after writing down sum over $\alpha$, 
+    the coefficient $\bra{\alpha}\ket{\tilde{\alpha}}$ 
+    begins with $\alpha$.
+\end{res}
+\end{graybox}
+
+\begin{rem}
+    Switching to an infinite-dimensional 1-body basis 
+    requires replacing the sum 
+    with integration and 
+    the Kronecker delta with 
+    Dirac delta. 
+    For example, 
+    consider the so-called field operator
+    \footnote{
+        Field operators are just creation and annihilation operators 
+        under the position basis.
+    }
+    \[
+        \hat{\psi}^{\dagger}(\vb{r})
+        \coloneqq
+        \sum_{\alpha}\bra{\alpha}\ket{\vb{r}}
+        \hat{\psi}^{\dagger}_{\alpha},
+    \]
+    its commutators involve Dirac (instead of Kronecker) delta functions: 
+    \[
+        \comm{\hat{\psi}(\vb{r})}{\hat{\psi}^{\dagger}(\vb{r'})}
+        =
+        \delta(\vb{r}-\vb{r'}).
+    \]
+    This is reasonable because 
+    when evaluating expectation values, 
+    these operators will be integrated over $\vb{r}$ and $\vb{r'}$, and 
+    the Dirac delta can pick up a finite value while 
+    the Kronecker delta cannot.
+\end{rem}
+
+\subsection{Analogy with the harmonic oscillator}
+
+This subsection 
+can be skipped. 
+It is included because many texts use the 
+harmonic oscillator to motivate the definition of 
+the creation and annihilation operators, which 
+might cause confusion.
+
+The quantum 1-dimensional harmonic oscillator 
+with the Hamiltonian 
+\[
+    \hat{H}
+    =
+    \frac{\hat{p}^{2}}{2m}
+    +
+    \frac{1}{2}
+    m \omega ^{2} 
+    \hat{x}^{2}
+    =
+    \hbar \omega 
+    \left( \hat{a}^{\dagger} \hat{a}+\frac{1}{2} \right) 
+\]
+has discrete energy eigenstates 
+$\left\{ \ket{n} \right\}_{n=0}^{\infty}$
+related 
+by the ``ladder operators'' 
+\[
+    \hat{a}^{\dagger}
+    =
+    \sqrt{\frac{m \omega}{2 \hbar}}
+    \left( 
+        \hat{x}
+        -
+        \frac{\mathrm{i}}{m \omega} 
+        \hat{p}
+     \right), 
+    \hat{a} 
+    =
+    \sqrt{\frac{m \omega}{2 \hbar}}
+    \left( 
+        \hat{x}
+        +
+        \frac{\mathrm{i}}{m \omega} 
+        \hat{p}
+     \right)
+\]
+such that 
+\[
+    \hat{a}^{\dagger} \ket{n} = \sqrt{n+1} \ket{n+1},
+    \hat{a} \ket{n} = \sqrt{n} \ket{n-1}.
+\]
+From this point of view, 
+the quantum harmonic oscillator 
+can be viewed as a many-body system 
+with the 1-body Hilbert space 
+$\operatorname{span}\{\ket{\text{HO}}\}
+=
+\mathbb{C}^{1}$. 
+The ladder operators create or annihilate 
+``particles'' in the 1-body state 
+$\ket{\text{HO}}$. 
+
+Recall that for Fock states, 
+each 1-body state $\ket{\alpha}$ 
+corresponds to 
+a pair of operators 
+$\hat{\psi}^{\dagger}_{\alpha}$, 
+$\hat{\psi}_{\alpha}$ which 
+can create or annihilate a particle in $\ket{\alpha}$. 
+To form an analogy with 
+a many-body system with 1-body Hilbert space 
+$\mathbb{C}^{d}$, 
+we need $d$ independent harmonic oscillators, 
+with the wavefunction
+\[
+    \ket{n_1,n_2, \ldots ,n_d}
+    \coloneqq
+    \bigotimes _{j=1}^{d}\ket{n_{j}},
+\]
+where each $\ket{n_{j}}$ labels the state of one 
+harmonic oscillator. 
+When the $j$th harmonic oscillator 
+is excited by $\hat{a}^{\dagger}_{j}$, 
+\textit{i.e.}\ when the wavefunction 
+$\ket{n_1,n_2, \ldots ,n_d}$ 
+is acted upon 
+by this operator, 
+we \emph{think about this event as if} 
+a boson is created in the 1-body state 
+corresponding to the $j$th harmonic oscillator. 
+This is the analogy with the harmonic oscillator; 
+it arrives at the bosonic Fock state 
+via a specific hamiltonian. 
+
+Had we introduced second quantization 
+with this analogy, we would not be able to know 
+whether the formalism depends on 
+the harmonic oscillator in some fundamental way, 
+or whether the second quantization for fermions 
+can also be constructed with an analogy. 
+Besides, the state $\ket{\text{HO}}$ is 
+totally abstract; we do not know what it is. 
+
+However, our discussions prior to this subsection 
+were \emph{altogether independent of any Hamiltonian}. 
+It is clear from our approach that second quantization 
+does not depend on the harmonic oscillator.
+
+But this analogy does reveal that 
+the harmonic oscillator is something special. 
+In fact, the quantized electromagnetic field 
+turns out to be a sum of harmonic oscillators 
+whose excitations are photons.
+
+\section{Operators under second quantization}
+
+\begin{mot}
+    The key difficulty is the conflict between our basis 
+    and the way we make sense of operators. We are only familiar 
+    with the way in which operators act on product states, but 
+    we are now using Fock states.    
+    To resolve this 
+    we project Fock states onto the product basis 
+    and act the operators on them. After that we 
+    collect the terms. The general recipe would be 
+    to act an operator on a 
+    ``partially normalized state'' 
+    and then abstract away the state 
+    \footnote{
+        While not normalized, the basis 
+        $\{ |\alpha_1, \ldots ,\alpha_{N}\} \}$
+        is still an orthogonal and complete one.
+    }
+    to obtain an operator equation.
+\label{mot:operators-under-second-quantization}
+\end{mot}
+
+\subsection{1-body operators}
+
+By definition, a 1-body operator $\hat{V}$ visits 
+the particles in a product state one by one. 
+Under a basis where $\hat{V}$ is diagonal, \textit{i.e.}~
+within each 1-body space, 
+$\hat{V}
+=
+\sum_{j=1}^{d}\lambda_{j} 
+\ket{\lambda_{j}}
+\bra{\lambda_{j}}
+$, acting it on a product state would produce 
+
+\begin{align*}
+    \hat{V}
+    |\alpha_1, \ldots ,\alpha_{N})
+    =&\ 
+    \sum_{i = 1}^{N}
+    \hat{V}^{(i)}
+    |\alpha_1, \ldots ,\alpha_{N}) \\
+    =&\ 
+    \sum_{i = 1}^{N}
+    \alpha_{i}
+    |\alpha_1, \ldots ,\alpha_{N})
+\end{align*}
+where $\alpha_{i}\in \{\lambda_{j}\}$ and 
+the superscript $(i)$ on $\hat{V}$ 
+indexes the 1-body space $\hat{V}$ acts on. 
+Note that the sum $\sum_{i=1}^{N}\alpha_{i}$ 
+only depends on occupation numbers, hence 
+it is invariant upon permutation of particles.
+
+Following the recipe mentioned 
+in \cref{mot:operators-under-second-quantization}
+we calculate $\hat{V}|\alpha_1, \ldots ,\alpha_{N}\}$,
+
+\begin{align*}
+    \hat{V}|\alpha_1, \ldots ,\alpha_{N}\}
+    =&\ 
+    \frac{1}{\sqrt{N!}}
+    \sum_{P}\zeta^{\abs{P}}
+    \hat{V} |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    =&\ 
+    \frac{1}{\sqrt{N!}}
+    \sum_{P}\zeta^{\abs{P}}
+    \sum_{i =1} ^{N}
+    \hat{V}^{(Pi)}
+    |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    =&\ 
+    \frac{1}{\sqrt{N!}}
+    \sum_{P}\zeta^{\abs{P}}
+    \sum_{i = 1}^{N}
+    \alpha_{Pi} |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    =&\ 
+    \frac{1}{\sqrt{N!}}
+    \sum_{P}\zeta^{\abs{P}}
+    \left( 
+        \sum_{j=1}^{d}
+        \hat{n}_{\lambda_{j}}
+        \lambda_{j}
+    \right) 
+    |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    =&\ 
+    \sum_{j=1}^{d}
+    \hat{n}_{\lambda_{j}}
+    \lambda_{j}
+    |\alpha_1, \ldots ,\alpha_{N}\},
+\end{align*}
+where the last equality holds 
+because in the second-to-last line, 
+the term $\sum_{j}\hat{n}_{j}\lambda_{j}$ 
+is independent of $P$ and thus can be factorized. 
+
+Switching basis should follow from straightforward 
+calculation: start with 
+\[
+    \hat{V}^{(1)}
+    =
+    \sum_{j=1}^{d}
+    \bra{j} \hat{V} \ket{j}
+    \hat{\psi}^{\dagger}_{j}\hat{\psi}_{j},
+\]
+where we have denoted 
+$\ket{\lambda_{j}}$ with $\ket{j}$, 
+and insert 
+\[
+    \hat{\psi}^{\dagger}_{j}
+    =
+    \sum_{i'} \bra{i'} \ket{j}
+    \hat{\psi}^{\dagger}_{i'}
+    ,\quad
+    \hat{\psi}_{j}
+    =
+    \sum_{k'} \bra{k'} \ket{j} ^{*}
+    \hat{\psi}_{k'}
+\]
+to obtain
+\begin{align*}
+    \hat{V}^{(1)}=&\ 
+    \sum_{j,i',k'}
+    \bra{j}\hat{V} \ket{j}
+    \hat{\psi}^{\dagger}_{i'}\hat{\psi}_{k'}
+    \bra{i'} \ket{j} \bra{j} \ket{k'}
+    \\
+    =&\ 
+    \sum_{j,i',k'}
+    \bra{i'}\ket{j}\bra{j} \hat{V} \ket{j} \bra{j} \ket{k'}
+    \hat{\psi}^{\dagger}_{i'}
+    \hat{\psi}_{k'}
+    \\
+    =&\ 
+    \sum_{i',k'}
+    \bra{i'} \hat{V} \ket{k'}
+    \hat{\psi}^{\dagger}_{i'} \hat{\psi}_{k'},
+\end{align*}
+where the last equation holds because 
+summing over $j$ in $\ket{j} \bra{j}$ produces $\mathds{1}$.
+
+\begin{graybox}
+\begin{res}
+    \label{res:1-body-operators}
+    Under second quantization, 
+    a 1-body operator $\hat{V}$ 
+    takes the form of
+    \begin{equation}
+        \hat{V}
+        =
+        \sum_{i,j=1}^{d}
+        \hat{\psi}_{\lambda_{i}}^{\dagger}
+        \hat{\psi}_{\lambda_{j}}
+        \bra{\lambda_{i}} \hat{V} 
+        \ket{\lambda_{j}},
+    \label{eqn:1-body-operator-under-second-quantization}
+    \end{equation}
+    where $\{\ket{\lambda_{j}}\}_{j=1}^{d}$ 
+    is any basis
+    for the 1-body Hilbert space $\mathbb{C}^{d}$. 
+    If $\left\{ \ket{\lambda_{j}} \right\}$ 
+    is an eigenbasis of $\hat{V}$ then 
+    we can insert $i = j$ and sum over $i$.
+\end{res}
+\end{graybox}
+
+\begin{rem}
+    \label{rem:recipe-for-calculating-2nd-quantized-operators}
+    From the calculations that led to 
+    \cref{res:1-body-operators}, 
+    we can see the general recipe of 
+    deriving operators under second quantization: 
+    \begin{enumerate}
+        \item 
+        Because $\hat{V}$ acting on 
+        a product state produces 
+        a scalar
+        $\sum_{i}\alpha_{i}$
+        that is 
+        independent of permutation, 
+        this scalar can be factorized 
+        out of the sum over permutations.
+        \item
+        Because 
+        $\forall$ 
+        $f: \mathbb{C}^{d} \mapsto \mathbb{C}$ 
+        and a Fock state 
+        $\ket{\alpha_1, \ldots ,\alpha_{N}}$ 
+        with 1-body Hilbert space $\mathbb{C}^{d}$
+        we have 
+        \[
+            \sum_{i = 1}^{N}
+        f(\ket{\alpha_{i}})
+        =
+        \sum_{j=1}^{d}
+        n_{\lambda_{j}}f(\ket{\lambda_{j}}),
+        \]
+        we can express $\hat{V}$ 
+        in terms of the number operator.
+    \end{enumerate}
+\end{rem}
+
+\begin{rem}
+    The only information carried by a 
+    physical state is occupation numbers, 
+    so it is only natural that 
+    any Hermitian operator can be 
+    expressed in terms of 
+    number operators. 
+\end{rem}
+
+\subsection{2-body operators}
+
+By definition, 2-body operators act on 
+\emph{pairs} of particles only. 
+For a 2-body operator $\hat{U}$, under its 
+eigenbasis 
+$\{\ket{\lambda_{j}}\}_{j=1}^{d}$, 
+$\hat{U}=\sum_{p < q}\hat{U}^{(p,q)}$ where  
+\[
+    \hat{U}^{(p,q)}=\hat{U}^{(p)}\otimes \hat{U}^{(q)}
+\]
+with 1-body operators 
+$\hat{U}^{(p)}=\hat{U}^{(q)}=
+\sum_{j=1}^{d}\lambda_{j} \ket{\lambda_{j}}
+\bra{\lambda_{j}}$. 
+
+Therefore, acting $\hat{U}$ on a product state gives 
+\begin{align*}
+    \hat{U}
+    |\alpha_1, \ldots ,\alpha_{N})
+    =&\ 
+    \sum_{i<j}
+    \hat{U}^{(i,j)}
+    |\alpha_1, \ldots ,\alpha_{N}) \\
+    =&\ 
+    \sum_{i<j}
+    \alpha_{i}\alpha_{j}
+    |\alpha_1, \ldots ,\alpha_{N})
+\end{align*}
+with 
+$\alpha_{i},\alpha_{j} 
+\in 
+\{\lambda_{k}\}_{k=1}^{d}$.
+
+We apply the recipe given in 
+\cref{rem:recipe-for-calculating-2nd-quantized-operators},
+
+\begin{enumerate}
+    \item Factorizing the scalar,
+    \begin{align*}
+        \hat{U} 
+        |\alpha_1, \ldots ,\alpha_{N}\}
+        =&\ 
+        \frac{1}{\sqrt{N!}}
+        \sum_{P}\zeta^{\abs{P}}
+        \hat{U}
+        |\alpha_{P1}, \ldots ,\alpha_{PN}) \\
+        =&\ 
+        \left( 
+            \sum_{i<j}
+            \alpha_{i}\alpha_{j}
+         \right) 
+        |\alpha_{1}, \ldots ,\alpha_{N}\},
+    \end{align*}
+    \item Expressing the scalar 
+    in terms of occupation numbers,
+    \begin{align*}
+        \sum_{i<j}
+        \alpha_{i}\alpha_{j}
+        =&\ 
+        \frac{1}{2}
+        \left( 
+            \sum_{i,j=1}^{N}
+            -
+            \sum_{i=j}
+         \right) 
+        \alpha_{i}\alpha_{j} \\
+        =&\ 
+        \frac{1}{2}
+        (\sum_{i}\alpha_{i})
+        (\sum_{j}\alpha_{j})
+        -
+        \frac{1}{2}\sum_{i}\alpha_{i}^{2} \\
+        =&\ 
+        \frac{1}{2}\sum_{\lambda,\lambda'}
+        \lambda \lambda' 
+        n_{\lambda} n_{\lambda '}
+        -
+        \frac{1}{2}
+        \sum_{\lambda} n_{\lambda} \lambda^{2} \\
+        =&\ 
+        \frac{1}{2}\sum_{\lambda,\lambda'}
+        \lambda \lambda '
+        (
+            n_{\lambda} n_{\lambda '}
+            -
+            \delta_{\lambda,\lambda '}
+            n_{\lambda}
+        ),
+    \end{align*}
+    where $\lambda, \lambda'$ label 
+    1-body eigenvalues,
+\end{enumerate}
+
+to obtain the 
+second-quantized formula for 2-body operators, 
+\[
+    \hat{U}
+    =
+    \frac{1}{2}
+    \sum_{\lambda,\lambda'}
+    \lambda \lambda'
+    \left( \hat{n}_{\lambda}\hat{n}_{\lambda'}
+    -
+    \delta_{\lambda,\lambda'}
+    \hat{n}_{\lambda} \right) .
+\]
+
+In fact, $\hat{n}_{\alpha}\hat{n}_{\beta}
+    -
+    \delta_{\alpha,\beta}
+    \hat{n}_{\alpha}$ 
+    equals to $\hat{\psi}^{\dagger}_{\alpha}\hat{\psi}^{\dagger}_{\beta}
+    \hat{\psi}_{\beta}\hat{\psi}_{\alpha}$. 
+If $\alpha \neq \beta$ then this equation is trivial; 
+otherwise, we can verify this using 
+\cref{res:commutators-of-creation-and-annihilation-operators}: 
+for Bosons, 
+\[
+    \psi ^{\dagger} \psi \psi ^{\dagger} \psi
+    -
+    \psi ^{\dagger} \psi
+    =
+    \psi ^{\dagger} (\psi \psi ^{\dagger} -\mathds{1}) \psi
+    = \psi ^{\dagger} \psi ^{\dagger} 
+    \psi \psi,
+\]
+and for fermions $\psi ^{\dagger} \psi ^{\dagger} \psi \psi=0$, while
+\[
+    \psi ^{\dagger} \psi \psi ^{\dagger} \psi 
+    -
+    \psi ^{\dagger} \psi
+    =
+    \psi ^{\dagger} (\psi \psi ^{\dagger} -\mathds{1}) \psi
+    =
+    - \psi ^{\dagger} \psi ^{\dagger} \psi \psi =0.
+\]
+
+Therefore, under second quantization, 
+a 2-body operator $\hat{U}$ is 
+\begin{equation*}
+    \hat{U}
+    =
+    \frac{1}{2}
+    \sum_{\lambda,\lambda'}
+    (\lambda \lambda'
+    |\hat{U}|
+    \lambda \lambda')
+    \hat{\psi}^{\dagger}_{\lambda}
+    \hat{\psi}^{\dagger}_{\lambda'}
+    \hat{\psi}_{\lambda'}
+    \hat{\psi}_{\lambda}.
+\end{equation*}
+
+Concerning switching basis, 
+if we take the straightforward approach 
+of inserting the 
+transformation for $\hat{\psi}^{\dagger}_{\lambda}$, 
+$\hat{\psi}^{\dagger}_{\lambda'}$, 
+$\hat{\psi}_{\lambda'}, \hat{\psi}_{\lambda}$, then 
+the calculation would be tedious. 
+Instead we reduce the problem at hand 
+to one already solved: switching basis 
+for 1-body operators. 
+In \cref{eqn:1-body-operator-under-second-quantization} 
+the basis is \textit{arbitrary}, meaning that 
+this equation is formally basis independent. 
+If we can write down 2-body operators 
+in terms of that equation, then 
+their expression become formally basis independent, too.
+
+We now 
+re-write $\hat{U}$ 
+in terms of 1-body operators. 
+Recalling $\hat{U}$ is a sum of 
+terms like $\hat{U}^{(p)}\otimes \hat{U}^{(q)}$, 
+the inner product 
+$
+    (\lambda \lambda'
+    |\hat{U}|
+    \lambda \lambda')
+$
+is just a sum of terms like
+\begin{align*}
+    (\lambda \lambda' | \hat{U}^{(p)}\otimes \hat{U}^{(q)}
+    |\lambda \lambda')
+    =&\ 
+    (\lambda \lambda' | \hat{U}^{(p)}\otimes \mathds{1}^{(q)}
+    |\lambda \lambda')
+    \cross 
+    (\lambda \lambda' | \mathds{1}^{(p)}\otimes \hat{U}^{(q)}
+    |\lambda \lambda')
+    \\
+    =&\ 
+    \bra{\lambda} \hat{U}^{(p)} \ket{\lambda}
+    \cross 
+    \bra{\lambda'} \hat{U}^{(q)} \ket{\lambda'},
+\end{align*}
+which are 1-body quantities. 
+
+Having taken care of the scalar part
+$
+    (\lambda \lambda'
+    |\hat{U}|
+    \lambda \lambda'),
+$ 
+let us examine the operator part of $\hat{U}$. In the equation
+\[
+    \hat{U}=
+    \frac{1}{2}
+    \sum_{\lambda,\lambda'}
+    \lambda \lambda'
+    \left( \hat{n}_{\lambda}\hat{n}_{\lambda'}
+    -
+    \delta_{\lambda,\lambda'}
+    \hat{n}_{\lambda} \right) .
+\]
+there are two terms: the first one is 
+\begin{align*}
+    (\lambda \lambda'
+    |\hat{U}|
+    \lambda \lambda')
+    \hat{n}_{\lambda} \hat{n}_{\lambda'}
+    =&\ 
+    \bra{\lambda} \hat{U}^{(p)} \ket{\lambda}
+    \hat{n}_{\lambda}
+    \cross 
+    \bra{\lambda'} \hat{U}^{(q)} \ket{\lambda'}
+    \hat{n}_{\lambda'},
+\end{align*}
+and the second is zero for $\lambda \neq \lambda'$, 
+\[
+    \bra{\lambda} \hat{U}^{(p)} \ket{\lambda}
+    \bra{\lambda} \hat{U}^{(q)} \ket{\lambda}
+    \hat{n}_{\lambda}
+    =
+    \expval{\left( \hat{U}^{(1)} \right)^{2}}{\lambda}
+    \hat{n}_{\lambda}
+\]
+for $\lambda = \lambda'$ where 
+$\hat{U}^{(p)}=\hat{U}^{(q)}=\hat{U}^{(1)}$. 
+Both terms consist of 
+1-body number operators multiplied by 
+their corresponding eigenvalues, which 
+match the form of 
+\cref{eqn:1-body-operator-under-second-quantization}, 
+so they are formally basis independent. 
+
+\begin{graybox}
+    \begin{res}
+        Under second quantization, 
+        a 2-body operator $\hat{U}$ is 
+        \begin{equation}
+            \hat{U}
+            =
+            \frac{1}{2}
+            \sum_{\alpha,\beta,\alpha',\beta'}^{d}
+            (\alpha \beta
+            |\hat{U}|
+            \alpha' \beta')
+            \hat{\psi}^{\dagger}_{\alpha}
+            \hat{\psi}^{\dagger}_{\beta}
+            \hat{\psi}_{\beta'}
+            \hat{\psi}_{\alpha'},
+        \end{equation}
+        with 
+        $\ket{\alpha},\ket{\beta}, 
+        \ket{\alpha'}, \ket{\beta'}
+        \in \{\ket{\lambda}\}$, 
+        an arbitrary basis 
+        for the 1-body space $\mathbb{C}^{d}$. 
+        If 
+        $\{|\alpha \beta)\}$ 
+        is an eigenbasis of $\hat{U}$, then 
+        we can insert 
+        $\alpha = \alpha', \beta = \beta'$ 
+        and sum over $\alpha, \beta$.
+    \end{res}
+\end{graybox}
+
+\section{General comments and bibliographical notes}
+While important for any advanced study in physics, 
+second quantization has not been given the rigor and 
+emphasis it deserves in many texts. Most textbooks simply 
+use the harmonic oscillator to motivate the formulae of 
+creation and annihilation operators, and force the reader 
+to accept Fock states without explicitly constructing them 
+using product states.
+
+The approach taken in this note is better than most books 
+since it shows that second quantization is simply a basis 
+transformation within physical subspaces from product states to 
+Fock states (which are ``scrambled'' product states). 
+There is hardly any physical subtlety or postulate 
+related with second quantization, except perhaps 
+that 
+the physical nature of ``permutation'' depends on 
+dimensionality, which gives rise to anyons in (2+1)D. 
+\footnote{
+    A simple argument concerning 
+    how particle exchange statistics 
+    are fundamentally different between 
+    (2+1)D and (3+1)D can be found in 
+    Chapter 3 of \cite{simon_topological_2023}.
+    Click on the hyperlink provided 
+    in the bibliography to access 
+    the free version of the book.
+}
+
+This note treats 
+the topic so that 
+\blockcquote{shankar_principles_1994}{by segregating mathematical theorems from physical postulates, any confusion as to which is which is nipped in the bud}. 
+While not particularly enthusiastic about formal topics in physics, 
+I find this slightly formal introduction to second quantization suitable.
+
+
+\printbibliography
+\end{document}
