@@ -14,4 +14,4 @@ Start wherever you like and click around, but keep in mind you can always search
 
 ## Background
 
-The page [[knowledge garden]] explains the motivation behind this knowledge garden.
+The page [[knowledge garden]] explains the motivation.
