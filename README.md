@@ -1,0 +1,1 @@
+This is the repository for my [[knowledge garden]], created with the help of [Silverbullet](https://silverbullet.md/). The recommended way to access this knowledge garden is via `https://wentaoli.xyz`.
