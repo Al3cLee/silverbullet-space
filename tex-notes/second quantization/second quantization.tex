@@ -22,6 +22,7 @@ leftmargin=*, ref = Step \arabic*}
 \newtcolorbox{graybox}{colback=gray!20!white, boxrule=0mm, sharp corners=all}
 
 \theoremstyle{definition}
+\newtheorem{pos}{Postulate}[section]
 \newtheorem{res}{Result}[section]
 \newtheorem{mot}{Motivation}[section]
 \newtheorem{calc}{Calculation}[section]
@@ -1719,25 +1720,26 @@ it is invariant upon permutation of particles.
 
 Following the recipe mentioned 
 in \cref{mot:operators-under-second-quantization}
-we calculate $\hat{V}|\alpha_1, \ldots ,\alpha_{N}\}$,
+we calculate $\hat{V}|\alpha_1, \ldots ,\alpha_{N}\}$ 
+by projecting onto the product basis,
 
 \begin{align*}
     \hat{V}|\alpha_1, \ldots ,\alpha_{N}\}
     =&\ 
     \frac{1}{\sqrt{N!}}
     \sum_{P}\zeta^{\abs{P}}
-    \hat{V} |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    \hat{V} |\alpha_{P1}, \ldots ,\alpha_{PN}) \\
     =&\ 
     \frac{1}{\sqrt{N!}}
     \sum_{P}\zeta^{\abs{P}}
     \sum_{i =1} ^{N}
     \hat{V}^{(Pi)}
-    |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    |\alpha_{P1}, \ldots ,\alpha_{PN}) \\
     =&\ 
     \frac{1}{\sqrt{N!}}
     \sum_{P}\zeta^{\abs{P}}
     \sum_{i = 1}^{N}
-    \alpha_{Pi} |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    \alpha_{Pi} |\alpha_{P1}, \ldots ,\alpha_{PN}) \\
     =&\ 
     \frac{1}{\sqrt{N!}}
     \sum_{P}\zeta^{\abs{P}}
@@ -1746,7 +1748,7 @@ we calculate $\hat{V}|\alpha_1, \ldots ,\alpha_{N}\}$,
         \hat{n}_{\lambda_{j}}
         \lambda_{j}
     \right) 
-    |\alpha_{P1}, \ldots ,\alpha_{PN}\} \\
+    |\alpha_{P1}, \ldots ,\alpha_{PN}) \\
     =&\ 
     \sum_{j=1}^{d}
     \hat{n}_{\lambda_{j}}
