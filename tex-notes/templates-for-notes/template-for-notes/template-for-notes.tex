@@ -14,10 +14,16 @@
 \setlist[steps]{label=\textit{Step \arabic*}., 
 leftmargin=*, ref = Step \arabic*}
 
+% fancy boxes
+\usepackage{tcolorbox}
+\newtcolorbox{graybox}{colback=gray!20!white, boxrule=0mm, sharp corners=all}
+
 % math formatting
 \usepackage{xcolor,dsfont,amsthm,amsfonts,mathtools,amsmath,physics}
 \usepackage[mathcal]{euscript}
 \theoremstyle{definition}
+\newtheorem{pos}{Postulate}[section]
+\newtheorem{res}{Result}[section]
 \newtheorem{mot}{Motivation}[section]
 \newtheorem{calc}{Calculation}[section]
 \newtheorem{rem}{Remark}[section]
@@ -27,7 +33,6 @@ leftmargin=*, ref = Step \arabic*}
 \theoremstyle{plain}
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lem}{Lemma}[section]
-\newtheorem{res}{Result}[section]
 \numberwithin{equation}{section}
 
 \usepackage{cleveref}

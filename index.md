@@ -1,6 +1,6 @@
 # Index
 
-Hi! This is the [[knowledge garden]] of [[Wentao Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[physics]], [[math]] and [[computer-science]].
+Hi! This is the [[knowledge garden]] of [[Wentao Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[physics]], [[math]] and [[computer-science]]. After the initial loading (which might take a little while) this website will remain available _even without internet connection_.
 
 ## Usage
 

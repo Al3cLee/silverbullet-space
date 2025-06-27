@@ -13,7 +13,6 @@ latex-note: "yes"
 ![[images/orthogonal-complement-projector.svg]]
 5. Because projectors are basis independent, they can be constructed without explicitly knowing the basis vectors for the subspace.
 
-
 ## LaTeX Note
 
 ${pdfPath("projector")}
