@@ -32,7 +32,7 @@ The key difference between the two layers of data is that references are dynamic
 
 ---
 
-Git is initialized in a folder via running `git init` inside it. After that, all activity in this folder will be monitored by Git, with exceptions set in the [`.gitignore`](https://git-scm.com/docs/gitignore) file.
+Git is initialized in a folder via running `git init` inside it. This folder is known as a Git _repository_. After that, all activity in the repository will be monitored by Git, with exceptions set in the [`.gitignore`](https://git-scm.com/docs/gitignore) file.
 
 The data structure of git centers around _commits_. A commit consists of
 
@@ -87,12 +87,39 @@ Proceeding with our previous example, for two lines of development `X` and `Y`, 
 
 Now, “switching to a line of development” is realized by “summoning” one of the references to keep up, while the unsummoned references stay where they are. E.g., `git switch branch-X` will tell the reference `branch-X` that it should automatically update itself to keep up with all following commits. 
 
+In the diagram below, each box represents a folder. In the solution without Git, there are two on-disk folders (black), while in the solution with Git, at every step of development only one folder is on-disk (black), and the other is stored in Git’s memory (gray). A gray folder is _not_ on-disk, but Git knows how to produce it when needed. Note that `X0=Y0` because nothing has been added to either `X` or `Y`.
+
+To switch the line of development from `X` to `Y`, Git 
+
+* deletes the folder `X1` and produces `Y0` on-disk, thus turning `X1` gray and `Y0` black,
+* tells `branch-X` to stay put, and
+* summons the label `branch-Y` to keep up.
+![git-vs-folder](/images/git-vs-folder.svg)
+
+From the perspective of references and the objects they point to, the process is as follows; references are in blue and each box is a commit instead of folder.
+![branching-and-merging](/images/branch-activity.svg)
+
 With the branches all pointing to their respective lines of developments’ latest commit, the user can easily work with many parallel lines of development. On-disk files are automatically changed by git when the user `checkout`s at different branches.
 
 Git can merge files automatically _when they are orthogonal_. Otherwise, Git will indicate the existence of a `merge conflict` and prompt the user to manually merge the conflicting files. Although Git is powerful, one should minimize the overlap of different lines of development to avoid merge conflicts.
 
 ## Remotes
 
-Conceptually, remotes are rather trivial. We only need to notice that in the presence of remotes, when specifying a commit, we need to specify its repository since there are more than one.
+A Git _remote_ is a repository that is connected (via `git remote add`) to some other repository. It can be either on the same machine as the connected repository or on the internet. Distributing the same project among several repositories facilitates syncing and collaboration. 
 
-Technically, operations involving remotes _are_ different from operations inside a single repository, so there are dedicated git commands to deal with them. In most cases, `git push` and `git pull` are enough to take care of all remote-related operations.
+Note that a repository and its remote are “equally original”, there is no need to remember which repository is the original one. When `A` is a remote of `B`, `B` can also be a remote of `A`.
+
+Most Git operations are carried out _within_ a repository, and communication between repositories use a separate set of Git tools. Conversely, such tools are _only capable of communication between repositories_, they do not provide any additional local Git operation.
+
+---
+
+Communication between a repository and its remotes happen on the level of branches. From one repository, Git can `pull` a branch from a remote or `push` a branch to it. This means all (nontrivial) commits on the branch are sent between repositories, so after sending a branch to a remote, version control of this branch becomes available on the remote. For the meaning of “nontrivial”, see Pro Git.
+
+The workflow of working with a remote is then
+
+* `git remote add` the remote so that the current repository becomes aware of the remote,
+* `git push` some branch to the remote, or `git pull` from the remote,
+* do whatever `git` operation needed locally,
+* `git push` or `pull` the new commits to or from remotes.
+
+Actually, `git push` and `git pull` does more than just sending data, e.g. `git pull` automatically fast-forwards the local branch if it is “behind” the remote branch. For details, see the [Git documentation](https://git-scm.com/doc).
