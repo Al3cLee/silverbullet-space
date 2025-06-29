@@ -32,3 +32,24 @@ To sum up, a typical technical note consists of
 In the context of Q&A, the motivation paragraph raises a question, the discussion and result sections answer it, and then the remark section reflects upon this Q&A process. 
 
 In this knowledge garden, technical notes are usually structured as above, but the different parts may not be marked explicitly by a title (e.g. `## Motivation`). Instead, horizontal rules are inserted between different stages of narration, while titles indicate topics.
+
+## Physics notes
+
+A physical formalism (i.e. a “theory”) and its applications are often written in the same chapter in textbooks. This prevents the reader from separating the specifics from general considerations and postulates, so in my notes a formalism is often separated from its applications. 
+
+Actually, it is often the case that a theory is elaborated _exclusively within the context of an example_. While one would always appreciate a good motivational part, that this part limits the scope of the whole note can be annoying, e.g. a chapter on the addition of angular momentum usually starts with the spin-1/2 example, but some books dwell on this particular case and provide nothing else.
+
+My approach is to 
+
+* take notes on the formalism without relying on its applications, and
+* when only knowing about a specific case, take notes on this case only and refrain from naming the note as “some theory”.
+
+## Computer science notes
+
+In computer science, especially the less “theoretical” parts of it, logical reasoning is not usually the key. Instead the various concepts are often intertwined, one depending on another without having an overall pre-determined logical order.
+
+My approach is to try my best in finding a good motivation, for a software cannot take shape without a solid motivation. The motivation is often that a tedious task can be automated with code in computer science. 
+
+Anyway, I start with this motivation and bring up new concepts that it produces. But there are always cases where earlier concepts require later ones to elaborate, in such cases I don’t hesitate at all to mention the later ones (in wiki-links), since arranging them in a perfectly logical order is against the very nature of programs. Functionalities are developed with each other in mind, not in a rigid logical sequence.
+
+A helpful way to make CS notes clearer is providing a glossary of technical terms. Besides, providing a [[minimum working example]] is also essential.
