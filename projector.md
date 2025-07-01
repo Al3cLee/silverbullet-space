@@ -1,7 +1,8 @@
 ---
 tags: 
 - "math/algebra"
-latex-note: "yes"
+latex-note: true
+finished: true
 ---
 
 # Projector

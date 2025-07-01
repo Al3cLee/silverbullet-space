@@ -1,0 +1,13 @@
+{
+  "jwtSecretKey": {
+    "kty": "oct",
+    "k": "qSTyEn2q_POACGKbcq9MeU7yHmluBKRkrUtCEg4h-1XDRyv8yQNvdMSnLAp6AikM8iSqWQStd0Ob1joPUP1Wl2rGtrQyCvupH_Sd0BRFxDI03OQ4LaRcQHax-Na87oTvGvLUCmILOYWBwQ3zRcqzmP1fHr8NRp78VhM6QK0d-mM",
+    "alg": "HS512",
+    "key_ops": [
+      "sign",
+      "verify"
+    ],
+    "ext": true
+  },
+  "authHash": "6596b4578bbad28054be6c79d1ab01b437174988c41a9de858a37a3fdfc7fb23"
+}

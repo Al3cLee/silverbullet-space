@@ -2,6 +2,7 @@
 tags: 
 - "workflow"
 - "computer-science/tool"
+finished: true
 ---
 
 # Bibliography management

@@ -2,7 +2,8 @@
 tags: 
 - "physics/quantum-field-theory" 
 - "physics/condensed-matter"
-latex-note: "yes"
+latex-note: true
+finished: true
 ---
 
 # Second Quantization 

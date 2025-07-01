@@ -1,6 +1,7 @@
 ---
 tags: 
 - "computer-science/LaTeX"
+finished: true
 ---
 
 # BibLaTeX
