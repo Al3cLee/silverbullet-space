@@ -1,7 +1,8 @@
 ---
 tags:
 - "workflow"
-- "computer-science/tools"
+- "computer-science/tool"
+finished: false
 ---
 
 # Ghostty

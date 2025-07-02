@@ -16,7 +16,7 @@ ${template.each(query[[
 
 Pages are organized by tags instead of folders. A complete list of tags is available below. For each `<tag>`, there is a page called `<tag>` which serves as its table of contents, i.e. lists all of its relevant pages and sub-tags.
 
-${query[[from index.tag "tag" where name:startsWith("meta") == false select name]]}
+${query[[from index.tag "tag" where name:startsWith("meta") == false select {Tag = name, Page = "[["..name.."]]"} ]]}
 
 Start wherever you like and click around, but keep in mind you can always search for stuff.
 
