@@ -20,7 +20,7 @@ These two tasks are often subject to rigid formatting conventions, e.g. [APA sty
 
 Automating the formatting of citations and the bibliography can be realized by dividing labor between the author and the writing software. The author points the software to some reference, and the software takes care of all formatting.
 
-For the software to locate the reference we are pointing to, a unique identifier can be assigned to each reference. For example, a book can be uniquely identified by its ISBN number, an online talk by its Youtube URL. However, such identiers could be confusing to the human eye, since they are not written in natural language. This calls for the use of _bibliography keys_ which are human-readable, unique pointers to references. 
+For the software to locate the reference we are pointing to, a unique identifier can be assigned to each reference. For example, a book can be uniquely identified by its ISBN number, an online talk by its Youtube URL. However, such identifiers could be confusing to the human eye, since they are not written in natural language. This calls for the use of _bibliography keys_ which are human-readable, unique pointers to references. 
 
 So now the workflow becomes
 
