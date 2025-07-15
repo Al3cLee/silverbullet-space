@@ -70,4 +70,11 @@ slashcommand.define {
     editor.moveCursor(editor.getCursor() - 3)
   end
 }
+
+```
+
+```space-style
+.sb-lua-directive-inline:has(.katex-html) {
+  border: none !important;
+}
 ```
