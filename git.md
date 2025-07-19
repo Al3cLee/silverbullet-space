@@ -2,7 +2,7 @@
 tags: 
 - "computer-science/tool"
 - "computer-science/missing-semester"
-finished: true
+finished: false
 ---
 
 # Git

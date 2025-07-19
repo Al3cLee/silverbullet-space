@@ -4,6 +4,8 @@ Hi! This is the [[knowledge garden]] of [[Wentao Li]], built with [Silverbullet]
 
 ## Usage
 
+Blue words are click-able. They are either wiki-links to pages within this [SilverBullet space](https://silverbullet.md/Spaces) or URL links to outside webpages.
+
 The current page is [[index]], click the “house” icon on the upper right corner to get back here. You can search for pages via `Cmd-K` (`Ctrl-K` for Windows), or via clicking the “page” icon. Full text search is available via `Cmd-Shift-F` (`Ctrl-Shift-F` for Windows).
 
 Below are the last 5 edited pages: 
@@ -24,4 +26,4 @@ Start wherever you like and click around, but keep in mind you can always search
 
 ## Background
 
-The page [[knowledge garden]] explains the motivation.
+See [[knowledge garden]].
