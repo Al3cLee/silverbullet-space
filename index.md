@@ -8,7 +8,7 @@ Hi! This is the [[knowledge garden]] of [[Wentao Li]], built with [Silverbullet]
 * The current page is [[index]], click the "house" icon on the upper right corner to get back here.
 * You can search for pages via `Cmd-K` (`Ctrl-K` for Windows), or via clicking the "page" icon. On mobile devices, tap with 2 fingers to search.
 * Full text search is available via `Cmd-Shift-F` (`Ctrl-Shift-F` for Windows).
-* Dark theme is available via clicking on the command icon and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
+* Dark theme is available via clicking on the "command" icon and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
 
 Below are the last 5 edited pages: 
 
