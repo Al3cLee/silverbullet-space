@@ -82,10 +82,10 @@ slashcommand.define {
 ```space-style
 html[data-theme="dark"] {
   --root-color: rgb(217,222,232);
-  --root-background-color: rgb(47,52,63);
-  --top-background-color: rgb(52,57,68);
-  --bhs-background-color: rgb(52,57,68);
-  --editor-panels-bottom-background-color: rgb(52,57,68);
-  --subtle-background-color: rgb(67,72,83)
+  --root-background-color: rgb(52,57,68);
+  --top-background-color: rgb(67,72,83);
+  --bhs-background-color: rgb(67,72,83);
+  --editor-panels-bottom-background-color: rgb(67,72,83);
+  --subtle-background-color: rgba(25,26,29,0.4)
 }
 ```
