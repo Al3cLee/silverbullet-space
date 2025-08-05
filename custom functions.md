@@ -86,6 +86,5 @@ html[data-theme="dark"] {
   --top-background-color: rgb(67,72,83);
   --bhs-background-color: rgb(67,72,83);
   --editor-panels-bottom-background-color: rgb(67,72,83);
-  --subtle-background-color: rgba(25,26,29,0.4)
-}
+  --subtle-background-color: rgba(25,26,29,0.4);
 ```
