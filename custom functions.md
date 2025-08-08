@@ -87,9 +87,5 @@ html[data-theme="dark"] {
   --bhs-background-color: rgb(67,72,83);
   --editor-panels-bottom-background-color: rgb(67,72,83);
   --subtle-background-color: rgba(25,26,29,0.4);
-  --editor-font: "Fira Code";
-}
-html{
-  --editor-font: "Fira Code";
 }
 ```
