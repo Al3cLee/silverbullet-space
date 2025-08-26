@@ -1,6 +1,0 @@
----
-tags:
-- "math"
-finished: false
----
-
