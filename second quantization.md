@@ -2,7 +2,6 @@
 tags: 
 - "physics/quantum-field-theory" 
 - "physics/condensed-matter"
-latex-note: true
 finished: true
 ---
 

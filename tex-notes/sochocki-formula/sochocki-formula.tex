@@ -1,0 +1,147 @@
+\documentclass{article}
+
+% document structure
+\usepackage[hidelinks]{hyperref}
+\usepackage{csquotes}
+% \blockcquote[⟨prenote⟩][⟨postnote⟩]{⟨key⟩}[⟨punct⟩]{⟨text⟩}⟨tpunct⟩
+\usepackage[backend=biber]{biblatex}
+\addbibresource{ref.bib}
+\usepackage[margin=1in]{geometry}
+
+% advanced lists
+\usepackage{enumitem}
+\newlist{steps}{enumerate}{2}
+\setlist[steps]{label=\textit{Step \arabic*}., 
+leftmargin=*, ref = Step \arabic*}
+
+% fancy boxes
+\usepackage{tcolorbox}
+\newtcolorbox{graybox}{colback=gray!20!white, boxrule=0mm, sharp corners=all}
+
+% math formatting
+\usepackage{xcolor,dsfont,amsthm,amsfonts,mathtools,amsmath,physics}
+\usepackage[mathcal]{euscript}
+\theoremstyle{definition}
+\newtheorem{pos}{Postulate}[section]
+\newtheorem{res}{Result}[section]
+\newtheorem{mot}{Motivation}[section]
+\newtheorem{calc}{Calculation}[section]
+\newtheorem{rem}{Remark}[section]
+\newtheorem{dfn}{Definition}[section]
+\newtheorem{eg}{Example}[section]
+\newtheorem{recipe}{Recipe}[section]
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lem}{Lemma}[section]
+\numberwithin{equation}{section}
+
+\usepackage{cleveref}
+\crefname{figure}{fig.}{figs.}
+\crefname{equation}{eqn.}{eqns.}
+\crefname{dfn}{definition}{definitions}
+\crefname{mot}{motivation}{motivations}
+\crefname{thm}{theorem}{theorems}
+\crefname{lem}{lemma}{lemmas}
+\crefname{rem}{remark}{remarks}
+\crefname{calc}{calculation}{calculations}
+\crefname{res}{result}{results}
+\crefname{sec}{section}{sections}
+
+\author{Wentao Li}
+\begin{document}
+    
+\title{The Sochocki Formula}
+
+\maketitle
+
+\begin{abstract}
+    The Sochocki formula (proven by 
+    Polish mathematician Julian Karol Sochocki) 
+    is stated and proven. 
+    This formula is also known as the 
+    ``Dirac relation'' in physics literature.
+\end{abstract}
+
+We want to derive the distribution identity
+\begin{equation}
+\frac{1}{x-i0^+} = \mathcal{P}\frac{1}{x} + i\pi \delta(x).
+\end{equation}
+
+This should be understood in the sense of distributions, i.e.\ after integrating against a smooth test function $f(x)$.
+
+\section{Real part: principal value}
+
+Consider
+\begin{equation}
+\Re \frac{1}{x-i\eta} = \frac{x}{x^{2}+\eta^{2}}, \qquad \eta > 0.
+\end{equation}
+We want to show
+\begin{equation}
+\lim_{\eta\to0^+}\int_{-\infty}^{\infty} f(x)\,\frac{x}{x^2+\eta^2}\,dx
+= \mathcal{P}\int_{-\infty}^{\infty}\frac{f(x)}{x}\,dx.
+\end{equation}
+
+Write
+\begin{equation}
+f(x)=f(0)+x g(x), \qquad g(x)=\frac{f(x)-f(0)}{x}, \quad (x\neq 0).
+\end{equation}
+Then
+\begin{align}
+\int f(x)\frac{x}{x^2+\eta^2}\,dx
+&= f(0)\int \frac{x}{x^2+\eta^2}\,dx + \int g(x)\frac{x^2}{x^2+\eta^2}\,dx, \\
+&= 0 + \int g(x)\frac{x^2}{x^2+\eta^2}\,dx.
+\end{align}
+As $\eta \to 0$, $\frac{x^2}{x^2+\eta^2} \to 1$, so by dominated convergence
+\begin{equation}
+\lim_{\eta\to0^+}\int g(x)\frac{x^2}{x^2+\eta^2}\,dx = \int g(x)\,dx.
+\end{equation}
+Meanwhile,
+\begin{equation}
+\mathcal{P}\int \frac{f(x)}{x}\,dx = \int g(x)\,dx,
+\end{equation}
+since the constant term vanishes in the principal value sense. Thus the real part gives the PV integral.
+
+\section{Imaginary part: delta function}
+
+Now consider
+\begin{equation}
+\Im \frac{1}{x-i\eta} = \frac{\eta}{x^2+\eta^2}.
+\end{equation}
+We compute
+\begin{equation}
+\int_{-\infty}^{\infty} f(x)\,\frac{\eta}{x^2+\eta^2}\,dx.
+\end{equation}
+Change variables $x = \eta t$:
+\begin{equation}
+\int_{-\infty}^{\infty} \frac{f(\eta t)}{1+t^2}\,dt.
+\end{equation}
+As $\eta \to 0$, $f(\eta t)\to f(0)$, so
+\begin{equation}
+\lim_{\eta\to0^+}\int f(x)\,\frac{\eta}{x^2+\eta^2}\,dx = f(0)\int_{-\infty}^{\infty}\frac{dt}{1+t^2} = \pi f(0)
+\end{equation}
+where we have used
+\[
+    \int _{-\infty} ^{+\infty} \dd t\ 
+    \frac{1}{1+t^{2}} 
+    =
+    \arctan(+\infty) - \arctan(-\infty)
+    = \pi.
+\]
+Thus
+\begin{equation}
+\frac{\eta}{x^2+\eta^2} \xrightarrow{\ \eta \to 0^+\ } \pi \delta(x).
+\end{equation}
+
+\section{Combined result (Sokhotski--Plemelj formula)}
+
+Putting the two limits together:
+\begin{equation}
+\frac{1}{x-i0^+} = \mathcal{P}\frac{1}{x} + i\pi \delta(x), \qquad
+\frac{1}{x+i0^+} = \mathcal{P}\frac{1}{x} - i\pi \delta(x).
+\end{equation}
+
+The spelling of the Polish name ``Sochocki'' has some alternatives, 
+such as ``Sokhotski''. In the physics literature this is the Dirac relation.
+
+\printbibliography
+\end{document}

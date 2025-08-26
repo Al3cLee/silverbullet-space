@@ -1,7 +1,6 @@
 ---
 tags: 
 - "math/algebra"
-latex-note: true
 finished: true
 ---
 
