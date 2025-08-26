@@ -6,7 +6,7 @@ finished: true
 
 # BibLaTeX
 
-BibLaTeX is a [[bibliography management]] LaTeX package. Using it is similar to other packages: declare `\usepackage[backend=biber]{biblatex}` in the preamble (`biber` is a command-line tool that compiles BibLaTeX related code) and do what you want in the `.tex` file, then compile. But the compilation is a bit complicated.
+BibLaTeX is a [[bibliography_management]] LaTeX package. Using it is similar to other packages: declare `\usepackage[backend=biber]{biblatex}` in the preamble (`biber` is a command-line tool that compiles BibLaTeX related code) and do what you want in the `.tex` file, then compile. But the compilation is a bit complicated.
 
 Before running `biblatex <file>.tex`, the `.tex` file needs to be complied by a LaTeX compiler which produces PDF, for example `xelatex <file>.tex`. Then, we should run `biber <file>`, not `biber <file>.tex`, note that the postfix is left out. Finally, running the PDF engine once or twice more will produce the desired result.
 

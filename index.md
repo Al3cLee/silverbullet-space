@@ -1,6 +1,6 @@
 # Index
 
-Hi! This is the [[knowledge garden]] of [[Wentao Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[physics]], [[math]] and [[computer-science]]. After the initial loading (which might take a little while) this website will remain available _even without internet connection_.
+Hi! This is the [[knowledge_garden]] of [[Wentao_Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[physics]], [[math]] and [[computer-science]]. After the initial loading (which might take a little while) this website will remain available _even without internet connection_.
 
 ## Usage
 
@@ -18,7 +18,7 @@ ${template.each(query[[
   limit 5
 ]], templates.pageItem)}
 
-To see what I’m currently working on, see the [[unfinished pages]].
+To see what I’m currently working on, see the [[unfinished_pages]].
 
 Pages are organized by tags instead of folders. A complete list of tags is available below. For each `<tag>`, there is a page called `<tag>` which serves as its table of contents, i.e. lists all of its relevant pages and sub-tags.
 
@@ -28,4 +28,4 @@ Start wherever you like and click around, but keep in mind you can always search
 
 ## Background
 
-See [[knowledge garden]].
+See [[knowledge_garden]].
