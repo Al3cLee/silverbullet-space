@@ -137,9 +137,9 @@ where the `@...` syntax is shorthand for the #link("https://typst.app/docs/refer
 
 = Scripting in Typst
 
-Examples of Typst scripts are collected here. I don't yet have the ability to do a top-down explanation on this, but Typst's scripting language is quite intuitive.
+Examples of Typst scripts are collected here. I don't yet have the ability to do a top-down explanation on this, but Typst's scripting language is quite intuitive. Anyone with a bit of Python fluency should be able to learn it quickly: `value`s have #link("https://typst.app/docs/reference/scripting/#fields")[`fields`] and #link("https://typst.app/docs/reference/scripting/#methods")[`methods`], just like Python objects.
 
-== Formatting and dates
+Formatting and dates. 
 
 The title of this document is typeset via 
 
@@ -164,20 +164,11 @@ To customize a numbered list environment, in LaTeX one needs the `enumitem` pack
 [another point]
 )
 ```
-which produces: 
-
-#enum(numbering: n => emph[Step #n.], 
-[first point],
-[another point]
-)
-
-
 == Equation numbering
 
 Equation numbering in this document is automatic. Consider the following equations.
 
-$ "First equation:" x & =1 \
- & != 2 $
+$ "First equation:" x =1 $
 
 $ "Second equation:" x^2=1 $ <another-label> 
 
