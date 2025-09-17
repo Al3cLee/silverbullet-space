@@ -139,7 +139,7 @@ where the `@...` syntax is shorthand for the #link("https://typst.app/docs/refer
 
 Examples of Typst scripts are collected here. I don't yet have the ability to do a top-down explanation on this, but Typst's scripting language is quite intuitive. Anyone with a bit of Python fluency should be able to learn it quickly: `value`s have #link("https://typst.app/docs/reference/scripting/#fields")[`fields`] and #link("https://typst.app/docs/reference/scripting/#methods")[`methods`], just like Python objects.
 
-Formatting and dates. 
+== Formatting and dates 
 
 The title of this document is typeset via 
 
