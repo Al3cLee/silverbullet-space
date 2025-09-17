@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.2.3)  26 AUG 2025 10:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.2.3)  17 SEP 2025 11:00
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -875,13 +875,13 @@ Package logreq Info: Writing requests to 'template-for-notes.run.xml'.
 Here is how much of TeX's memory you used:
  30813 strings out of 476025
  590356 string characters out of 5790018
- 1854388 words of memory out of 5000000
+ 1853388 words of memory out of 5000000
  50858 multiletter control sequences out of 15000+600000
  518443 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,6n,104p,691b,801s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb>
-Output written on template-for-notes.pdf (1 page, 61894 bytes).
+Output written on template-for-notes.pdf (1 page, 62188 bytes).
 PDF statistics:
  47 PDF objects out of 1000 (max. 8388607)
  31 compressed objects within 1 object stream

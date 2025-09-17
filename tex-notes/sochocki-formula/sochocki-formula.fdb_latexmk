@@ -1,12 +1,12 @@
 # Fdb version 4
-["biber sochocki-formula"] 1756175166 "sochocki-formula.bcf" "sochocki-formula.bbl" "sochocki-formula" 1756175432 0
+["biber sochocki-formula"] 1756175166 "sochocki-formula.bcf" "sochocki-formula.bbl" "sochocki-formula" 1758012988 0
   "./ref.bib" 1756174572 0 d41d8cd98f00b204e9800998ecf8427e ""
-  "sochocki-formula.bcf" 1756175432 107694 dbde7571217d22797bd84e95a6105cc0 "pdflatex"
+  "sochocki-formula.bcf" 1758012988 107694 dbde7571217d22797bd84e95a6105cc0 "pdflatex"
   (generated)
   "sochocki-formula.bbl"
   "sochocki-formula.blg"
   (rewritten before read)
-["pdflatex"] 1756175431 "sochocki-formula.tex" "sochocki-formula.pdf" "sochocki-formula" 1756175432 0
+["pdflatex"] 1758012987 "sochocki-formula.tex" "sochocki-formula.pdf" "sochocki-formula" 1758012988 0
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
   "/usr/local/texlive/2023/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1246382020 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -191,11 +191,11 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1707011514 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1707011449 7883457 f9eeb3712634cba2a97468a386bb2b69 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "sochocki-formula.aux" 1756175432 1054 67e562919784bbc7e1f2fce46b9dd7fc "pdflatex"
+  "sochocki-formula.aux" 1758012988 1054 67e562919784bbc7e1f2fce46b9dd7fc "pdflatex"
   "sochocki-formula.bbl" 1756175168 466 ee04f40f768daeed26442158e95aba61 "biber sochocki-formula"
-  "sochocki-formula.out" 1756175432 660 9753a5e0c8f9667d49e37e59c32c09c6 "pdflatex"
-  "sochocki-formula.run.xml" 1756175432 2382 f85b56ebe90305ca53e8455976de57e6 "pdflatex"
-  "sochocki-formula.tex" 1756175431 4283 974c2d6682d0f1fbfb836f4c360bb04c ""
+  "sochocki-formula.out" 1758012988 660 9753a5e0c8f9667d49e37e59c32c09c6 "pdflatex"
+  "sochocki-formula.run.xml" 1758012988 2382 f85b56ebe90305ca53e8455976de57e6 "pdflatex"
+  "sochocki-formula.tex" 1758012987 4284 8c38cd02bacce59b2fbde6c2277eacf8 ""
   (generated)
   "sochocki-formula.aux"
   "sochocki-formula.bcf"
