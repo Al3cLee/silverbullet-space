@@ -1,6 +1,6 @@
 ---
 tags: 
-finished: false
+finished: true
 ---
 
 # Typst

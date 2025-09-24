@@ -1,7 +1,7 @@
 ---
 tags: 
 - "math/complex-analysis"
-finished: false
+finished: true
 ---
 
 # The Sochocki Formula

@@ -2,7 +2,7 @@
 tags:
 - "workflow"
 - "computer-science/tool"
-finished: false
+finished: true
 ---
 
 # Ghostty

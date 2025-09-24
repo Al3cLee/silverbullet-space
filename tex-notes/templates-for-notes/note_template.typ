@@ -60,6 +60,8 @@
   }
 }
 
+// Noindent script for ad hoc tweaks
+#let noindent(x) = [#block[#x]]
 // Define customized remark environment.
 #let (remark-counter, remark-box, remark, show-remark) = make-frame(
   "remark",
@@ -83,9 +85,9 @@
   inherited-from: heading,  
   render: (prefix: none, title: "", full-title: auto, body) => [
     #block(
-      fill: rgb("#f5f5f5"),  // Light grey background
-      stroke: rgb("#cccccc"), // Grey border
-      radius: 5pt,           // Rounded corners
+      fill: rgb("#eeecec"),  // Light grey background
+      // stroke: rgb("#cccccc"), // Grey border
+      radius: 0pt,           // Rounded corners
       inset: 1.2em,           // Padding inside the box
       width: 100%,           // Full width
       [#strong[#full-title.]#sym.space#body]
@@ -94,6 +96,15 @@
 )
 #show: show-result
 
+// Custom `graybox` environment.
+#let graybox(x)= [#block(
+      fill: rgb("#eeecec"),  // Light grey background
+      // stroke: rgb("#cccccc"), // Grey border
+      radius: 0pt,           // Rounded corners
+      inset: 1.2em,           // Padding inside the box
+      width: 100%,           // Full width
+      [#x]
+)]
 // Here begins our document.
 
 #align(center, text(20pt)[

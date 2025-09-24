@@ -12,9 +12,8 @@
   fill: rgb("#f5f5f5"),     // Light gray background
   inset: 1em,               // Padding inside
   width: 100%,              // Full width
-  radius: 4pt               // Rounded corners (optional)
+  radius: 0pt               // Rounded corners (optional)
 )
-
 
 #show heading.where(level: 1): it => {
   counter(math.equation).update(0)
@@ -67,9 +66,9 @@
   inherited-from: heading,  
   render: (prefix: none, title: "", full-title: auto, body) => [
     #block(
-      fill: rgb("#f5f5f5"),  // Light grey background
-      stroke: rgb("#cccccc"), // Grey border
-      radius: 5pt,           // Rounded corners
+      fill: rgb("#eeecec"),  // Light grey background
+      // stroke: rgb("#cccccc"), // Grey border
+      radius: 0pt,           // Rounded corners
       inset: 1.2em,           // Padding inside the box
       width: 100%,           // Full width
       [#strong[#full-title.]#sym.space#body]
@@ -117,7 +116,7 @@ Functions, rather than the markup syntax, is what makes Typst special.
 == Math
 
 The math syntax of Typst, however, deserves an explicit mention. 
-It removes much of the clutter in the usual LaTeX math syntax _out of the box_, including the backward dash `\` before symbols, the `\left`, `\right` declarations before brackets in order for them to stretch. The fraction syntax is especially elegant: for simple fractions where both the nominator and the denumerator have only one term, a simple forward dash `/` suffices to make a fraction. For example, the following Typst code
+It removes much of the clutter in the usual LaTeX math syntax _out of the box_, including the backward dash `\` before symbols, the `\left`, `\right` declarations before brackets in order for them to stretch. The fraction syntax is especially elegant: for simple fractions where both the nominator and the denumerator have only one term, a simple forward slash `/` suffices to make a fraction. But if you actually want the forward slash for, e.g. in-line math, you can either escape this character: `a\/b` $mapsto a \/ b$ or, more elegantly, use the built-in symbol `slash`: `a slash b` $mapsto a slash b$. For example, the following Typst code
 
 ```typst
 $ sum_(n=1)^(infinity) alpha^n / n! = "e"^(alpha) $
