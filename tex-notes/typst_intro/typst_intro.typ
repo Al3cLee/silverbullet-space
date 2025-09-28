@@ -12,7 +12,7 @@
   fill: rgb("#f5f5f5"),     // Light gray background
   inset: 1em,               // Padding inside
   width: 100%,              // Full width
-  radius: 0pt               // Rounded corners (optional)
+  radius: 0pt               // No rounded corners
 )
 
 #show heading.where(level: 1): it => {
