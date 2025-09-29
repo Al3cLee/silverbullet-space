@@ -9,5 +9,5 @@ This is me, a physics student.
 
 ## Contact
 
-Email: al3c.wentao.lee@gmail.com
-Substack: https://al3clee@substack.com
+Email: <al3c.wentao.lee@gmail.com>
+Substack: <https://al3clee.substack.com>
