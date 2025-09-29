@@ -1,4 +1,4 @@
-Here lists all pages tagged with `computer-science` or its subtags. 
+Here lists all pages tagged with `computer-science` or its subtags.
 
 Tags under `computer-science` are
 ${query[[from index.tag "tag" where string.startsWith(name, "computer-science") select name]]}
