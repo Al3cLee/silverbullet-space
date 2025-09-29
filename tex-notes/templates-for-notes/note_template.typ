@@ -47,9 +47,6 @@
 #import cosmos.simple: *
 #show: show-theorion
 #set-inherited-levels(1)
-#show figure.where(kind: "theorem"): it => {
-  block(it)
-}
 
 // Noindent for proclamations.
 #show figure: it => {
@@ -75,12 +72,24 @@
 )
 #show: show-remark
 
+#let (motivation-counter, motivation-box, motivation, show-motivation) = make-frame(
+  "motivation",
+  "Motivation",  // The title that will appear
+  counter: theorem-counter,  // or inherit from an existing counter if needed
+  inherited-levels: 1,  
+  inherited-from: heading,  
+  render: (prefix: none, title: "", full-title: auto, body) => block[
+    #strong[#full-title.]#sym.space#body
+  ],
+)
+#show: show-motivation
+
 // Define customized result environment, wrapped in a 
 // gray box and `inset`ted to emphasize.
 #let (result-counter, result-box, result, show-result) = make-frame(
   "result",
   "Result",  // The title that will appear
-  counter: theorem-counter,  // or inherit from an existing counter if needed
+  counter: none,  // or inherit from an existing counter if needed
   inherited-levels: 1,  
   inherited-from: heading,  
   render: (prefix: none, title: "", full-title: auto, body) => [
@@ -120,7 +129,8 @@
 
 = First Section
 
-Text starts here. 
+Text starts here. Only results are numbered with 
+their own counter.
 
 // #bibliography("ref.bib")
 
