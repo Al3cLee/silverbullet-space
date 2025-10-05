@@ -114,6 +114,11 @@
       width: 100%,           // Full width
       [#x]
 )]
+
+#let solution(x)= [
+    #graybox[*Solution.* #x]
+]
+
 // Here begins our document.
 
 #align(center, text(20pt)[
