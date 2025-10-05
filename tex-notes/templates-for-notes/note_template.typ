@@ -46,9 +46,11 @@
 #import "@preview/theorion:0.4.0": *
 #import cosmos.simple: *
 #show: show-theorion
+// Set the default proclamation-like environments to
+// inherit the 1st-level heading's counter.
 #set-inherited-levels(1)
 
-// Noindent for proclamations.
+// No indent for proclamations.
 #show figure: it => {
   if it.kind in ("theorem", "definition", "postulate", "axiom") {
     block(it)
@@ -57,41 +59,26 @@
   }
 }
 
-// Noindent script for ad hoc tweaks
+// No indent script for ad-hoc tweaks
 #let noindent(x) = [#block[#x]]
-// Define customized remark environment.
-#let (remark-counter, remark-box, remark, show-remark) = make-frame(
-  "remark",
-  "Remark",  // The title that will appear
-  counter: theorem-counter,  // or inherit from an existing counter if needed
-  inherited-levels: 1,  
-  inherited-from: heading,  
-  render: (prefix: none, title: "", full-title: auto, body) => block[
-    #strong[#full-title.]#sym.space#body
-  ],
-)
-#show: show-remark
 
+// Define customized remark environment.
 #let (motivation-counter, motivation-box, motivation, show-motivation) = make-frame(
   "motivation",
   "Motivation",  // The title that will appear
   counter: theorem-counter,  // or inherit from an existing counter if needed
-  inherited-levels: 1,  
-  inherited-from: heading,  
   render: (prefix: none, title: "", full-title: auto, body) => block[
     #strong[#full-title.]#sym.space#body
   ],
 )
 #show: show-motivation
 
-// Define customized result environment, wrapped in a 
+// Define customized result environment, wrapped in a
 // gray box and `inset`ted to emphasize.
 #let (result-counter, result-box, result, show-result) = make-frame(
   "result",
   "Result",  // The title that will appear
-  counter: none,  // or inherit from an existing counter if needed
-  inherited-levels: 1,  
-  inherited-from: heading,  
+  counter: theorem-counter,  // or inherit from an existing counter if needed
   render: (prefix: none, title: "", full-title: auto, body) => [
     #block(
       fill: rgb("#eeecec"),  // Light grey background
@@ -105,6 +92,17 @@
 )
 #show: show-result
 
+#let (remark-counter, remark-box, remark, show-remark) = make-frame(
+  "remark",
+  "Remark",  // The title that will appear
+  counter: theorem-counter,  // or inherit from an existing counter if needed
+  render: (prefix: none, title: "", full-title: auto, body) => block[
+    #strong[#full-title.]#sym.space#body
+  ],
+)
+
+#show: show-remark
+
 // Custom `graybox` environment.
 #let graybox(x)= [#block(
       fill: rgb("#eeecec"),  // Light grey background
@@ -115,6 +113,7 @@
       [#x]
 )]
 
+// Custom solution environment for homework.
 #let solution(x)= [
     #graybox[*Solution.* #x]
 ]
@@ -134,8 +133,8 @@
 
 = First Section
 
-Text starts here. Only results are numbered with 
-their own counter.
+Text starts here. Everything is numbered as `<heading>.<theorem-counter>`
+such that if A's number is larger than B, then
+A appears later than B.
 
 // #bibliography("ref.bib")
-

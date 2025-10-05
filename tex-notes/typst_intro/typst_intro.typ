@@ -84,7 +84,7 @@
 ])
 
 #align(center)[
-#datetime.today().display("[month repr:short] [day], [year]")
+#datetime.today().display("[month repr:short] [day padding:none], [year]")
 ]
 #block(height: 0.5em)
 
@@ -116,7 +116,7 @@ Functions, rather than the markup syntax, is what makes Typst special.
 == Math
 
 The math syntax of Typst, however, deserves an explicit mention. 
-It removes much of the clutter in the usual LaTeX math syntax _out of the box_, including the backward dash `\` before symbols, the `\left`, `\right` declarations before brackets in order for them to stretch. The fraction syntax is especially elegant: for simple fractions where both the nominator and the denumerator have only one term, a simple forward slash `/` suffices to make a fraction. But if you actually want the forward slash for, e.g. in-line math, you can either escape this character: `a\/b` $mapsto a \/ b$ or, more elegantly, use the built-in symbol `slash`: `a slash b` $mapsto a slash b$. For example, the following Typst code
+It removes much of the clutter in the usual LaTeX math syntax _out of the box_, including the backward dash `\` before symbols, the `\left`, `\right` declarations before brackets in order for them to stretch. The fraction syntax is especially elegant: for simple fractions where both the nominator and the denominator have only one term, a simple forward slash `/` suffices to make a fraction. But if you actually want the forward slash for, e.g. in-line math, you can either escape this character: `a\/b` $mapsto a \/ b$ or, more elegantly, use the built-in symbol `slash`: `a slash b` $mapsto a slash b$. For example, the following Typst code
 
 ```typst
 $ sum_(n=1)^(infinity) alpha^n / n! = "e"^(alpha) $
@@ -138,6 +138,15 @@ where the `@...` syntax is shorthand for the #link("https://typst.app/docs/refer
 
 Examples of Typst scripts are collected here. I don't yet have the ability to do a top-down explanation on this, but Typst's scripting language is quite intuitive. Anyone with a bit of Python fluency should be able to learn it quickly: `value`s have #link("https://typst.app/docs/reference/scripting/#fields")[`fields`] and #link("https://typst.app/docs/reference/scripting/#methods")[`methods`], just like Python objects.
 
+The two most important scripting keywords of Typst are
+#link("https://typst.app/docs/reference/styling/#set-rules")[`set`] and
+#link("https://typst.app/docs/reference/styling/#show-rules")[`show`].
+The `set` keyword sets the
+default values for some of the parameters of a function for all future uses of that function, while 
+the `show` keyword redefines a function that is already defined.
+In Typst, all styling elements (headings, code blocks, formulas, etc) are functions, so whenever you
+tweak the styling, you are effectively redefining a function or setting its arguments.
+
 == Formatting and dates 
 
 The title of this document is typeset via 
@@ -148,7 +157,7 @@ The title of this document is typeset via
 ])
 
 #align(center)[
-#datetime.today().display("[month repr:short] [day], [year]")
+#datetime.today().display("[month repr:short] [day padding:none], [year]")
 ]
 #block(height: 0.5em)
 ```
@@ -163,6 +172,14 @@ To customize a numbered list environment, in LaTeX one needs the `enumitem` pack
 [another point]
 )
 ```
+
+which produces:
+
+#enum(numbering: n => emph[Step #n.], 
+[first point],
+[another point]
+)
+
 == Equation numbering
 
 Equation numbering in this document is automatic. Consider the following equations.
