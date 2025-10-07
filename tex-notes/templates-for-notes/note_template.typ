@@ -125,7 +125,7 @@
 ])
 
 #align(center)[
-#datetime.today().display("[month repr:short] [day], [year]")
+#datetime.today().display("[month repr:short] [day padding:none], [year]")
 ]
 #block(height: 0.5em)
 
