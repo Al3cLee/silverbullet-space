@@ -2,6 +2,8 @@
 
 Hi! This is the [[knowledge_garden]] of [[Wentao_Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[physics]], [[math]] and [[computer-science]]. After the initial loading (which might take a little while) this website will remain available _even without internet connection_.
 
+The source code of this website is available on GitHub; see [[README]].
+
 ## Usage
 
 * Blue words are click-able. They are either wiki-links to pages within this [SilverBullet space](https://silverbullet.md/Spaces) or URL links to external webpages.
@@ -10,7 +12,7 @@ Hi! This is the [[knowledge_garden]] of [[Wentao_Li]], built with [Silverbullet]
 * Full text search is available via `Cmd-S` (`Ctrl-S` for Windows).
 * Dark theme is available via clicking on the "command" icon and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
 
-Below are the last 5 edited pages: 
+Below are the last 5 edited pages:
 
 ${template.each(query[[
   from index.tag "page"
@@ -29,3 +31,4 @@ Start wherever you like and click around, but keep in mind you can always search
 ## Background
 
 See [[knowledge_garden]].
+

@@ -1,6 +1,6 @@
 ---
 tags:
-- "computer-science/linux"
+- "computer-science/Linux"
 - "workflow"
 finished: true
 ---
@@ -15,4 +15,3 @@ finished: true
 - **File viewing.** `cat <file> | fzf` to search in `<file>`. Because `fzf` is interactive, this is better than simply `vim <file> /<pattern>`.
 - **Integration with `cd`.** `Opt+C` to search and `cd` into a directory.
 - **Autocompletion.** `** Tab` triggers autocompletion with `fzf`.
-
