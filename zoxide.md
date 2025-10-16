@@ -1,6 +1,7 @@
 ---
 tags:
 - "computer-science/tool"
+- "computer-science/Linux"
 finished: false
 ---
 
