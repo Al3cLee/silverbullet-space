@@ -7,7 +7,7 @@ finished: true
 
 # [Ghostty](https://ghostty.org/)
 
-The terminal I used. This was to replace the default "Termminal"
+The terminal I used. This was to replace the default "Terminal"
 app of MacOS, and Ghostty claimed to require little configuration,
 so it was a natural choice. I have now converted to NeoVim and
 [[WezTerm]], both configurable through Lua.
