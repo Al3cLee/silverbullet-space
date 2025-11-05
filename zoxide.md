@@ -2,7 +2,7 @@
 tags:
 - "computer-science/tool"
 - "computer-science/Linux"
-finished: false
+finished: true
 ---
 
 # zoxide

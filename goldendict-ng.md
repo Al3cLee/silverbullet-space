@@ -2,7 +2,7 @@
 tags: 
 - "computer-science/tool"
 - "workflow"
-finished: false
+finished: true
 ---
 
 # Goldendict-ng
@@ -19,4 +19,5 @@ There are many more benefits to full-text search than bidiretional translation. 
 
 ## Configuration
 
-* **Quick Lookup.** Add `super + c super + c` to the `Hotkeys` configuration, then tick the box “send translated text to main window” in `Popup`. This way, holding `super` and hitting `c` twice will switch to the main window and look up the selected text. 
+* Quick Lookup. Add `super + c super + c` to the `Hotkeys` configuration, then tick the box “send translated text to main window” in `Popup`. This way, holding `super` and hitting `c` twice will switch to the main window and look up the selected text.
+* [[Anki]] integration. Follow the [relevant documentation](https://xiaoyifang.github.io/goldendict-ng/topic_anki/) and configure Goldendict-ng to add an article to Anki as a card, but note that at any given time, _there can only be one target Anki deck_.
