@@ -119,18 +119,19 @@
 ]
 
 // Here begins our document.
+#set document(title: [Title], date: auto)
+#show title: set align(center)
+#title()
 
-#align(center, text(20pt)[
-  *Title*
-])
-
+// Date
 #align(center)[
 #datetime.today().display("[month repr:short] [day padding:none], [year]")
 ]
 #block(height: 0.5em)
 
 // #outline()
-
+Bla bla. Note that this paragraph has indent zero, because the title is properly typeset
+using the `typst` builtin function `#title`.
 = First Section
 
 Text starts here. Everything is numbered as `<heading>.<theorem-counter>`
