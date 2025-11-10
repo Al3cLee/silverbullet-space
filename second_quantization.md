@@ -14,4 +14,4 @@ finished: true
 
 ## LaTeX Note 
 
-${pdfPath("second quantization")}
+${pdfPath("second_quantization")}

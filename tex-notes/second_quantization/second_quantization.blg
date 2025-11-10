@@ -1,0 +1,17 @@
+[0] Config.pm:307> INFO - This is Biber 2.19
+[0] Config.pm:310> INFO - Logfile is 'second_quantization.blg'
+[25] biber-darwin:340> INFO - === Mon Nov 10, 2025, 11:30:15
+[31] Biber.pm:419> INFO - Reading 'second_quantization.bcf'
+[57] Biber.pm:979> INFO - Found 4 citekeys in bib section 0
+[63] Biber.pm:4419> INFO - Processing section 0
+[67] Biber.pm:4610> INFO - Looking for bibtex file 'ref.bib' for section 0
+[67] bibtex.pm:1713> INFO - LaTeX decoding ...
+[71] bibtex.pm:1519> INFO - Found BibTeX data source 'ref.bib'
+[94] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'variable = shifted' with 'variable = non-ignorable'
+[94] UCollate.pm:68> INFO - Overriding locale 'en-US' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[94] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'en-US'
+[94] Biber.pm:4245> INFO - No sort tailoring available for locale 'en-US'
+[96] bbl.pm:660> INFO - Writing 'second_quantization.bbl' with encoding 'UTF-8'
+[97] bbl.pm:763> INFO - Output to second_quantization.bbl
+[97] Biber.pm:131> WARN - ISBN '978-1-4757-0578-2 978-1-4757-0576-8' in entry 'shankar_principles_1994' is invalid - run biber with '--validate_datamodel' for details.
+[97] Biber.pm:133> INFO - WARNINGS: 1
