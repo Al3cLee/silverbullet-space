@@ -20,8 +20,8 @@ end
 -- double square brackets, we can 
 -- put these brackets explicitly around the string output.
 function pdfPath(pdfName)
-  pathLink = "https://wentaoli.xyz/.fs/tex-notes/" .. pdfName .. "/" .. pdfName .. ".pdf)"
-  return pathLink
+  pathLink = "https://wentaoli.xyz/.fs/tex-notes/" .. pdfName .. "/" .. pdfName .. ".pdf"
+  return "["..pdfName .."](" .. pathLink .. ")"
 end
 ```
 
