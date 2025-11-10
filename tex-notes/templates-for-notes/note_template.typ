@@ -27,6 +27,11 @@
               "Motivation",
               base_level:1,
               separator:". ")
+#let example = thmplain.with(inset: (left:0pt,right:0pt,top:0pt))(
+              "theorem",
+              "Example",
+              base_level:1,
+              separator:". ")
 #import "@preview/physica:0.9.5": *
 #set page(paper: "a4", numbering: "1")
 #show heading.where(level: 1): it => {
@@ -34,6 +39,13 @@
   it
 }
 
+// Left align the body of listings while
+// their caption stay center aligned.
+#show figure.where(kind:raw): it => {
+  align(left)[#it.body]
+  v(1em,weak:true)
+  it.caption
+}
 // Number equations under 1st-level sections.
 #set math.equation(numbering: (..nums) => {
   let section = counter(heading).get().first()
@@ -114,12 +126,18 @@ Some random discussions... #lorem(40)
 #definition[We define the quantity...
 #lorem(45)]
 
+#example("Strong coupling")[In the strong-coupling regime,...]
+
 #graybox[Hahaha.]
 
+#figure(
 ```txt
 some code
 some other code
 ```
+,
+caption: [some random listing]
+)
 
 #theorem[haha]
 #result[haha?]
