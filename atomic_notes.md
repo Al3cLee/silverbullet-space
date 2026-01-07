@@ -1,3 +1,8 @@
+---
+tags:
+  - "workflow"
+---
+
 # Atomic Notes
 
 By etymology, "atomic" mean "not" (a) "dividable" (tome). Atomic notes are notes which try to address one and only one topic, and they contain no more information than is absolutely necessary for this purpose.
