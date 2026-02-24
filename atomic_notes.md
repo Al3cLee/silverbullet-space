@@ -29,5 +29,4 @@ because they are faced with significantly shorter text. (How many times have you
 
 This further enables the reader to develop their own learning path: instead of following the narration flow of a very long article, they can follow the links between atomic notes to freely decide whether a note requires close reading or not.
 
-5. Atomic notes enable the reader to learn at their own pace
-   and along their own preferred path.
+5. Atomic notes enable the reader to learn at their own pace and along their own preferred path.
