@@ -1,9 +1,9 @@
 ---
-tags: 
-- "computer-science/tool"
-- "workflow"
 finished: true
 ---
+
+#computer-science/tool
+#workflow
 
 # Typst
 

@@ -20,7 +20,7 @@ end
 -- double square brackets, we can 
 -- put these brackets explicitly around the string output.
 function pdfPath(pdfName)
-  pathLink = "https://wentaoli.xyz/.fs/tex-notes/" .. pdfName .. "/" .. pdfName .. ".pdf"
+  pathLink = "https://wentaoli.xyz/.fs/typeset-notes/" .. pdfName .. "/" .. pdfName .. ".pdf"
   return "[".. pdfName ..".pdf](" .. pathLink .. ")"
 end
 ```
@@ -90,3 +90,74 @@ html[data-theme="dark"] {
 }
 ```
 
+```space-lua
+virtualPage.define {
+  pattern = "tag:(.+)",
+  run = function(tagName)
+    local text = "# 📍"..tagName.."\n\n"
+    local allObjects = query[[
+      from index.tag(tagName)
+      order by ref
+    ]]
+    local tagParts = tagName:split("/")
+    local parentTags = {}
+    for i in ipairs(tagParts) do
+      local slice = table.pack(table.unpack(tagParts, 1, i))
+      if i != #tagParts then
+        table.insert(parentTags, {name=table.concat(slice, "/")})
+      end
+    end
+    if #parentTags > 0 then
+      text = text .. "## Parent tags\n"
+        .. template.each(parentTags, templates.tagItem) .. "\n"
+    end
+    local subTags = query[[
+      from index.tag "tag"
+      where string.startsWith(_.name, tagName .. "/")
+      select {name=_.name}
+    ]]
+    if #subTags > 0 then
+      text = text .. "## Child tags\n"
+        .. template.each(subTags, templates.tagItem).. "\n"
+    end
+    local taggedPages = query[[
+      from p = index.tag "page"
+      where matchSubTag(p.tags, tagName)
+    ]]
+    if #taggedPages > 0 then
+      text = text .. "## Pages\n"
+        .. template.each(taggedPages, templates.pageItem).. "\n"
+    end
+    local taggedTasks = query[[
+      from allObjects where table.includes(_.itags, "task")
+    ]]
+    if #taggedTasks > 0 then
+      text = text .. "## Tasks\n"
+        .. template.each(taggedTasks, templates.taskItem).. "\n"
+    end
+    local taggedItems = query[[
+      from allObjects where table.includes(_.itags, "item")
+    ]]
+    if #taggedItems > 0 then
+      text = text .. "## Items\n"
+        .. template.each(taggedItems, templates.itemItem).. "\n"
+    end
+    local taggedData = query[[
+      from allObjects where table.includes(_.itags, "data")
+    ]]
+    if #taggedData > 0 then
+      text = text .. "## Data\n"
+        .. markdown.objectsToTable(taggedData) .. "\n"
+    end
+    local taggedParagraphs = query[[
+      from allObjects where table.includes(_.itags, "paragraph")
+    ]]
+    if #taggedParagraphs > 0 then
+      text = text .. "## Paragraphs\n"
+        .. template.each(taggedParagraphs, templates.paragraphItem)
+        .. "\n"
+    end
+    return text
+  end
+}
+```

@@ -1,8 +1,8 @@
 # Index
 
-Hi! This is the [[knowledge_garden]] of [[Wentao_Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[physics]], [[math]] and [[computer-science]]. After the initial loading (which might take a little while) this website will remain available _even without internet connection_.
+Hi! This is the [[knowledge_garden]] of [[Wentao_Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[tag:physics|physics]], [[tag:math|math]] and [[tag:computer-science|computer science]]. After the initial loading (which might take a little while) this website will remain available _even without internet connection_.
 
-The source code of this website is available on GitHub; see [[README]].
+The source code of this website is available on GitHub; see [[README]]. This means you can deploy this very website as a web application locally on your machine. Also, all PDF notes typeset with `Typst` or `LaTeX` are source-controlled with this space, so cloning the repository also allows you to do a _really_ full-text search.
 
 ## Usage
 
@@ -20,15 +20,14 @@ ${template.each(query[[
   limit 5
 ]], templates.pageItem)}
 
-To see what I’m currently working on, see the [[unfinished_pages]].
+To see what I’m currently working on, see the [[unfinished_pages|unfinished pages]].
 
-Pages are organized by tags instead of folders. A complete list of tags is available below. For each `<tag>`, there is a page called `<tag>` which serves as its table of contents, i.e. lists all of its relevant pages and sub-tags.
+## Tags
 
-${query[[from index.tag "tag" where name:startsWith("meta") == false select {Tag = name, Page = "[["..name.."]]"} ]]}
+Pages are organized by tags instead of folders. A complete list of tags is available below. For each tag `<tagName>`, there is a page called `<tag:tagName>` which serves as its table of contents, i.e. lists all of its relevant pages and sub-tags.
+
+Clicking on a hashtag like #this-one will bring you to its page. Such pages have titles like `📍 blabla`, and as the name suggests, they help you navigate this space, just like pins on a map. For more details on tags, see [[tag_system]].
+
+${query[[from index.tag "tag" where name:startsWith("meta") == false and name:startsWith("maturity")==false select {Page = "[[tag:"..name.."|"..name.."]]"} ]]}
 
 Start wherever you like and click around, but keep in mind you can always search for stuff.
-
-## Background
-
-See [[knowledge_garden]].
-

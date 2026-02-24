@@ -1,6 +1,5 @@
 ---
-tags:
-- "math"
 finished: false
 ---
 
+#math
