@@ -6,3 +6,5 @@ config.set("silversearch.tokenizers", {
   ["Library/Al3cLee/silversearch-chinese-tokenizer.js"] = {}
 })
 ```
+
+- 这是一些测试文本
