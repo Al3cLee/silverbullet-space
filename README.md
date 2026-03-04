@@ -1,6 +1,6 @@
 中文版 README 请参见：https://wentaoli.xyz/README_ZH
 
-This is the [GitHub repository](https://github.com/Al3cLee/silverbullet-space) for my knowledge garden, created with  [Silverbullet](https://silverbullet.md/). It is also my personal homepage.
+This is the [GitHub repository](https://github.com/Al3cLee/silverbullet-space) for my knowledge garden, created with  [Silverbullet](https://silverbullet.md/).
 
 The recommended way to access this knowledge garden is via
 
@@ -8,7 +8,7 @@ The recommended way to access this knowledge garden is via
 
 where a read-only instance of this website is hosted. The initial loading might take a little while, but after that, this website will remain accessible even without internet connection.
 
-Alternatively, you can also access this knowledge garden off-line.
+Alternatively, you can also access this knowledge garden off-line. This would be helpful if the loading or full-text search is slow: on your `localhost` things run much quicker.
 
 To provide a minimal example:
 

@@ -161,3 +161,18 @@ virtualPage.define {
   end
 }
 ```
+
+```space-style
+html{
+  --editor-width: 1100px;
+  
+  /*--root-background-color: rgb(256,251,243);*/
+  --top-background-color: rgb(250,250,250);
+  --bhs-background-color: rgb(67,72,83);
+  /*--subtle-background-color: rgba(25,26,29,0.4);*/
+  --link-color: rgb(59,124,160);
+  --ui-accent-color: rgb(59,124,160);
+  --modal-hint-background-color: rgb(68,79,207);
+  --editor-table-head-background-color: rgb(75,102,159);
+}
+```
