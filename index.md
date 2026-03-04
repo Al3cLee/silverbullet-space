@@ -28,9 +28,13 @@ To see what I’m currently working on, see the [[unfinished_pages|unfinished pa
 
 ## Tags
 
-Pages are organized by tags instead of folders. A complete list of tags is available below. For each tag `<tagName>`, there is a page called `<tag:tagName>` which serves as its table of contents, i.e. lists all of its relevant pages and sub-tags.
+Pages are organized by tags instead of folders. A complete list of tags is available below. For each tag `<tagName>`, there is a page called `tag:<tagName>` which serves as its table of contents, i.e. lists all of its relevant pages and sub-tags.
 
-Clicking on a hashtag like #this-one will bring you to its page. Such pages have titles like `📍 blabla`, and as the name suggests, they help you navigate this space, just like pins on a map. For more details on tags, see [[tag_system]].
+Clicking on a hashtag like #this-one will bring you to its page. Such pages have titles like
+
+* `📍 tagName`
+
+and as the name suggests, they help you navigate this space, just like pins on a map. For more details on tags, see [[tag_system]].
 
 ${query[[from index.tag "tag" where name:startsWith("meta") == false and name:startsWith("maturity")==false select {Page = "[[tag:"..name.."|"..name.."]]"} order by name ]]}
 
