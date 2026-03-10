@@ -12,8 +12,6 @@ The source code of this website is available on GitHub; see [[README]] or [[READ
 
 - Full-text search is available via the "search" button. If the search is slow or keeps saying “Loading...”, click the rightmost "terminal" button and run the command "Silversearch: Reindex".
 
-- The search results include text in `PDF` files...hooray! But some longer `PDF`s might take a while to load. This depends on the quality of internet connection. Deploy this website locally (see [[README]]) to get everything blazing fast!
-
 - Dark theme is available via clicking on the "command" button and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
 
 - On mobile devices, click on the three dots button to view the various buttons.
