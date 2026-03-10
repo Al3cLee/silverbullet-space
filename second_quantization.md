@@ -12,4 +12,4 @@ finished: true
 3. Under the Fock basis, a generic operator can be expressed in terms of creation and annihilation operators. This is known as the “second quantized form” of operators.
 4. Properties of Fock states are often related to properties of permutations.
 
-LaTeX Note: [[typeset-notes/second_quantization/second_quantization.pdf]]
+LaTeX Note: ${noteLink("second_quantization")}

@@ -10,4 +10,4 @@ title: "What's Done Cannot Be Undone: TASI Lectures on Non-Invertible Symmetries
 
 ## Attachments
 
-[[Refs/Shao_Whats_Done_2024.pdf]]
+${refLink("Shao_Whats_Done_2024")}
