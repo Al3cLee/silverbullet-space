@@ -14,20 +14,6 @@ function matchSubTag(tbl, tag)
 end
 ```
 
-## pdfPath(pdfName)
-```space-lua
--- Define a string function that takes the name `pdfName` 
--- and maps to the wikilink to a local document. 
--- Although Lua expressions won't be evaluated inside 
--- double square brackets, we can 
--- put these brackets explicitly around the string output.
-function pdfPath(pdfName)
-  pathLink = "typeset-notes/" .. pdfName .. "/" .. pdfName .. ".pdf"
-  return "[[" .. pathLink .. "]]"
-end
-```
-
-
 ## KaTeX Plug
 ```space-lua
 latex = {
