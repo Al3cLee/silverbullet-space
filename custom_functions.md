@@ -1,3 +1,4 @@
+## matchSubTag(tbl, tag)
 ```space-lua
 -- Define a Boolean function that returns true iff
 -- the desired <tag> is in the <tbl> or 
@@ -13,6 +14,7 @@ function matchSubTag(tbl, tag)
 end
 ```
 
+## pdfPath(pdfName)
 ```space-lua
 -- Define a string function that takes the name `pdfName` 
 -- and maps to the wikilink to a local document. 
@@ -20,11 +22,13 @@ end
 -- double square brackets, we can 
 -- put these brackets explicitly around the string output.
 function pdfPath(pdfName)
-  pathLink = "https://wentaoli.xyz/.fs/typeset-notes/" .. pdfName .. "/" .. pdfName .. ".pdf"
-  return "[".. pdfName ..".pdf](" .. pathLink .. ")"
+  pathLink = "typeset-notes/" .. pdfName .. "/" .. pdfName .. ".pdf"
+  return "[[" .. pathLink .. "]]"
 end
 ```
 
+
+## KaTeX Plug
 ```space-lua
 latex = {
   header = [[<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">]],
@@ -79,6 +83,7 @@ slashcommand.define {
 }
 ```
 
+## Dark Theme
 ```space-style
 html[data-theme="dark"] {
   --root-color: rgb(217,222,232);
@@ -90,6 +95,7 @@ html[data-theme="dark"] {
 }
 ```
 
+## Tag Page
 ```space-lua
 virtualPage.define {
   pattern = "tag:(.+)",
@@ -162,6 +168,7 @@ virtualPage.define {
 }
 ```
 
+## Light Theme
 ```space-style
 html{
   --editor-width: 1100px;

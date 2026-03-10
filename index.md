@@ -10,7 +10,7 @@ The source code of this website is available on GitHub; see [[README]] or [[READ
 
 - The current page is [[index]], click the "home" button on the upper right corner to get back here.You can search for pages via `Cmd-K` (`Ctrl-K` for Windows), or via clicking the "book" button. On mobile devices, tap with 2 fingers to search for pages.
 
-- Full-text search is available via the "search" button. If the search is slow or keeps saying “Loading...”, click the rightmost "terminal" button and run the command "Silversearch: Reindex".
+- Full-text search is available via the "search" button. If the search is slow or keeps saying “Loading...”, click the rightmost "terminal" button and run the command "Silversearch: Reindex". The search results include text in `PDF` files...hooray!
 
 - Dark theme is available via clicking on the "command" button and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
 
