@@ -1,6 +1,6 @@
 中文版 README 请参见：https://wentaoli.xyz/README_ZH
 
-This is the [GitHub repository](https://github.com/Al3cLee/silverbullet-space) for my knowledge garden, created with  [Silverbullet](https://silverbullet.md/).
+This is the [GitHub repository](https://github.com/Al3cLee/silverbullet-space) for my knowledge garden, created with [Silverbullet](https://silverbullet.md/).
 
 The recommended way to access this knowledge garden is via
 
