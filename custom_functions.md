@@ -16,13 +16,20 @@ end
 
 ## noteLink
 ```space-lua
-function noteLink(noteName)
+function pdfLink(path) -- Use this with the full path, including file extension
+    local base = js.window.location.origin
+    local url = base.."/.fs/"..path
+    local name = path:match("([^/]+)$")
+    return "["..name.."]("..url..")"
+end
+
+function noteLink(noteName) -- Use with just the note project title, no .pdf
     local base = js.window.location.origin
     local notePath = base.."/.fs/typeset-notes/"..noteName.."/"..noteName..".pdf"
     return "["..noteName..".pdf]("..notePath..")"
 end
 
-function refLink(refName)
+function refLink(refName) -- Use with just the reference title, no .pdf
     local base = js.window.location.origin
     local refPath = base.."/.fs/Refs/"..refName..".pdf"
     return "["..refName..".pdf]("..refPath..")"
