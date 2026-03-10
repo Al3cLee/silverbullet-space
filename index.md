@@ -12,6 +12,8 @@ The source code of this website is available on GitHub; see [[README]] or [[READ
 
 - Full-text search is available via the "search" button. If the search is slow or keeps saying “Loading...”, click the rightmost "terminal" button and run the command "Silversearch: Reindex".
 
+- PDF files will not open if your browser blocks all pop-ups. This is the default setting on some mobile devices, so please make sure **not to** block all pop-ups.
+
 - Dark theme is available via clicking on the "command" button and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
 
 - On mobile devices, click on the three dots button to view the various buttons.
