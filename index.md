@@ -18,11 +18,12 @@ The source code of this website is available on GitHub; see [[README]] or [[READ
 
 Below are the last 5 edited pages:
 
-${template.each(query[[
+${query[[
   from index.tag "page"
-  order by _.lastModified desc
+  select {Page = "[[".. name .."]]"}
+  order by lastModified desc
   limit 5
-]], templates.pageItem)}
+]]}
 
 To see what I’m currently working on, see the [[unfinished_pages|unfinished pages]].
 

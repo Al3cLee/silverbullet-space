@@ -1,3 +1,14 @@
+
+```space-lua
+templates.pagePar = template.new([==[
+[[${name}]]
+]==])
+
+templates.tagPar = template.new([==[
+[[tag:${name}|#${name}]]
+]==])
+```
+
 ## matchSubTag(tbl, tag)
 ```space-lua
 -- Define a Boolean function that returns true iff
@@ -123,28 +134,36 @@ virtualPage.define {
     end
     if #parentTags > 0 then
       text = text .. "## Parent tags\n"
-        .. template.each(parentTags, templates.tagItem) .. "\n"
+        ..markdown.objectsToTable(parentTags, {
+          renderCell=function(value, key)
+            if key == "name" then
+              return "[[tag:" .. value .."|#"..value.. "]]"
+            end
+          end  
+          }).. "\n\n"
     end
     local subTags = query[[
       from index.tag "tag"
       where string.startsWith(_.name, tagName .. "/")
-      select {name=_.name}
+      select {name="[[tag:"..name.."|#"..name.."]]"}
     ]]
     if #subTags > 0 then
-      text = text .. "## Child tags\n"
-        .. template.each(subTags, templates.tagItem).. "\n"
+      text = text.."## Subtags\n"
+      .. markdown.objectsToTable(subTags).."\n\n"
     end
     local taggedPages = query[[
       from p = index.tag "page"
       where matchSubTag(p.tags, tagName)
+      select {Page = "[["..p.name.."]]"}
     ]]
     if #taggedPages > 0 then
       text = text .. "## Pages\n"
-        .. template.each(taggedPages, templates.pageItem).. "\n"
+        .. markdown.objectsToTable(taggedPages).. "\n\n"
     end
     local taggedTasks = query[[
       from allObjects where table.includes(_.itags, "task")
     ]]
+    
     if #taggedTasks > 0 then
       text = text .. "## Tasks\n"
         .. template.each(taggedTasks, templates.taskItem).. "\n"
@@ -152,6 +171,7 @@ virtualPage.define {
     local taggedItems = query[[
       from allObjects where table.includes(_.itags, "item")
     ]]
+    
     if #taggedItems > 0 then
       text = text .. "## Items\n"
         .. template.each(taggedItems, templates.itemItem).. "\n"
@@ -188,6 +208,7 @@ html{
   --link-color: rgb(59,124,160);
   --ui-accent-color: rgb(59,124,160);
   --modal-hint-background-color: rgb(68,79,207);
-  --editor-table-head-background-color: rgb(75,102,159);
+  --editor-table-head-background-color: rgb(244,247,254);
+  --editor-table-head-color: rgb(75,102,159);
 }
 ```

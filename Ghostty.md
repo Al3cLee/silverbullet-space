@@ -7,9 +7,7 @@ finished: true
 
 # [Ghostty](https://ghostty.org/)
 
-The terminal I used. This was to replace the default "Terminal"
-app of MacOS, and Ghostty claimed to require little configuration,
-so it was a natural choice. I have now converted to NeoVim and
+The terminal I used. This was to replace the default "Terminal" app of MacOS, and Ghostty claimed to require little configuration, so it was a natural choice. I have now converted to NeoVim and
 [[WezTerm]], both configurable through Lua.
 
 I use the `zsh` shell; Ghostty should be installed via `homebrew` rather than a `.dmg` file so that the `$PATH` environment variable can be appended with `$GHOSTTY\_BIN\_DIR` upon installation. See [discussions on Github](https://github.com/ghostty-org/ghostty/discussions/4725). Otherwise, the terminal app itself works fine, but upon
