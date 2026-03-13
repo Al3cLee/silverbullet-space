@@ -1,14 +1,4 @@
 
-```space-lua
-templates.pagePar = template.new([==[
-[[${name}]]
-]==])
-
-templates.tagPar = template.new([==[
-[[tag:${name}|#${name}]]
-]==])
-```
-
 ## matchSubTag(tbl, tag)
 ```space-lua
 -- Define a Boolean function that returns true iff
