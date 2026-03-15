@@ -5,7 +5,7 @@
 
 The initial loading may take a little while, since this website is _not_ static `html`, instead it is a full-fledged web application in read-only mode. After the initial loading, this website will remain available _even without internet connection_.
 
-To obtain the best viewing (and editing!) experience, deploy this website locally to instantly load anything, including attachments. To see how, visit [[README]] or [[README_ZH]]. If accessed online, most content will load fairly quickly, but long academic papers appearing in pages entitled “Refs/...” will take a few seconds to load.
+To obtain the best viewing (and editing!) experience, deploy this website locally to instantly load everything, including attachments. To see how, visit [[README]] or [[README_ZH]]. If accessed online, most content will load fairly quickly, but long academic papers appearing in pages entitled “Refs/...” will take a few seconds to load.
 
 ## How To Use This Website
 
