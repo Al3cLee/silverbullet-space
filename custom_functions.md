@@ -29,15 +29,34 @@ function pdfLink(path)
 return "["..name.."]("..url..")"
 end
 
-function noteLink(noteName) -- Use with just the note project title, no .pdf
-    local base = js.window.location.origin
-    local notePath = base.."/.fs/typeset-notes/"..noteName.."/"..noteName..".pdf"
-    return "["..noteName..".pdf]("..notePath..")"
+-- function noteLink(noteName) -- Use with just the note project title, no .pdf
+    --local base = js.window.location.origin
+    --local notePath = base.."/.fs/typeset-notes/"..noteName.."/"..noteName..".pdf"
+   -- return "["..noteName..".pdf]("..notePath..")"
+-- end
+
+function noteLink(noteName)
+  local base = js.window.location.origin
+  local notePath
+
+  if base:find("localhost") then
+    notePath = base .. "/.fs/typeset-notes/"..noteName.."/"..noteName..".pdf"
+  else
+    notePath = "https://static.wentaoli.xyz/typeset-notes"..noteName.."/"..noteName..".pdf"
+  end
+
+  return "["..noteName..".pdf]("..notePath..")"
 end
 
 function refLink(refName) -- Use with just the reference title, no .pdf
     local base = js.window.location.origin
-    local refPath = base.."/.fs/Refs/"..refName..".pdf"
+    local refPath  -- = base.."/.fs/Refs/"..refName..".pdf"
+
+    if base:find("localhost:") then
+      refPath = base.."/.fs/Refs/"..refName..".pdf"
+    else
+      refPath = "https://static.wentaoli.xyz/Refs/"..refName..".pdf"
+    end
     return "["..refName..".pdf]("..refPath..")"
 end
 ```
