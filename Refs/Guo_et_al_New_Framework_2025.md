@@ -8,7 +8,7 @@ title: "A New Framework for Quantum Phases in Open Systems: Steady State of Imag
 
 ## Attachments
 
-${refLink("Guo_et_al_New_Framework_2025")}
+${pdfLink("Refs/Guo_et_al_New_Framework_2025.pdf")}
 
 ## Notes
 
