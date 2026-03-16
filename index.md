@@ -5,7 +5,7 @@
 
 The initial loading may take a little while, since this website is _not_ static `html`, instead it is a full-fledged web application in read-only mode. After the initial loading, this website will remain available _even without internet connection_.
 
-To obtain the best viewing (and editing!) experience, deploy this website locally to instantly load everything, including attachments. To see how, visit [[README]] or [[README_ZH]]. If accessed online, most content will load fairly quickly, but long academic papers appearing in pages entitled “Refs/...” will take a few seconds to load.
+To obtain the best viewing (and editing!) experience, deploy this website locally to instantly load everything, including attachments. Visit [[README]] or [[README_ZH]] for instruction.
 
 ## How To Use This Website
 
@@ -17,9 +17,9 @@ To obtain the best viewing (and editing!) experience, deploy this website locall
 
 - Dark theme is available via clicking on the "command" button and selecting "Editor: Toggle Dark Mode". Or, you can simply push this button: ${widgets.commandButton("Editor: Toggle Dark Mode")}
 
-- On mobile devices, click on the three dots button to view the various buttons.
+- On mobile devices, click the three dots button to view the various buttons.
 
-- The source code of this website is hosted on GitHub, see [[README]] or [[README_ZH]]. All PDF notes typeset with `Typst` or `LaTeX` are also source-controlled in the GitHub repository, so cloning the repository also allows you to do a _really_ full-text search.
+- The source code of this website is hosted on GitHub, see [[README]] or [[README_ZH]]. My PDF notes typeset with `Typst` or `LaTeX` are also open-source; they are located in the directory [`silverbullet-space/typeset-notes`](https://github.com/Al3cLee/silverbullet-space/tree/main/typeset-notes). Feel free to play around with their source code.
 
 Below are the last 5 edited pages:
 
