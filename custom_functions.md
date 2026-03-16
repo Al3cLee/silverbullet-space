@@ -17,11 +17,16 @@ end
 
 ## noteLink
 ```space-lua
-function pdfLink(path) -- Use this with the full path, including file extension
-    local base = js.window.location.origin
-    local url = base.."/.fs/"..path
-    local name = path:match("([^/]+)$")
-    return "["..name.."]("..url..")"
+function pdfLink(path)
+  local base = js.window.location.origin
+  local name = path:match("([^/]+)$")
+  local url
+  if base:find("localhost") then
+  url = base.."/.fs/"..path
+  else
+  url = "https://static.wentaoli.xyz/"..path
+  end
+return "["..name.."]("..url..")"
 end
 
 function noteLink(noteName) -- Use with just the note project title, no .pdf
