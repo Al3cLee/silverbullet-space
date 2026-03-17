@@ -42,7 +42,7 @@ function noteLink(noteName)
   if base:find("localhost") then
     notePath = base .. "/.fs/typeset-notes/"..noteName.."/"..noteName..".pdf"
   else
-    notePath = "https://static.wentaoli.xyz/typeset-notes"..noteName.."/"..noteName..".pdf"
+    notePath = "https://static.wentaoli.xyz/typeset-notes/"..noteName.."/"..noteName..".pdf"
   end
 
   return "["..noteName..".pdf]("..notePath..")"
