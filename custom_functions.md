@@ -160,6 +160,7 @@ virtualPage.define {
       from index.tag "tag"
       where string.startsWith(_.name, tagName .. "/")
       select {name="[[tag:"..name.."|#"..name.."]]"}
+      order by name
     ]]
     if #subTags > 0 then
       text = text.."## Subtags\n"
@@ -169,6 +170,7 @@ virtualPage.define {
       from p = index.tag "page"
       where matchSubTag(p.tags, tagName)
       select {Page = "[["..p.name.."]]"}
+      order by name
     ]]
     if #taggedPages > 0 then
       text = text .. "## Pages\n"

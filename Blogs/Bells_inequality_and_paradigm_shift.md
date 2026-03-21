@@ -1,3 +1,9 @@
+---
+date: "2024-07-05"
+---
+
+#physics/quantum-mechanics
+#blogs
 
 # 贝尔不等式与“证伪”和“范式转移”
 
