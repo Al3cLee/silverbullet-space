@@ -216,7 +216,8 @@ html{
   --editor-width: 1100px;
   
   /*--root-background-color: rgb(256,251,243);*/
-  --top-background-color: rgb(250,250,250);
+  --top-background-color: rgba(248,248,248,0.5);
+  --top-border-color: rgb(256,256,256);
   --bhs-background-color: rgb(67,72,83);
   /*--subtle-background-color: rgba(25,26,29,0.4);*/
   --link-color: rgb(59,124,160);
