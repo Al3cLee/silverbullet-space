@@ -1,2 +1,21 @@
 .DS_Store
 tex-notes/.DS_Store
+
+# LaTeX build artifacts - all subdirectories
+typeset-notes/**/*.log
+typeset-notes/**/*.aux
+typeset-notes/**/*.bbl
+typeset-notes/**/*.blg
+typeset-notes/**/*.synctex.gz
+typeset-notes/**/*.fls
+typeset-notes/**/*.out
+typeset-notes/**/*.toc
+typeset-notes/**/*.lof
+typeset-notes/**/*.lot
+typeset-notes/**/*.nav
+typeset-notes/**/*.snm
+typeset-notes/**/*.vrb
+typeset-notes/**/*.ind
+typeset-notes/**/*.idx
+typeset-notes/**/*.ilg
+typeset-notes/**/*.fdb_latexmk
