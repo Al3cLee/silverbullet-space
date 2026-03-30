@@ -45,3 +45,5 @@ and as the name suggests, they help you navigate this space, just like pins on a
 ${query[[from index.tag "tag" where name:startsWith("meta") == false and name:startsWith("maturity")==false select {Page = "[[tag:"..name.."|"..name.."]]"} order by name ]]}
 
 Start wherever you like and click around, but keep in mind you can always search for stuff.
+
+* [沪ICP备2026010579号](https://beian.miit.gov.cn/)
