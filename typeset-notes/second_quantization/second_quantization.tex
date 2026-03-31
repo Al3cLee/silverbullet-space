@@ -262,9 +262,8 @@ $\left\{ (P'P, P) \right\}$. }
     First, we show that 
     \cref{dfn:bosonic-and-fermionic-states}
     implies the commonly known property.
-    Let us focus on the Bosonic / Fermionic states ``constructed'' by $\mathcal{P}$ first,
+    Let us focus on the Bosonic or Fermionic states ``constructed'' by $\mathcal{P}$ first,
     since they can be written down explicitly.
-
     Denoting $\mathcal{P} |\alpha_1, \ldots ,\alpha_{N})$ with 
     $\ket{\alpha_1, \ldots ,\alpha_{N}}$, 
     we only need to check that after applying permutation $P$
@@ -302,14 +301,17 @@ $\left\{ (P'P, P) \right\}$. }
     fix $P$ to be the exchange at concern and 
     $P'$ is to be summed over.
 
-    If $\ket{\psi}$ is a \emph{generic} $+1$ eigenstate of $\mathcal{P}$, then
-    we want to write it
+    Now we turn to a generic $+1$ eigenstate $\ket{\psi}$ of $\mathcal{P}$
+    and prove that it has the commonly known property.
+    We want to write $\ket{\psi}$
     in a form similar to
     $\mathcal{P} | \alpha_{1},\cdots, \alpha_{N})$
     since we have just proved our claim for
     those explicitly constructed eigenstates.
-    Indeed we can write $\ket{\psi}$
-    like this,
+    Naively expanding $\ket{\psi}$ under the product basis
+    is not enough, for this only gives product states,
+    but we still need a $\mathcal{P}$ in front of them.
+    We can prepend it manually,
     because:
     \[\ket{\psi} = \mathcal{P} \ket{\psi}\]
     and, upon
