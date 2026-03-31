@@ -46,4 +46,4 @@ ${query[[from index.tag "tag" where name:startsWith("meta") == false and name:st
 
 Start wherever you like and click around, but keep in mind you can always search for stuff.
 
-* [沪ICP备2026010579号](https://beian.miit.gov.cn/)
+* [沪ICP备2026010579号](https://beian.miit.gov.cn/), [沪公网安备31011002007839号](https://beian.mps.gov.cn/#/query/webSearch?code=31011002007839)
