@@ -63,7 +63,10 @@ leftmargin=*, ref = Step \arabic*}
     under the Fock basis are calculated. 
 
     Prerequisites include projectors, subspaces, and 
-    basic notions about quantum states and Hilbert spaces. 
+    basic notions about quantum states and Hilbert spaces.
+    Being familiar with the trick of re-labelling
+    summation index is important for understanding
+    calculations in the first section.
     Ref.~\cite[][\S 1.2]{dupuis_field_2023} 
     is the main reference for this note. 
     Comments on other sources are given in the bibliographical notes section. 
@@ -257,12 +260,15 @@ $\left\{ (P'P, P) \right\}$. }
     as will be shown as follows. 
 
     First, we show that 
-    \cref{dfn:bosonic-and-fermionic-states} 
-    implies the commonly known property. 
+    \cref{dfn:bosonic-and-fermionic-states}
+    implies the commonly known property.
+    Let us focus on the Bosonic / Fermionic states ``constructed'' by $\mathcal{P}$ first,
+    since they can be written down explicitly.
+
     Denoting $\mathcal{P} |\alpha_1, \ldots ,\alpha_{N})$ with 
     $\ket{\alpha_1, \ldots ,\alpha_{N}}$, 
-    we need to check that the state 
-    after an exchange $P$ 
+    we only need to check that after applying permutation $P$
+    to this state, the result
     \[
     \ket{\alpha_{P1}, \ldots ,\alpha_{PN}} 
     \coloneqq    
@@ -272,7 +278,7 @@ $\left\{ (P'P, P) \right\}$. }
         |\alpha_{P'P1}, \ldots ,\alpha_{P'PN})
     \]
     equals to 
-    $\zeta^{\abs{P}}\ket{\alpha_1, \ldots ,\alpha_{N}}$.
+    $\zeta^{\abs{P}} \mathcal{P} |\alpha_1, \ldots ,\alpha_{N})$.
     Using the re-labelling trick, we have
     \begin{align*}
         \zeta^{\abs{P}}\ket{\alpha_1, \ldots ,\alpha_{N}}
@@ -295,6 +301,34 @@ $\left\{ (P'P, P) \right\}$. }
     where when re-labelling $P''$ to $P'P$ we 
     fix $P$ to be the exchange at concern and 
     $P'$ is to be summed over.
+
+    If $\ket{\psi}$ is a \emph{generic} $+1$ eigenstate of $\mathcal{P}$, then
+    we want to write it
+    in a form similar to
+    $\mathcal{P} | \alpha_{1},\cdots, \alpha_{N})$
+    since we have just proved our claim for
+    those explicitly constructed eigenstates.
+    Indeed we can write $\ket{\psi}$
+    like this,
+    because:
+    \[\ket{\psi} = \mathcal{P} \ket{\psi}\]
+    and, upon
+    expanding $\mathcal{P} \ket{\psi}$ in the product state basis, we have
+    \[
+    \mathcal{P} \ket{\psi} = 
+    \sum_{\alpha_{1},\cdots, \alpha_{N}}
+    C_{\alpha_{1},\cdots, \alpha_{N}}
+    \mathcal{P} | \alpha_{1},\cdots,\alpha_{N}),
+    \]
+    which is a superposition of components
+    $\mathcal{P} | \alpha_{1},\cdots,\alpha_{N})$.
+    The commonly known property is linear;
+    if it holds for all components then it
+    also holds for any superposition:
+    a permutation produces an overall phase $\zeta^{\abs{P}}$
+    for each term, and all terms have the same phase,
+    so this phase can be factored out of the summation.
+    Our proof for generic eigenstates is therefore complete.
 
     Then, we show that the commonly known definition 
     implies our definition. If an exchange $E$ always 
@@ -367,7 +401,7 @@ $\left\{ (P'P, P) \right\}$. }
         \bra{\beta_1, \ldots ,\beta_{N}} 
         \ket{\phi_1, \ldots ,\phi_{N}}
         =
-        \bra{\beta_{P 1}}, \ldots ,\beta_{PN} 
+        \bra{\beta_{P 1}, \ldots ,\beta_{PN}}
         \ket{\phi_{P 1}, \ldots ,\phi_{PN}}.
     \]
     Setting $P$ to be an exchange 
