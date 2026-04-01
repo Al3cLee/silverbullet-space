@@ -22,18 +22,15 @@ leftmargin=*, ref = Step \arabic*}
 \newtcolorbox{graybox}{colback=gray!20!white, boxrule=0mm, sharp corners=all}
 
 \theoremstyle{definition}
-\newtheorem{pos}{Postulate}[section]
-\newtheorem{res}{Result}[section]
 \newtheorem{mot}{Motivation}[section]
-\newtheorem{calc}{Calculation}[section]
-\newtheorem{rem}{Remark}[section]
-\newtheorem{dfn}{Definition}[section]
-\newtheorem{eg}{Example}[section]
-\newtheorem{recipe}{Recipe}[section]
-
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{lem}{Lemma}[section]
+\newtheorem{pos}[mot]{Postulate}
+\newtheorem{res}[mot]{Result}
+\newtheorem{rem}[mot]{Remark}
+\newtheorem{dfn}[mot]{Definition}
+\newtheorem{eg}[mot]{Example}
+\newtheorem{recipe}[mot]{Recipe}
+\newtheorem{thm}[mot]{Theorem}
+\newtheorem{lem}[mot]{Lemma}
 \numberwithin{equation}{section}
 
 \usepackage{cleveref}
@@ -179,6 +176,21 @@ some tools needed to define ``physical''.
     The operators $\mathcal{P}_{B}, \mathcal{P}_{F}$ 
     are obviously linear.
 \end{dfn}
+
+\begin{lem}
+It follows for Fermions that if $ \exists i,j \text{ s.t. } \alpha_{i}=\alpha_{j}$ then
+$\mathcal{P} |\alpha_{1},\cdots,\alpha_{N})=\ket{\text{null}}.$
+We can consider two copies of $\mathcal{P} |\alpha_{1},\cdots,\alpha_{N})$,
+and in the first copy,
+for every permutation $P$ we pair it with
+the term with
+$P \circ (i \leftrightarrow j)$
+in the other copy.
+This pair of terms sums up to $\ket{\text{null}}$,
+and thus $2 \mathcal{P} |\alpha_{1},\cdots,\alpha_{N}) = 0$,
+our claim is proven.
+This is commonly known as the Pauli exclusion principle.
+\end{lem}
 
 Now we can define what we mean by ``physical'' using 
 these projectors. 
@@ -503,8 +515,9 @@ $\left\{ (P'P, P) \right\}$. }
     where in the last equality, 
     contributing permutations are determined 
     by the orthogonality of the product basis, and 
-    in particular the only contributing permutation 
-    in the Fermion case is the identity. 
+    the only contributing permutation
+    in the Fermion case is the identity, due to
+    the Pauli exclusion principle.
     The condition $n_{\lambda_{i}}\neq 0$ in the product 
     is imposed 
     so that the product does not vanish. 
@@ -2200,8 +2213,8 @@ creation and annihilation operators, and force the reader
 to accept Fock states without explicitly constructing them 
 using product states.
 
-The approach taken in this note is better than most books 
-since it shows that second quantization is simply a basis 
+This note features conceptual clarity because
+it shows second quantization to be simply a basis
 transformation within physical subspaces from product states to 
 Fock states (which are ``scrambled'' product states). 
 There is hardly any physical subtlety or postulate 
@@ -2225,7 +2238,11 @@ the topic so that
 \blockcquote{shankar_principles_1994}{by segregating mathematical theorems from physical postulates, any confusion as to which is which is nipped in the bud}. 
 While not particularly enthusiastic about formal topics in physics, 
 I find this slightly formal introduction to second quantization suitable.
-
+The seemingly strange projector $\mathcal{P}$ is just
+a rigorous way to specify what we mean by
+a (anti)symmetrized state,
+and its behavior is easily understood with the
+re-labelling trick.
 
 \printbibliography
 \end{document}
