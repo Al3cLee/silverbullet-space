@@ -1,11 +1,13 @@
 #import "@preview/ctheorems:1.1.3": *
 #show: thmrules
+#show link: underline
 #let result = thmbox(
-        "theorem",
-              "Result",
-              base_level:1,
-              separator:[*.* ],
-              fill: rgb("#eeecec"))
+  "theorem",
+  "Result",
+  base_level: 1,
+  separator: [*.* ],
+  fill: rgb("#eeecec"),
+)
 #import "@preview/physica:0.9.5": *
 #set page(paper: "a4", numbering: "1")
 #set heading(numbering: "1.1. ")
@@ -17,10 +19,10 @@
 #show link: set text(fill: maroon)
 #show ref: set text(fill: maroon)
 #show raw.where(block: true): block.with(
-  fill: rgb("#f5f5f5"),     // Light gray background
-  inset: 1em,               // Padding inside
-  width: 100%,              // Full width
-  radius: 0pt               // No rounded corners
+  fill: rgb("#f5f5f5"), // Light gray background
+  inset: 1em, // Padding inside
+  width: 100%, // Full width
+  radius: 0pt, // No rounded corners
 )
 
 #show heading.where(level: 1): it => {
@@ -47,11 +49,11 @@
 
 
 #set document(title: [A Brief Introduction to Typst], date: auto)
-#show title: it => {align(center,it)}
+#show title: it => { align(center, it) }
 #title()
 
 #align(center)[
-#datetime.today().display("[month repr:short] [day padding:none], [year]")
+  #datetime.today().display("[month repr:short] [day padding:none], [year]")
 ]
 #block(height: 0.5em)
 
@@ -70,19 +72,19 @@ This gives rise to another advantage of Typst: lightweight. Built with Rust, its
 
 = Markup in Typst
 
-The markup syntax of Typst inherits neither LaTeX nor Markdown. 
-The #link("https://typst.app/docs/tutorial/writing-in-typst/")[official tutorial about basic markup] explains it in detail. Instead of `#`, Typst uses `=` to indicate sections, because the latter is reserved for "functions": 
+The markup syntax of Typst inherits neither LaTeX nor Markdown.
+The #link("https://typst.app/docs/tutorial/writing-in-typst/")[official tutorial about basic markup] explains it in detail. Instead of `#`, Typst uses `=` to indicate sections, because the latter is reserved for "functions":
 
 ```typst
 #<some-function>(<arguments>)
 ```
 
-For example, figures are placed in the document by #link("https://typst.app/docs/reference/model/figure/")[the `figure` function]. 
+For example, figures are placed in the document by #link("https://typst.app/docs/reference/model/figure/")[the `figure` function].
 Functions, rather than the markup syntax, is what makes Typst special.
 
 == Math
 
-The math syntax of Typst, however, deserves an explicit mention. 
+The math syntax of Typst, however, deserves an explicit mention.
 It removes much of the clutter in the usual LaTeX math syntax _out of the box_, including the backward dash `\` before symbols, the `\left`, `\right` declarations before brackets in order for them to stretch. The fraction syntax is especially elegant: for simple fractions where both the nominator and the denominator have only one term, a simple forward slash `/` suffices to make a fraction. But if you actually want the forward slash for, e.g. in-line math, you can either escape this character: `a\/b` $mapsto a \/ b$ or, more elegantly, use the built-in symbol `slash`: `a slash b` $mapsto a slash b$. For example, the following Typst code
 
 ```typst
@@ -98,26 +100,26 @@ Also, rather than separately defined "in-line" and "display" math environments, 
 
 == Reference
 
-The label-reference syntax in Typst is  `<label>` and `@<label>[<supplement>]`,  
+The label-reference syntax in Typst is  `<label>` and `@<label>[<supplement>]`,
 where the `@...` syntax is shorthand for the #link("https://typst.app/docs/reference/model/ref/")[`ref` function]. Typst automatically finds the #link("https://typst.app/docs/reference/model/figure/#parameters-kind")[`kind`] of the referenced element and attaches the appropriate text prefix, i.e. it produces "Equation (3.1)" instead of the bare number "3.1" when you reference equation 3.1. As a special case, passing an empty `supplement` gives back the bare number.
 
 = Scripting in Typst
 
 Examples of Typst scripts are collected here. I don't yet have the ability to do a top-down explanation on this, but Typst's scripting language is quite intuitive. Anyone with a bit of Python fluency should be able to learn it quickly: `value`s have #link("https://typst.app/docs/reference/scripting/#fields")[`fields`] and #link("https://typst.app/docs/reference/scripting/#methods")[`methods`], just like Python objects.
-There are three different "modes" in Typst: text, math, and code. See #link("https://typst.app/docs/reference/syntax/","the documentation") for detail.
+There are three different "modes" in Typst: text, math, and code. See #link("https://typst.app/docs/reference/syntax/", "the documentation") for detail.
 
 The two most important scripting keywords of Typst are
 #link("https://typst.app/docs/reference/styling/#set-rules")[`set`] and
 #link("https://typst.app/docs/reference/styling/#show-rules")[`show`].
 The `set` keyword sets the
-default values for some of the parameters of a function for all future uses of that function, while 
+default values for some of the parameters of a function for all future uses of that function, while
 the `show` keyword redefines a function that is already defined.
 In Typst, all styling elements (headings, code blocks, formulas, etc) are functions, so whenever you
 tweak the styling, you are effectively redefining a function or setting its arguments.
 
-== Formatting and dates 
+== Formatting and dates
 
-The title of this document is typeset via 
+The title of this document is typeset via
 
 ```typst
 #set document(title: [A Brief Introduction to Typst])
@@ -140,8 +142,8 @@ The title of this document is typeset via
 To customize a numbered list environment, in LaTeX one needs the `enumitem` package. But in Typst it's very simple: to make a list numbered with "_Step n_", we write
 
 ```typst
-#enum(numbering: n => emph[Step #n.], 
-[#lorem(50)], 
+#enum(numbering: n => emph[Step #n.],
+[#lorem(50)],
 // Fifty placeholder words; `#lorem` is the dummy text function
 [another point]
 )
@@ -149,17 +151,14 @@ To customize a numbered list environment, in LaTeX one needs the `enumitem` pack
 
 which produces:
 
-#enum(numbering: n => emph[Step #n.], 
-[#lorem(50)],
-[another point]
-)
+#enum(numbering: n => emph[Step #n.], [#lorem(50)], [another point])
 
 Further, we can wrap this in a function,
 
 #let steps(..args) = {
   enum(
     numbering: n => emph[Step #n.],
-    ..args
+    ..args,
   )
 }
 ```typst
@@ -179,9 +178,9 @@ so that it can be re-used throughout the document.
 
 Equation numbering in this document is automatic. Consider the following equations.
 
-#math.equation(block: true,numbering: none)[$ "First equation:" x=1 $]
+#math.equation(block: true, numbering: none)[$ "First equation:" x=1 $]
 
-$ "Second equation:" x^2=1 $ <another-label> 
+$ "Second equation:" x^2=1 $ <another-label>
 
 The first equation is not numbered while the second is numbered and
 inherits the section number "3". This inheritance is implemented as follows:
@@ -208,7 +207,7 @@ I like to put important parts of text into boxes, like the following one:
 
 #result[Something _really_ important...]
 
-This is easily realized with the #link("https://typst.app/universe/package/ctheorems","ctheorems package") and the following code.
+This is easily realized with the #link("https://typst.app/universe/package/ctheorems", "ctheorems package") and the following code.
 ```typst
 #import "@preview/ctheorems:1.1.3": *
 #show: thmrules
@@ -219,4 +218,23 @@ This is easily realized with the #link("https://typst.app/universe/package/ctheo
                      separator:[*.* ], // separator between head and body
                      fill: rgb("#eeecec")
                     )
+```
+
+== Three-line tables
+
+The official #link("https://typst.app/docs/guides/tables/")[table guide] of `typst` already provides many examples
+regarding tables. An interesting example missing from there is the so-called
+3-line table, where only the top and bottom are stroked, and
+the first row has a thin bottom line to separate it from the table entries.
+
+This can be very easily realized in `typst`:
+
+```typst
+// Only 1pt top and bottom, plus a 0.5pt separator between headers and entries
+// The key: top can override bottom, except for
+// 1st-row top (nobody's bottom) and last-row bottom (nobody's top)
+#set table(stroke: (_, y) => (
+  top: if y > 1 { 0pt } else if y == 0 { 1pt } else if y == 1 { 0.5pt },
+  bottom: 1pt,
+))
 ```
