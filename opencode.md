@@ -1,7 +1,7 @@
 ---
 finished: false
 ---
-  
+
 #computer-science/tool
 
 # opencode LSP Tool
@@ -81,11 +81,11 @@ Tested on a minimal Rust crate (`testrepo`) with `OPENCODE_EXPERIMENTAL=true`:
 
 The hover tool can return function signature and path when the "cursor" of the LSP is placed correctly.
 
-**Result.** The LSP tool is functional for 6 of 9 operations. The call hierarchy operations (`incomingCalls`/`outgoingCalls`) returned empty in our test project — this may be a rust-analyzer limitation for small/simple call graphs. The 5 core operations (`workspaceSymbol`, `goToDefinition`, `findReferences`, `goToImplementation`, `documentSymbol`) work reliably and provide significant advantages over regex-based search for Rust projects.
+**Result.** The LSP tool is functional for 9 of 9 operations. When provided with cursor positions pointing to non-trivial symbols, the LSP works reliably and provide significant advantages over regex-based search for Rust projects.
 
 **Remark.** Position sensitivity is the main usability concern: `goToImplementation` must target the struct/enum definition line itself, not the `struct` keyword or a `#[derive]` attribute above it. Similarly, `findReferences` requires the character to be on or inside the symbol name. When using the LSP tool in skills like [[repo-ripper]], always call `documentSymbol` or `workspaceSymbol` first to locate the exact position, then use that position for subsequent operations.
 
-The call hierarchy operations (`incomingCalls`/`outgoingCalls`) are useful when they work but should not be the sole source of call-graph information — always fall back to `findReferences` and `rg` pattern matching as a safety net. This is reflected in the [[repo-ripper]] skill's Rust LSP Enhancement section, which uses `findReferences` for cross-reference discovery and only supplements with call hierarchy.
+The call hierarchy operations (`incomingCalls`/`outgoingCalls`) are useful when they work but should not be the sole source of call-graph information; always fall back to `findReferences` and `rg` pattern matching as a safety net. This is reflected in the [[repo-ripper]] skill's Rust LSP Enhancement section, which uses `findReferences` for cross-reference discovery and only supplements with call hierarchy.
 
 ## Language-Specific Behavior
 
@@ -96,7 +96,7 @@ Julia's multiple dispatch creates a semantic distinction that does not exist in 
 | Operation | On `AbstractAnimal` (abstract type) | On `fight` (function) |
 |-----------|--------------------------------------|----------------------|
 | `goToImplementation` | All concrete subtypes: `Dog`, `Cat`, `Cock`, `Human` | All method dispatches (6 methods) |
-| `findReferences` | Every place `AbstractAnimal` appears in type annotations, `where` clauses, method signatures | All call sites + all method definitions |
+| `findReferences` | Every place `AbstractAnimal` appears | All call sites + all method definitions |
 
 In Rust, `goToImplementation` finds **trait implementations** (`impl Debug for FooBar`). In Julia, `goToImplementation` on an abstract type finds **subtypes** and on a function finds **method dispatches**. This makes `goToImplementation` the single most valuable LSP operation for Julia projects, because it embodies Julia's core semantic model: types defined by their subtypes and functions defined by their methods.
 
