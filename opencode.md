@@ -87,7 +87,7 @@ The call hierarchy operations (`incomingCalls`/`outgoingCalls`) are useful when 
 
 ## Language-Specific Behavior
 
-### Julia (LanguageServer.jl)
+### Julia
 
 Julia's multiple dispatch creates a semantic distinction that does not exist in Rust or most other languages. Two operations that are nearly synonymous in Rust — `goToImplementation` and `findReferences` — diverge significantly in Julia:
 
@@ -129,7 +129,7 @@ This places the `jetls` binary at `~/.julia/bin/jetls`. The opencode configurati
 
 After restarting opencode, all LSP operations work correctly. `documentSymbol` returns the full type hierarchy, `hover` returns formatted markdown with struct fields and supertype chains, and both `goToDefinition` and `goToImplementation` resolve correctly across files.
 
-**Result.** JETLS is the working Julia LSP server for opencode. The `julials` (LanguageServer.jl) approach is unreliable because it depends on LanguageServer.jl being globally installed, starts slowly (~20–30 s), and requires explicit `--project` flag management. JETLS is a compiled executable that starts in under a second and requires no project-specific configuration.
+**Result.** JETLS is a working Julia LSP server for `opencode`. JETLS is a compiled executable that starts in under a second and requires no project-specific configuration. To avoid LSP conflict, use the above custom configuration json that disables `julials` and enables `JETLS`.
 
 **Remark.** opencode's LSP client is hardwired to communicate over stdio: it reads from `process.stdout` and writes to `process.stdin` using `vscode-jsonrpc`'s `StreamMessageReader`/`StreamMessageWriter` (see `packages/opencode/src/lsp/client.ts`). JETLS also supports pipe (`--pipe-listen`, `--pipe-connect`) and TCP socket (`--socket`) modes, but opencode has no code to initiate those connections. The `--stdio` flag is therefore the only viable option.
 
@@ -147,9 +147,9 @@ Content-Length: 97\r\n
 
 opencode reads `Content-Length: N` and then reads exactly N bytes of JSON. Any foreign byte — even a single character — written to stdout causes the parser to lose sync permanently, with no recovery. JETLS analyzes Julia source files by loading and type-checking them, which means it executes `using SomePackage` internally. If any of those packages prints to stdout inside their `__init__()` function, the output corrupts the stream.
 
-The key distinction is between top-level code and `__init__`. Top-level module code runs only at precompile time, is serialized into the `.ji` cache, and is never re-executed when the package is loaded at runtime. The `__init__()` function, by contrast, is designed to run every time the package is loaded — precisely because it handles runtime-only setup (C library state, hardware connections, etc.) that cannot be serialized. This makes `__init__` the sole danger zone.
+The key distinction is between top-level code and `__init__`. Top-level module code runs only at precompile time, is serialized into the `.ji` cache, and is never re-executed when the package is loaded at runtime. The `__init__()` function, by contrast, is designed to run every time the package is loaded, precisely because it handles runtime-only setup (C library state, hardware connections, etc.) that cannot be serialized. This makes `__init__` the sole danger zone.
 
-The risk is therefore package-specific. Well-maintained packages use `@info` and `@warn` (which go to stderr, not stdout) for any runtime messages. A small number of packages, historically in the scientific computing ecosystem, print banners or status messages via `println` in `__init__`. The canonical example is Nemo.jl (computer algebra), which prints a welcome banner controllable only via `ENV["NEMO_PRINT_BANNER"] = "false"`. Polymake.jl is another known offender. The Julia community generally regards this practice as "user-hostile" (Kristoffer Carlsson, Julia Discourse, 2020) and it has become rarer in newer packages.
+The risk is therefore package-specific. Well-maintained packages use `@info` and `@warn` (which go to stderr, not stdout) for any runtime messages. A small number of packages, historically in the scientific computing ecosystem, print banners or status messages via `println` in `__init__`. The canonical example is Nemo.jl (computer algebra), which prints a welcome banner controllable only via `ENV["NEMO_PRINT_BANNER"] = "false"`. Polymake.jl is another known offender.
 
 **Result.** A project is safe in stdio mode if none of its transitive dependencies call `println(stdout, ...)` (or bare `println`, `print`) inside `__init__()`. The safe alternative for package authors is to use `@info`/`@warn`, which route through Julia's logging system to stderr. For a given project, the risk can be assessed by checking whether any dependency has a `println`/`print` call in its `__init__` function. For projects with no external dependencies (stdlib only), the risk is zero.
 

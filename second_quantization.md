@@ -5,7 +5,7 @@ finished: true
 #physics/quantum-fields
 #physics/condensed-matter
 
-# Second Quantization 
+# Second Quantization
 
 1. Fock states are constructed via (anti)symmetrizing and normalizing product states. They only depend on occupation numbers and are orthonormal. 
 2. Creation and annihilation operators couple Fock states with different total occupation numbers. The number operator can be constructed from them.
