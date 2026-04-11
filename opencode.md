@@ -75,9 +75,11 @@ Tested on a minimal Rust crate (`testrepo`) with `OPENCODE_EXPERIMENTAL=true`:
 | `findReferences` | PASS | Finds type-position and constructor references |
 | `goToImplementation` | PASS | Finds `#[derive]` expansions for structs |
 | `prepareCallHierarchy` | PASS | Returns function signature |
-| `incomingCalls` | EMPTY | Returned no callers despite `main()` calling the function — likely rust-analyzer limitation |
-| `outgoingCalls` | EMPTY | Same limitation as incomingCalls |
+| `incomingCalls` | PASS | Returned callers |
+| `outgoingCalls` | PASS | Returned callees |
 | `hover` | PARTIAL | Position-sensitive; may return generic keyword docs |
+
+The hover tool can return function signature and path when the "cursor" of the LSP is placed correctly.
 
 **Result.** The LSP tool is functional for 6 of 9 operations. The call hierarchy operations (`incomingCalls`/`outgoingCalls`) returned empty in our test project — this may be a rust-analyzer limitation for small/simple call graphs. The 5 core operations (`workspaceSymbol`, `goToDefinition`, `findReferences`, `goToImplementation`, `documentSymbol`) work reliably and provide significant advantages over regex-based search for Rust projects.
 
