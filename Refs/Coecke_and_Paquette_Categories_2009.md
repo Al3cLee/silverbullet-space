@@ -5,7 +5,7 @@ title: "Categories for the practising physicist"
 ---
 
 #math/categories
-#physics/quantum-field-theory
+#physics/quantum-fields
 
 ## Attachments
 

@@ -14,7 +14,7 @@ It is therefore sensible to arrange ideas (and more generally speaking, any info
 
 Each object in SilverBullet has a main `tag` which is its “data type”, e.g. page, task, item, etc. Then, it has some extra `tags` (a Lua array) that indicate its topics.
 
-For example, [[second_quantization]] belongs to topics #physics/quantum-field-theory and #physics/condensed-matter. So its `tag` is `"page"` while its `tags` is a Lua array of two items.
+For example, [[second_quantization]] belongs to topics #physics/quantum-fields and #physics/condensed-matter. So its `tag` is `"page"` while its `tags` is a Lua array of two items.
 
 Tags are very helpful when you want to retrieve information from a collection of notes. Instead of searching or clicking through a folder, you can [query](https://silverbullet.md/Space%20Lua/Lua%20Integrated%20Query) this collection, just like asking questions to a human. For example, you can query for pages that simultaneously fall under two different topics. SilverBullet has [[Library/Std/Infrastructure/Query Templates]] that help you write queries quickly.
 

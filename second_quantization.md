@@ -2,7 +2,7 @@
 finished: true
 ---
 
-#physics/quantum-field-theory
+#physics/quantum-fields
 #physics/condensed-matter
 
 # Second Quantization 

@@ -3,6 +3,9 @@ tags:
 - "computer-science/tool"
 - "computer-science/missing-semester"
 finished: false
+triggers:
+- "this"
+- "that"
 ---
 
 # Git

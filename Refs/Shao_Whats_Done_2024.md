@@ -4,7 +4,7 @@ date: "2024-03-30"
 title: "What's Done Cannot Be Undone: TASI Lectures on Non-Invertible Symmetries"
 ---
 
-#physics/quantum-field-theory
+#physics/quantum-fields
 #physics/topological-order
 #physics/noninvertible-symmetry
 
