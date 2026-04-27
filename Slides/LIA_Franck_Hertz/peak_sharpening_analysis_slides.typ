@@ -82,6 +82,16 @@ $
   "phase" ~ exp ("i" delta E)
 $
 
+#figure(
+  image("U_P-dI.pdf", width: 65%),
+  caption: [Joined retarding-potential data (rounds 5-4-1-2-3) showing the derivative signal $d I$ vs retarding potential $U_P$.],
+) <fig-up-di>
+
+#figure(
+  image("U_offset-dI.pdf", width: 65%),
+  caption: [Derivative signal $d I$ vs offset voltage $U_"offset"$, illustrating the resonant structure of the collector current.],
+) <fig-uoffset-di>
+
 // This progressive sharpening is due to a cascading "distillation" or selection effect. The initial electron beam emitted from the cathode possesses a broad thermal energy spread (approx $0.1 "eV"$). During the first inelastic collision, this initial thermal variance is completely erased and replaced by the variance of the overshoot $delta E_1$, which is dictated by the steepness of the cross section. Because the cross section acts as a strong active filter, the overshoot variance is generally smaller than the initial thermal spread, causing the beam to be actively "cooled."
 //
 // Furthermore, as $U_a$ increases, electrons must survive *multiple* threshold crossings. Any electron that suffers an anomalous scatter (e.g., an unusually large overshoot, or an elastic deflection that alters its longitudinal velocity) falls slightly out of phase with the main synchronous "packet." Because the threshold reset only tightly bounds the energy of electrons that continuously scatter exactly near $Delta E$, the multiple collisions act as a cascading series of filters. After many collisions, the "surviving" synchronous electrons that make up the macroscopic peak are only those that have perfectly conformed to the threshold rhythm. The anomalous electrons are stripped from the main packet and relegated to the flat background current, leaving a highly concentrated, absolutely sharpened energy distribution $N(E)$ for the peak.
@@ -118,16 +128,6 @@ $
 //   The absolute sharpening of Franck-Hertz peaks at higher acceleration voltages is a direct manifestation of the steep, threshold-like nature of the atomic excitation cross section. This mechanism acts as a continuous "focusing" filter that tightly bounds the electrons' kinetic energy variations, successfully combating the statistical broadening that would otherwise occur from multiple random collision events.
 // ]
 //
-// #figure(
-//   image("U_P-dI.pdf", width: 65%),
-//   caption: [Joined retarding-potential data (rounds 5-4-1-2-3) showing the derivative signal $d I$ vs retarding potential $U_P$.],
-// ) <fig-up-di>
-//
-// #figure(
-//   image("U_offset-dI.pdf", width: 65%),
-//   caption: [Derivative signal $d I$ vs offset voltage $U_"offset"$, illustrating the resonant structure of the collector current.],
-// ) <fig-uoffset-di>
-
 #[
   #counter(heading).update(0)
   #set heading(numbering: "A. ", supplement: [Appendix])
