@@ -1,0 +1,1 @@
+This is my slides on the Franck-Hertz experiment probed with a Lock-In Amplifier (LIA). The pdf version is hosted at: ${pdfLink("Slides/LIA_Franck_Hertz/peak_sharpening_analysis_slides.pdf")}

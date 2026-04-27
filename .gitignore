@@ -1,6 +1,6 @@
 .DS_Store
 tex-notes/.DS_Store
-
+.opencode/
 # LaTeX build artifacts - all subdirectories
 typeset-notes/**/*.log
 typeset-notes/**/*.aux
