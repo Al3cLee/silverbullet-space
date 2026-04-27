@@ -168,7 +168,7 @@ $
   $ (d P_0(t)) / (d t) = -lambda(t) P_0(t) . $
   Integrating this differential equation from $0$ to $t$ with the condition $P_0(0) = 1$ gives the survival probability:
   $ P_0(t) = exp(-integral_0^t lambda(tau) d tau) = exp(-Lambda(t)) . $
-  This is exactly the survival formula `<eqn:survival>` used to model the probability of an electron reaching position $z$ without an inelastic collision, where $lambda(z') = n_"Ar" sigma_"exc"(e cal(E) z')$.
+  This is exactly the survival formula @eqn:survival used to model the probability of an electron reaching position $z$ without an inelastic collision, where $lambda(z') = n_"Ar" sigma_"exc"(e cal(E) z')$.
 
   For $n > 0$, the corresponding differential equation is:
   $ (d P_n(t)) / (d t) = -lambda(t) P_n(t) + lambda(t) P_(n-1)(t) . $
