@@ -188,4 +188,10 @@ html{
 .sb-lua-directive-inline:has(.katex-html) .button-bar {
   display: none !important;
 }
+@media (hover: none) and (pointer: coarse) {
+  .sb-lua-directive-block:has(.katex-html) .button-bar,
+  .sb-lua-directive-inline:has(.katex-html) .button-bar {
+    display: none !important;
+  }
+}
 ```
