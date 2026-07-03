@@ -180,3 +180,12 @@ html{
   --editor-table-head-color: rgb(75,102,159);
 }
 ```
+
+## Hide Display Math’s Buttons
+```space-style
+/* Hide regenerate/copy/edit buttons on math widgets */
+.sb-lua-directive-block:has(.katex-html) .button-bar,
+.sb-lua-directive-inline:has(.katex-html) .button-bar {
+  display: none !important;
+}
+```

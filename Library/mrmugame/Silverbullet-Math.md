@@ -27,12 +27,8 @@ files:
 ---
 
 # Silverbullet Math
-This library implements two new widgets
-
-- `latex.block(...)` and
-- `latex.inline(...)`,
-
-which can be used to render block and inline level math respectively. Both use $\href{https://katex.org/}{\KaTeX}$ under the hood
+This library implements the `$ ... $` and the `$$ ... $$` syntax using the `syntax` API, which can be used to render inline and block level math respectively.
+Both use $\href{https://katex.org/}{\KaTeX}$ under the hood.
 
 ## Examples
 Let $S$ be a set and $\circ : S \times S \to S,\; (a, b) \mapsto a \cdot b$ be a binary operation, then the pair $(S, \circ)$ is called a *group* iff
@@ -47,7 +43,6 @@ The Fourier transform of a complex-valued (Lebesgue) integrable function $f(x)$ 
 $$
 \widehat{f}(\xi) = \int_{-\infty}^{\infty} f(x)\ e^{-i 2\pi \xi x}\,dx, \quad \forall \xi \in \mathbb{R}.
 $$
-
 ## Info
 The current $\KaTeX$ version is ${latex.katex.version}.
 
@@ -81,10 +76,9 @@ syntax.define {
 ```space-lua
 local location = "Library/mrmugame/Silverbullet-Math"
 
--- TODO: Remove the check for system.getURLPrefix as soon as the API has settled
 latex = {
   header = string.format("<link rel=\"stylesheet\" href=\".fs/%s/katex.min.css\">", location),
-  katex = js.import(string.format("%s.fs/%s/katex.mjs", system.getURLPrefix and system.getURLPrefix() or "/",  location))
+  katex = js.import(string.format("%s.fs/%s/katex.mjs", system.getURLPrefix(),  location))
 }
 
 function latex.inline(expression)
@@ -112,22 +106,6 @@ function latex.block(expression)
     html = "<span>" .. latex.header .. html .. "</span>"
   }
 end
-
-slashcommand.define {
-  name = "math",
-  run = function()
-    editor.insertAtCursor("${latex.inline[[]]}", false, true)
-    editor.moveCursor(editor.getCursor() - 3)
-  end
-}
-
-slashcommand.define {
-  name = "equation",
-  run = function()
-    editor.insertAtCursor("${latex.block[[]]}", false, true)
-    editor.moveCursor(editor.getCursor() - 3)
-  end
-}
 ```
 
 ```space-style
