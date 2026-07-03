@@ -188,9 +188,11 @@ html{
 .sb-lua-directive-inline:has(.katex-html) .button-bar {
   display: none !important;
 }
+
+/* priority: 9999 */
 @media (hover: none) and (pointer: coarse) {
-  .sb-lua-directive-block:has(.katex-html) .button-bar,
-  .sb-lua-directive-inline:has(.katex-html) .button-bar {
+  #sb-main .cm-editor .sb-lua-directive-block:has(.katex-html) .button-bar,
+  #sb-main .cm-editor .sb-lua-directive-inline:has(.katex-html) .button-bar {
     display: none !important;
   }
 }
