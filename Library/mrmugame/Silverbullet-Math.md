@@ -76,34 +76,59 @@ syntax.define {
 ```space-lua
 local location = "Library/mrmugame/Silverbullet-Math"
 
+-- Inject the KaTeX stylesheet once into the document <head>.
+-- Previously this was done by embedding a <link> tag inside every widget's
+-- HTML string. That caused a per-render network round-trip (cache validation)
+-- every time CodeMirror's virtual viewport destroyed and recreated a widget
+-- on scroll, producing a visible flash of unstyled math — more noticeable on
+-- slow connections. Injecting it once here means the browser loads the CSS
+-- exactly once and it persists for the lifetime of the page.
+-- The data-katex-css sentinel attribute prevents double-injection if this
+-- space-lua block is evaluated more than once (e.g. after a reload).
+if not js.window.document.querySelector("link[data-katex-css]") then
+  local link = js.window.document.createElement("link")
+  link.rel = "stylesheet"
+  link.href = string.format(".fs/%s/katex.min.css", location)
+  link.setAttribute("data-katex-css", "true")
+  js.window.document.head.appendChild(link)
+end
+
 latex = {
-  header = string.format("<link rel=\"stylesheet\" href=\".fs/%s/katex.min.css\">", location),
-  katex = js.import(string.format("%s.fs/%s/katex.mjs", system.getURLPrefix(),  location))
+  -- js.import resolves the ES module once at space-lua initialisation time.
+  -- The resolved module object is stored here and reused for every render call,
+  -- so there is no repeated module fetch or promise re-await on scroll.
+  katex = js.import(string.format("%s.fs/%s/katex.mjs", system.getURLPrefix(), location))
 }
 
 function latex.inline(expression)
+  -- Render inline math (displayMode = false keeps the formula on the same
+  -- baseline as surrounding text).
   local html = latex.katex.renderToString(expression, {
     trust = true,
     throwOnError = false,
     displayMode = false
   })
 
+  -- No <link> tag here: the stylesheet is already in <head>.
   return widget.new {
     display = "inline",
-    html = "<span>" .. latex.header .. html .. "</span>"
+    html = "<span>" .. html .. "</span>"
   }
 end
 
 function latex.block(expression)
+  -- Render display math (displayMode = true centres the formula on its own
+  -- line with larger delimiters).
   local html = latex.katex.renderToString(expression, {
     trust = true,
     throwOnError = false,
     displayMode = true
   })
 
+  -- No <link> tag here: the stylesheet is already in <head>.
   return widget.new {
     display = "block",
-    html = "<span>" .. latex.header .. html .. "</span>"
+    html = "<span>" .. html .. "</span>"
   }
 end
 ```
