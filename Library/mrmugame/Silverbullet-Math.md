@@ -151,7 +151,10 @@ latex = {
 -- available, or calling renderToString and storing the result otherwise.
 local function renderCached(expression, displayMode)
   local key = (displayMode and "block:" or "inline:") .. expression
-  if latex.cache[key] then
+  -- Use ~= nil rather than a truthiness check: KaTeX always returns a non-empty
+  -- string, but a truthiness check would incorrectly re-render any cached value
+  -- that happens to be falsy (empty string, false, 0 in Lua).
+  if latex.cache[key] ~= nil then
     return latex.cache[key]
   end
   local html = latex.katex.renderToString(expression, {
