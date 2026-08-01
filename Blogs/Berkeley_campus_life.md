@@ -1,3 +1,5 @@
+#Berkeley
+
 # UC Berkeley 的课堂内外
 
 2024年1至8月, 我在UC Berkeley作为访问学生修读了一学期的课程, 并且在暑期参与科研实习. 以下涉及到学校的具体信息在各类官方网站都可以找到, 请以那里的信息为准. 学校一般会为交换生在bCourses导入一门名为 Visiting Student Welcome 101 的课程, 里面也有相关的提示和基本信息.
