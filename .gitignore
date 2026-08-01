@@ -1,6 +1,8 @@
 .DS_Store
 tex-notes/.DS_Store
 .opencode/
+.chrome-data/
+.silverbullet.db.json
 # LaTeX build artifacts - all subdirectories
 typeset-notes/**/*.log
 typeset-notes/**/*.aux
