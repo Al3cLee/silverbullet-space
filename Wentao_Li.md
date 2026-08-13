@@ -24,3 +24,5 @@ al3c.wentao.lee@gmail.com
 ```
 
 Substack: https://al3clee.substack.com
+
+WeChat blog: You can search for the ID `decohered_memories`.
