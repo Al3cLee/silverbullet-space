@@ -17,7 +17,7 @@
 
 #show: cv.with(
   metadata,
-  profile-photo: image("assets/avatar.jpeg"),
+  profile-photo: image("assets/avatar-clear.jpg"),
   // To use custom image icons in personal.info.custom-<name> entries,
   // pass them here (keys must match the custom-<name> keys in metadata.toml):
   // custom-icons: (
