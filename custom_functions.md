@@ -197,3 +197,14 @@ html{
   }
 }
 ```
+
+## Hide corner controls under read-only mode
+```space-style
+/* Hide query/widget corner controls while the editor is read-only. */
+#sb-root #sb-main #sb-editor
+.cm-content[contenteditable="false"] .button-bar,
+#sb-root #sb-main #sb-editor
+.cm-content[aria-readonly="true"] .button-bar {
+  display: none !important;
+}
+```
