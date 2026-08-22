@@ -2,7 +2,9 @@
 
 This is me, a physics student.
 
-To be specific, I am interested in novel quantum many-body phenomena (e.g. anyons) and non-equilibrium processes (which might help understand quantum thermalization).
+## About me
+
+I am interested in novel quantum many-body phenomena (e.g. anyons) and non-equilibrium processes (which might help understand quantum thermalization). I’m also interested in quantum computing.
 
 Here is my [[CV]], it is available in both Chinese and English.
 

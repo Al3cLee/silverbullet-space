@@ -1,9 +1,8 @@
 
 👋 Welcome! This is the [[knowledge_garden]] of [[Wentao_Li]], built with [Silverbullet](https://silverbullet.md), containing my notes on [[tag:physics|physics]], [[tag:math|math]] and [[tag:computer-science|computer science]]. 
 
+![[Wentao_Li#About me]]
 ## Performance Tip
-
-The initial loading may take a little while, since this website is _not_ static `html`, instead it is a full-fledged web application in read-only mode. After the initial loading, this website will remain available _even without internet connection_.
 
 To obtain the best viewing (and editing!) experience, deploy this website locally to instantly load everything, including attachments. Visit [[README]] or [[README_ZH]] for instruction.
 
