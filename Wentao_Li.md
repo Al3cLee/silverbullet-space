@@ -8,7 +8,7 @@ I am interested in novel quantum many-body phenomena (e.g. anyons) and non-equil
 
 Here is my [[CV]], it is available in both Chinese and English.
 
-Currently I am a Master's student in the [TUM / LMU joint program of Quantum Science and Technology](https://academics.nat.tum.de/en/msc/qst). I obtained my bachelor's degree in Physics from Fudan University in Shanghai, China, and have spent one semester at UC Berkeley as visiting student and undergraduate researcher.
+Currently I am a Master student in the [TUM / LMU joint program of Quantum Science and Technology](https://academics.nat.tum.de/en/msc/qst). I obtained my bachelor's degree in Physics from Fudan University in Shanghai, China, and have spent one semester at UC Berkeley as visiting student and undergraduate researcher.
 
 My homepage is: https://wentaoli.xyz, built with a great personal knowledge management app [SilverBullet](https://silverbullet.md). This website is also my [knowledge garden](https://wentaoli.xyz/knowledge_garden), and the cool thing is that you can literally `git clone` it to your machine and deploy it at your localhost very easily; for details see the [README](https://wentaoli.xyz/README).
 
